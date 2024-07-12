@@ -325,6 +325,7 @@ const HomePage = () => {
             name='trustpilot-one-time-domain-verification-id'
             content='48b41bc7-60cf-4de8-9c3b-6a55be476696'
           />
+          <meta name="msvalidate.01" content="CD5B3C55E02C8975BAEDFF4699289439" />
           <meta
             name='google-adsense-account'
             content='ca-pub-5527677677744511'

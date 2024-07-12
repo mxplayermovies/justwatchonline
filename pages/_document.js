@@ -100,6 +100,7 @@ class MyDocument extends Document {
             name='google-adsense-account'
             content='ca-pub-5527677677744511'
           />
+          <meta name="msvalidate.01" content="CD5B3C55E02C8975BAEDFF4699289439" />
           <meta
             name='google-site-verification'
             content='4dFu4PUk1pc1IYqU6Brt84akCwNxaoUpKSO3gDW0kJ0'

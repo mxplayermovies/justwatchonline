@@ -1,44 +1,136 @@
 import { useRouter } from 'next/router'
-import { FaTelegram } from 'react-icons/fa'
 import moviesp1Data from '../../../public/moviesp1.json'
 import latestData from '../../../public/latest.json'
 import { useEffect, useState, useRef } from 'react'
-import Pagination from '../../../components/Pagination'
+import AdultSkipAds from '../../../components/AdultSkipAds'
 import Head from 'next/head'
 import Image from 'next/image'
-
+import Rating from '../../../components/Rating'
+import Pagination from '../../../components/Pagination'
+import MP3Player from '../../../components/MP3Player'
 import Link from 'next/link'
 import HomeStyles from '@styles/styles.module.css'
 import Script from 'next/script'
 
-const moviesDetail = ({ moviesp1Item }) => {
+export async function getStaticPaths() {
+  try {
+    const paths = adultData.map(item => ({
+      params: { id: item.id }
+    }));
+
+    console.log('Generated paths:', paths); // Logging paths for verification
+
+    return { paths, fallback: false };
+  } catch (error) {
+    console.error('Error generating static paths:', error.message);
+    return { paths: [], fallback: false }; // Return an empty array if there's an error
+  }
+}
+
+export async function getStaticProps({ params }) {
+  try {
+    const moviesp1Item = adultData.find(item => item.id === params.id);
+
+    if (!moviesp1Item) {
+      throw new Error(`TV Show with id ${params.id} not found`);
+    }
+
+    console.log('Fetched TV show item:', moviesp1Item); // Logging the fetched TV show item for verification
+
+    return { props: { moviesp1Item } };
+  } catch (error) {
+    console.error('Error fetching TV show item:', error.message);
+    return { props: { moviesp1Item: null, error: error.message } };
+  }
+}
+
+
+const moviesp1Detail = ({ moviesp1Item }) => {
   const router = useRouter()
   const { id } = router.query
   const [currentPage, setCurrentPage] = useState(1)
   const totalPages = 1 // Assume there are 3 pages
+
+  let ogType;
+
+  switch (moviesp1Item.type) {
+    case 'movie':
+      ogType = 'video.movie';
+      break;
+    case 'episode':
+      ogType = 'video.episode';
+      break;
+    case 'tv_show':
+      ogType = 'video.tv_show';
+      break;
+    default:
+      ogType = 'video.other';
+  }
+
+  useEffect(() => {
+    // Logic to fetch browsers for the current page
+  }, [currentPage])
 
   const [latest, setLatest] = useState(latestData)
   const [playerReady, setPlayerReady] = useState(false)
   const [showTimer, setShowTimer] = useState(false)
   const [seconds, setSeconds] = useState(30) // Example timer duration
   const [isMobileDevice, setIsMobileDevice] = useState(false)
-  const playerRef = useRef(null)
-  const currentIndexRef = useRef(0)
 
+  const { badgegroup } = moviesp1Item // Extract badgegroup from moviesp1Item
+  const isAdult = badgegroup === ' Adult' // Check if badgegroup is " Adult"
 
+  const [currentEpisodeIndex, setCurrentEpisodeIndex] = useState(0)
+  const videoPlayerRef = useRef(null)
 
-  const parseVideoItem = (item) => {
-    if (!item) return { id: '', thumbnail: '' };
-    const [id, params] = item.split('?');
-    const thumbnail = new URLSearchParams(params).get('thumbnail');
-    return { id, thumbnail };
-  };
+  const isTvShow =
+    moviesp1Item.videotvitem && moviesp1Item.videotvitem.length > 0
 
-  const movieVideoItem = moviesp1Item.videomoviesitem && moviesp1Item.videomoviesitem.length > 0
-    ? parseVideoItem(moviesp1Item.videomoviesitem[0])
-    : { id: '', thumbnail: '' };
+  const handleNext = () => {
+    if (isTvShow && currentEpisodeIndex < moviesp1Item.videotvitem.length - 1) {
+      setCurrentEpisodeIndex(currentEpisodeIndex + 1)
+    } else if (isTvShow) {
+      setCurrentEpisodeIndex(0) // Loop back to the first episode
+    }
+  }
 
-  const src = `https://short.ink/${movieVideoItem.id}/?thumbnail=${movieVideoItem.thumbnail}`;
+  const handlePrevious = () => {
+    if (isTvShow && currentEpisodeIndex > 0) {
+      setCurrentEpisodeIndex(currentEpisodeIndex - 1)
+    }
+  }
+
+  const parseVideoItem = item => {
+    if (!item) return { id: '', thumbnail: '' }
+    const [id, params] = item.split('?')
+    const thumbnail = new URLSearchParams(params).get('thumbnail')
+    return { id, thumbnail }
+  }
+
+  const currentVideoItem =
+    isTvShow && moviesp1Item.videotvitem[currentEpisodeIndex]
+      ? parseVideoItem(moviesp1Item.videotvitem[currentEpisodeIndex])
+      : { id: '', thumbnail: '' }
+
+  const movieVideoItem =
+    moviesp1Item.videomoviesp1Item && moviesp1Item.videomoviesp1Item.length > 0
+      ? parseVideoItem(moviesp1Item.videomoviesp1Item[0])
+      : { id: '', thumbnail: '' }
+
+  const additionalMovieVideoItem =
+    moviesp1Item.videomoviesitem && moviesp1Item.videomoviesitem.length > 0
+      ? parseVideoItem(moviesp1Item.videomoviesitem[0])
+      : { id: '', thumbnail: '' }
+
+  const src = isTvShow
+    ? `https://short.ink/${currentVideoItem.id}/?thumbnail=${currentVideoItem.thumbnail}`
+    : movieVideoItem.id
+    ? `https://short.ink/${movieVideoItem.id}/?thumbnail=${movieVideoItem.thumbnail}`
+    : `https://short.ink/${additionalMovieVideoItem.id}/?thumbnail=${additionalMovieVideoItem.thumbnail}`
+
+  const currentThumbnail = isTvShow
+    ? currentVideoItem.thumbnail
+    : movieVideoItem.thumbnail || additionalMovieVideoItem.thumbnail
 
   useEffect(() => {
     const detectMobileDevice = () => {
@@ -55,11 +147,6 @@ const moviesDetail = ({ moviesp1Item }) => {
     detectMobileDevice()
   }, [])
 
-  const handleDownloadClick = () => {
-    setShowTimer(true)
-    setSeconds(30) // Example timer duration
-  }
-
   useEffect(() => {
     let timer
     if (showTimer && seconds > 0) {
@@ -68,15 +155,15 @@ const moviesDetail = ({ moviesp1Item }) => {
     return () => clearTimeout(timer)
   }, [showTimer, seconds])
 
-
-
   const uwatchfreeSchema = JSON.stringify([
     {
       '@context': 'https://schema.org',
       '@type': 'Organization',
-      name: 'Movies Central™',
+      name: 'Movies Central™ - Explore. Discover. Watch.',
       url: 'https://moviescentral.vercel.app/',
-      image: ['https://moviescentral.vercel.app/favicon.ico'],
+      image: [
+        'https://moviescentral.vercel.app/favicon.ico'
+      ],
       logo: {
         '@type': 'ImageObject',
         url: 'https://moviescentral.vercel.app/logo.png',
@@ -92,13 +179,13 @@ const moviesDetail = ({ moviesp1Item }) => {
         '@type': 'SearchAction',
         target: {
           '@type': 'EntryPoint',
-          urlTemplate: 'https://moviescentral.vercel.app/search?q={search_term_string}'
+          urlTemplate:
+            'https://moviescentral.vercel.app/search?q={search_term_string}'
         },
         'query-input': 'required name=search_term_string'
       }
     }
   ])
-
 
   const breadcrumbSchema = JSON.stringify({
     '@context': 'https://schema.org',
@@ -107,13 +194,13 @@ const moviesDetail = ({ moviesp1Item }) => {
       {
         '@type': 'ListItem',
         position: 1,
-        name: 'Movies Central™',
+        name: 'Movies Central™.',
         item: 'https://moviescentral.vercel.app/'
       },
       {
         '@type': 'ListItem',
         position: 2,
-        name: 'Movies & Tv Show',
+        name: 'movies',
         item: moviesp1Item.baseurl
       },
       {
@@ -130,16 +217,16 @@ const moviesDetail = ({ moviesp1Item }) => {
     '@graph': [
       {
         '@type': ['Person', 'Organization'],
-        '@id': 'https://gravatar.com/drtrailer2022/#person',
-        name: 'Dr Trailer'
+        '@id': 'https://gravatar.com/drmovies2022/#person',
+        name: 'Dr movies'
       },
       {
         '@type': 'WebSite',
-        '@id': 'https://moviescentral.vercel.app#website',
-        url: 'https://moviescentral.vercel.app',
-        name: 'Movies Central™',
+        '@id': 'https://moviescentral.vercel.app/#website',
+        url: 'https://moviescentral.vercel.app/',
+        name: 'Movies Central™ - Explore. Discover. Watch.',
         publisher: {
-          '@id': 'https://gravatar.com/drtrailer2022/#person'
+          '@id': 'https://gravatar.com/drmovies2022/#person'
         },
         inLanguage: 'en-US'
       },
@@ -147,76 +234,68 @@ const moviesDetail = ({ moviesp1Item }) => {
         '@type': 'WebPage',
         '@id': `${moviesp1Item.siteurl}#webpage`,
         url: moviesp1Item.siteurl,
-        name: `${moviesp1Item.name} | Movies Central™`,
+        name: ` ${moviesp1Item.name} | Movies Central™.`,
         datePublished: moviesp1Item.datePublished,
         dateModified: moviesp1Item.dateModified,
         isPartOf: {
-          '@id': 'https://moviescentral.vercel.app#website'
+          '@id': 'https://moviescentral.vercel.app/#website'
         },
         inLanguage: 'en-US'
       },
       {
         '@type': 'Person',
-        '@id': 'https://moviescentral.vercel.app/author/moviescentral/',
-        name: 'Dr Trailer',
-        url: 'https://moviescentral.vercel.app/author/moviescentral/',
+        '@id': 'https://moviescentral.vercel.app/author/moviesmagazine./',
+        name: 'Dr movies',
+        url: 'https://moviescentral.vercel.app/author/moviesmagazine./',
         image: {
           '@type': 'ImageObject',
-          '@id': 'https://gravatar.com/drtrailer2022',
-          url: 'https://gravatar.com/drtrailer2022',
-          caption: 'Dr Trailer',
+          '@id': 'https://gravatar.com/drmovies2022',
+          url: 'https://gravatar.com/drmovies2022',
+          caption: 'Dr movies',
           inLanguage: 'en-US'
         },
-        sameAs: ['https://moviescentral.vercel.app']
+        sameAs: ['https://moviescentral.vercel.app/']
       },
       {
         '@type': 'Article',
         '@id': `${moviesp1Item.siteurl}#article`,
-        headline: `Watch ${moviesp1Item.name} | Movies Central™`,
+        headline: ` ${moviesp1Item.name} | Movies Central™.`,
         datePublished: moviesp1Item.datePublished,
         dateModified: moviesp1Item.dateModified,
-        articleSection: 'Movies & Tv Show',
+        articleSection: 'Movies',
         author: {
-          '@id': 'https://moviescentral.vercel.appauthor/moviesp1Item/'
+          '@id': 'https://moviescentral.vercel.app/author/moviesp1Item/'
         },
         publisher: {
-          '@id': 'https://gravatar.com/drtrailer2022/#person'
+          '@id': 'https://gravatar.com/drmovies2022/#person'
         },
         description: moviesp1Item.synopsis,
         image: moviesp1Item.image,
-        name: `Watch ${moviesp1Item.name} | Movies Central™`,
+        name: ` ${moviesp1Item.name} | Movies Central™.`,
         isPartOf: {
           '@id': `${moviesp1Item.siteurl}#webpage`
         },
         inLanguage: 'en-US',
         mainEntityOfPage: {
           '@id': `${moviesp1Item.siteurl}#webpage`
-        },
-        aggregateRating: {
-          '@type': 'http://schema.org/AggregateRating',
-          '@id': moviesp1Item.siteurl,
-          ratingValue: 8,
-          ratingCount: 5,
-          bestRating: '10',
-          worstRating: '1'
         }
       },
       {
         '@type': 'BlogPosting',
         '@id': `${moviesp1Item.siteurl}#blogPost`,
-        headline: `Watch ${moviesp1Item.name} | Movies Central™`,
+        headline: ` ${moviesp1Item.name} | Movies Central™.`,
         datePublished: moviesp1Item.datePublished,
         dateModified: moviesp1Item.dateModified,
-        articleSection: 'Movies & Tv Show',
+        articleSection: 'Movies',
         author: {
-          '@id': 'https://moviescentral.vercel.app/author/moviescentral/'
+          '@id': 'https://moviescentral.vercel.app/author/moviesmagazine./'
         },
         publisher: {
-          '@id': 'https://gravatar.com/drtrailer2022/#person'
+          '@id': 'https://gravatar.com/drmovies2022/#person'
         },
         description: moviesp1Item.synopsis,
         image: moviesp1Item.image,
-        name: `Watch ${moviesp1Item.name} | Movies Central™`,
+        name: ` ${moviesp1Item.name} | Movies Central™.`,
         '@id': `${moviesp1Item.siteurl}#richSnippet`,
         isPartOf: {
           '@id': `${moviesp1Item.siteurl}#webpage`
@@ -224,14 +303,6 @@ const moviesDetail = ({ moviesp1Item }) => {
         inLanguage: 'en-US',
         mainEntityOfPage: {
           '@id': `${moviesp1Item.siteurl}#webpage`
-        },
-        aggregateRating: {
-          '@type': 'http://schema.org/AggregateRating',
-          '@id': moviesp1Item.siteurl,
-          ratingValue: 8,
-          ratingCount: 5,
-          bestRating: '10',
-          worstRating: '1'
         }
       }
     ]
@@ -258,14 +329,6 @@ const moviesDetail = ({ moviesp1Item }) => {
       '@type': 'Place',
       name: moviesp1Item.country
     },
-    aggregateRating: {
-      '@type': 'http://schema.org/AggregateRating',
-      '@id': moviesp1Item.siteurl,
-      ratingValue: 8,
-      ratingCount: 5,
-      bestRating: '10',
-      worstRating: '1'
-    },
     author: {
       '@type': 'Person',
       name: 'DrTrailer',
@@ -273,7 +336,7 @@ const moviesDetail = ({ moviesp1Item }) => {
     },
     publisher: {
       '@type': 'Organization',
-      name: 'Movies Central™',
+      name: 'Movies Central™ - Explore. Discover. Watch.',
       logo: {
         '@type': 'ImageObject',
         url: 'https://moviescentral.vercel.app/og_image.jpg'
@@ -301,7 +364,7 @@ const moviesDetail = ({ moviesp1Item }) => {
     datePublished: moviesp1Item.datePublished,
     director: {
       '@type': 'Person',
-      name: moviesp1Item.directorname
+      name: moviesp1Item.director
     },
     actor: moviesp1Item.starring.map(actor => ({
       '@type': 'Person',
@@ -320,7 +383,7 @@ const moviesDetail = ({ moviesp1Item }) => {
       name: moviesp1Item.country
     },
     aggregateRating: {
-      '@type': 'http://schema.org/AggregateRating',
+      '@type': 'AggregateRating',
       '@id': moviesp1Item.siteurl,
       ratingValue: 8,
       ratingCount: 5,
@@ -334,7 +397,7 @@ const moviesDetail = ({ moviesp1Item }) => {
     },
     publisher: {
       '@type': 'Organization',
-      name: 'Movies Central™',
+      name: 'Movies Central™ - Explore. Discover. Watch.',
       logo: {
         '@type': 'ImageObject',
         url: 'https://moviescentral.vercel.app/og_image.jpg'
@@ -365,36 +428,38 @@ const moviesDetail = ({ moviesp1Item }) => {
           name='robots'
           content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'
         />
-        <title> Watch {moviesp1Item && moviesp1Item.name} | Movies Central™</title>
+        <title> {moviesp1Item && moviesp1Item.name}</title>
         <link rel='canonical' href={moviesp1Item && moviesp1Item.siteurl} />
         <meta name='robots' content='index, follow' />
         <meta name='googlebot' content='index,follow' />
         <meta name='revisit-after' content='1 days' />
         <meta property='og:locale' content='en_US' />
         <meta property='og:type' content='video.movie' />
-        {/* <meta property='og:type' content='website' /> */}
         <meta
           property='og:title'
-          content={`${moviesp1Item && moviesp1Item.name} - Movies Central`}
+          content={`${moviesp1Item && moviesp1Item.name} - Movies Central™.`}
         />
         <meta
           property='og:description'
-        content='Welcome to Movies Central™ – your go-to spot for free online movies! Watch and enjoy HD streaming, and catch the latest tvshows. Dive into cinema with Movies Central™!'
+         content='Welcome to Movies Central™ – your go-to spot for free online movies! Watch and enjoy HD streaming, and catch the latest movies & tvshows. Dive into cinema with Movies Central™!'
         />
 
-        <meta property='og:url' content={`${moviesp1Item && moviesp1Item.siteurl}`} />
+        <meta
+          property='og:url'
+          content={`${moviesp1Item && moviesp1Item.url}`}
+        />
         <meta
           name='keywords'
           content={`${moviesp1Item && moviesp1Item.keywords}`}
         />
-        <meta property='og:site_name' content='Movies Central' />
-        {/* <meta property='og:type' content='article' /> */}
+        <meta property='og:site_name' content='Movies Central™' />
+        <meta property='og:type' content='article' />
         <meta
           property=' og:image:alt'
           content={`${moviesp1Item && moviesp1Item.group}`}
         />
         <meta name='mobile-web-app-capable' content='yes' />
-        <meta property='article:section' content='Other Software' />
+        <meta property='article:section' content='Movies' />
         <meta name='author' content='admin' />
         <meta
           property='article:modified_time'
@@ -404,7 +469,14 @@ const moviesDetail = ({ moviesp1Item }) => {
           property='og:image'
           content={`${moviesp1Item && moviesp1Item.backimage}`}
         />
-
+        <meta
+          property='og:video:url'
+          content={`${moviesp1Item && moviesp1Item.siteurl}`}
+        />
+        <meta
+          property='og:video:secure_url'
+          content={`${moviesp1Item && moviesp1Item.videourl}`}
+        />
         <meta property='og:image:width' content='1280px' />
         <meta property='og:image:height' content='720px' />
         <meta property='og:image:type' content='image/webp' />
@@ -412,55 +484,55 @@ const moviesDetail = ({ moviesp1Item }) => {
         <meta name='twitter:label1' content='Est. reading time' />
         <meta name='twitter:data1' content='1 minute' />
         <meta
+          property='description'
+          content='Welcome to Movies Central™ – your go-to spot for free online movies! Watch and enjoy HD streaming, and catch the latest movies & tvshows. Dive into cinema with Movies Central™!'
+        />
+        <meta
           name='google-site-verification'
           content='4dFu4PUk1pc1IYqU6Brt84akCwNxaoUpKSO3gDW0kJ0'
         />
         <meta
           name='facebook-domain-verification'
-          content='du918bycikmo1jw78wcl9ih6ziphd7'
+          content='zifsy861dlzorbop8eww76tsqlf7t4'
         />
         <meta
           name='dailymotion-domain-verification'
           content='dmv6sg06w9r5eji88'
         />
+      </Head>
+      <Script src='../../propler/ads.js' defer />
+      <Script src='../../propler/ads2.js' defer />
+      {isAdult && <AdultSkipAds movie={moviesp1Item} />}
+      <script
+        type='application/ld+json'
+        dangerouslySetInnerHTML={{ __html: ldJsonData }}
+      />
 
-        <script
-          type='application/ld+json'
-          dangerouslySetInnerHTML={{ __html: ldJsonData }}
-        />
+      <script
+        type='application/ld+json'
+        dangerouslySetInnerHTML={{ __html: uwatchfreeSchema }}
+      />
 
-        <script
-          type='application/ld+json'
-          dangerouslySetInnerHTML={{ __html: uwatchfreeSchema }}
-        />
-
-        <script
-          type='application/ld+json'
-          dangerouslySetInnerHTML={{ __html: rankMathSchema }}
-        />
-        <script
-          type='application/ld+json'
-          dangerouslySetInnerHTML={{ __html: newsArticleJson }}
-        />
-         <script
+      <script
+        type='application/ld+json'
+        dangerouslySetInnerHTML={{ __html: rankMathSchema }}
+      />
+      <script
+        type='application/ld+json'
+        dangerouslySetInnerHTML={{ __html: newsArticleJson }}
+      />
+      <script
         type='application/ld+json'
         dangerouslySetInnerHTML={{ __html: moviesSchema }}
       />
-        <script
-          type='application/ld+json'
-          dangerouslySetInnerHTML={{ __html: breadcrumbSchema }}
-        />
-        <link
-          rel='stylesheet'
-          href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css'
-          integrity='sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=='
-          crossorigin='anonymous'
-          referrerpolicy='no-referrer'
-        />
-        {/* Webpushr tracking code */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
+      <script
+        type='application/ld+json'
+        dangerouslySetInnerHTML={{ __html: breadcrumbSchema }}
+      />
+      {/* Webpushr tracking code */}
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `
             (function (w, d, s, id) {
               if (typeof (w.webpushr) !== 'undefined') return;
               w.webpushr = w.webpushr || function () { (w.webpushr.q = w.webpushr.q || []).push(arguments) };
@@ -472,13 +544,8 @@ const moviesDetail = ({ moviesp1Item }) => {
 
             webpushr('setup', { 'key': 'BPnvX1gufyeWbUkYBykeaRgy2SGGB5_giiGqUtjX8Y5jzgKOii5z7_0rQcLJKp_me9euk7xhLdibNsjHkvEShPQ' });
           `
-          }}
-        />
-      </Head>
-      <Script src='../../propler/ads2.js' defer />
-      <Script src='../../propler/ads.js' defer />
-   
-
+        }}
+      />
       <div
         className={`w-full`}
         style={{
@@ -501,24 +568,8 @@ const moviesDetail = ({ moviesp1Item }) => {
             marginBottom: '12px'
           }}
         >
-          {moviesp1Item.title}
+          {moviesp1Item.name}
         </h1>
-
-        {/* <p
-          className='px-0 text-black font-bold bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-xl hover:text-blue-800 mt-2'
-          style={{
-            justifyContent: 'center',
-            alignItems: 'center',
-            padding: '10px',
-            fontSize: '35px',
-            fontFamily: 'Poppins, sans-serif',
-            fontWeight: 'bold',
-            textAlign: 'center',
-            marginBottom: '15px'
-          }}
-        >
-          Select Categories.{' '}
-        </p> */}
       </div>
       <div
         className={`w-full`}
@@ -535,10 +586,9 @@ const moviesDetail = ({ moviesp1Item }) => {
           backgroundColor: '#D3D3D3'
         }}
       >
-      <div
+        <div
           className='shadow-lg flex items-center justify-center'
           role='navigation'
-          
         >
           <ul
             id='menu-header-menu'
@@ -554,47 +604,37 @@ const moviesDetail = ({ moviesp1Item }) => {
                 </a>
               </li>
             </button>
-
             <button className='border border-black p-2 m-1 hover:bg-orange-100'>
-              <li id='menu-item-284913' className='menu-softwarecategories'>
-                <a href='../trailers/'>
-                  <h3 className='text-black hover:px-0 text-bg font-black bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-xl'>
-                    Trailers<span className='p'></span>
-                  </h3>
-                </a>
-              </li>
-            </button>
-          <button className='border border-black p-2 m-1 hover:bg-orange-100'>
-              <li id='menu-item-11610' className='menu-graphicdesign'>
+              <li id='menu-item-194' className='menu-tutorials'>
                 <a
                   href='../movies/'
                   className='text-black hover:px-0 text-bg font-black bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-xl'
                 >
-                  Movies<span className='p'></span>
-                </a>
-              </li>
-            </button>
-           <button className='border border-black p-2 m-1 hover:bg-orange-100'>
-              <li id='menu-item-84' className='menu-antivirus'>
-                <a
-                  href='../tvshow/'
-                  className='text-black hover:px-0 text-bg font-black bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-xl'
-                >
-                  Tv Show<span className='p'></span>
+                  Movies <span className='p'></span>
                 </a>
               </li>
             </button>
             <button className='border border-black p-2 m-1 hover:bg-orange-100'>
-              <li id='menu-item-84' className='menu-antivirus'>
+              <li id='menu-item-194' className='menu-tutorials'>
+                <a
+                  href='../tvshow/'
+                  className='text-black hover:px-0 text-bg font-black bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-xl'
+                >
+                  Tv Show <span className='p'></span>
+                </a>
+              </li>
+            </button>
+            <button className='border border-black p-2 m-1 hover:bg-orange-100'>
+              <li id='menu-item-194' className='menu-tutorials'>
                 <a
                   href='../adult/'
                   className='text-black hover:px-0 text-bg font-black bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-xl'
                 >
-                  Adult<span className='p'></span>
+                  Adult <span className='p'></span>
                 </a>
               </li>
             </button>
-          <button className='border border-black p-2 m-1 hover:bg-orange-100'>
+            <button className='border border-black p-2 m-1 hover:bg-orange-100'>
               <li id='menu-item-194' className='menu-tutorials'>
                 <a
                   href='../latest/'
@@ -611,7 +651,7 @@ const moviesDetail = ({ moviesp1Item }) => {
           target='_blank'
           rel='noopener noreferrer'
           className='bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent font-bold text-3xl mt-2 flex items-center justify-center'
-          style={{ marginTop: '25px', marginBottom:'25px' }}
+          style={{ marginTop: '15px' }}
         >
           <span className='px-0 bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-3xl hover:text-blue-800 font-bold mt-2'>
             For Request or Demand Movies Join Telegram
@@ -622,14 +662,6 @@ const moviesDetail = ({ moviesp1Item }) => {
           currentPage={currentPage}
           totalPages={totalPages}
           route='movies'
-          style={{
-            marginTop: '50px',
-            marginBottom: '50px',
-            borderRadius: '50px',
-            boxShadow: '0 0 10px 0 #fff',
-            filter:
-              'contrast(1.0) saturate(1.0) brightness(1.0) hue-rotate(0deg)'
-          }}
         />
         <div className='flex-container'>
           <div className='category-container'>
@@ -639,24 +671,25 @@ const moviesDetail = ({ moviesp1Item }) => {
               width={300}
               height={300}
               quality={90}
-              objectFit='cover'
+              // objectFit='cover'
               loading='lazy'
               style={{
                 width: '400px', // Ensures the image is displayed at this width
                 height: '500px', // Ensures the image is displayed at this height
                 margin: 'auto',
-                marginTop: '50px',
                 marginBottom: '20px',
                 borderRadius: '50px',
                 boxShadow: '0 0 10px 0 #fff',
+                marginTop: '50px',
                 filter:
-                  'contrast(1.1) saturate(1.1) brightness(1.0) hue-rotate(0deg)'
+                  'contrast(1.3) saturate(1.4) brightness(1.2) hue-rotate(10deg)'
               }}
             />
+
             <div
               style={{ maxWidth: '800px', width: '100%', marginBottom: '20px' }}
             >
-              {/* <div className='flex flex-col items-center justify-center'>
+              <div className='flex flex-col items-center justify-center'>
                 <h2
                   className='text-black bg-gradient-to-r from-pink-500 to-amber-500 font-bold py-3 px-6 rounded-lg shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300 text-2xl'
                   style={{
@@ -667,21 +700,56 @@ const moviesDetail = ({ moviesp1Item }) => {
                 >
                   {moviesp1Item.title}
                 </h2>
-              </div> */}
+              </div>
 
-              <p className='text-black text-bg font-semibold mt-2'>
+              <p
+                className='text-black text-2xl font-semibold mt-2'
+                style={{
+                  fontFamily: 'Poppins, sans-serif',
+                  color: '#000',
+                  textShadow: '2px 1px 1px #000000'
+                }}
+              >
                 Genre: {moviesp1Item.genre}
               </p>
-              <p className='text-black text-bg font-semibold mt-2'>
+              <p
+                className='text-black text-2xl font-semibold mt-2'
+                style={{
+                  fontFamily: 'Poppins, sans-serif',
+                  color: '#000',
+                  textShadow: '2px 1px 1px #000000'
+                }}
+              >
                 Director: {moviesp1Item.directorname}
               </p>
-              <p className='text-black text-bg font-semibold mt-2'>
+              <p
+                className='text-black text-2xl font-semibold mt-2'
+                style={{
+                  fontFamily: 'Poppins, sans-serif',
+                  color: '#000',
+                  textShadow: '2px 1px 1px #000000'
+                }}
+              >
                 Starring: {moviesp1Item.starring}
               </p>
-              <p className='text-black text-bg font-semibold mt-2'>
+              <p
+                className='text-black text-2xl font-semibold mt-2'
+                style={{
+                  fontFamily: 'Poppins, sans-serif',
+                  color: '#000',
+                  textShadow: '2px 1px 1px #000000'
+                }}
+              >
                 Origin Country: {moviesp1Item.country}
               </p>
-              <p className='text-black text-bg font-semibold mt-2'>
+              <p
+                className='text-black text-2xl font-semibold mt-2'
+                style={{
+                  fontFamily: 'Poppins, sans-serif',
+                  color: '#000',
+                  textShadow: '2px 1px 1px #000000'
+                }}
+              >
                 Language: {moviesp1Item.language}
               </p>
 
@@ -695,7 +763,8 @@ const moviesDetail = ({ moviesp1Item }) => {
                     width: '200px',
                     height: '200px',
                     objectFit: 'cover',
-                    filter: 'contrast(1.2) saturate(1.2)',
+                    filter:
+                      'contrast(1.1) saturate(1.2) brightness(1.2) hue-rotate(5deg)',
                     boxShadow: '0 0 10px 0 #C0C0C0' // Shadow effect with black color
                   }}
                   loading='lazy'
@@ -711,7 +780,8 @@ const moviesDetail = ({ moviesp1Item }) => {
                     height: '200px',
                     objectFit: 'cover',
                     boxShadow: '0 0 10px 0 #C0C0C0', // Shadow effect with black color
-                    filter: 'contrast(1.2) saturate(1.2)'
+                    filter:
+                      'contrast(1.1) saturate(1.2) brightness(1.2) hue-rotate(5deg)'
                   }}
                   loading='lazy'
                   layout='responsive'
@@ -726,7 +796,8 @@ const moviesDetail = ({ moviesp1Item }) => {
                     height: '200px',
                     objectFit: 'cover',
                     boxShadow: '0 0 10px 0 #C0C0C0', // Shadow effect with black color
-                    filter: 'contrast(1.2) saturate(1.2)'
+                    filter:
+                      'contrast(1.1) saturate(1.2) brightness(1.2) hue-rotate(5deg)'
                   }}
                   loading='lazy'
                   layout='responsive'
@@ -741,7 +812,8 @@ const moviesDetail = ({ moviesp1Item }) => {
                     height: '200px',
                     objectFit: 'cover',
                     boxShadow: '0 0 10px 0 #C0C0C0', // Shadow effect with black color
-                    filter: 'contrast(1.2) saturate(1.2)'
+                    filter:
+                      'contrast(1.1) saturate(1.2) brightness(1.2) hue-rotate(5deg)'
                   }}
                   loading='lazy'
                   layout='responsive'
@@ -756,7 +828,8 @@ const moviesDetail = ({ moviesp1Item }) => {
                     height: '200px',
                     objectFit: 'cover',
                     boxShadow: '0 0 10px 0 #C0C0C0', // Shadow effect with black color
-                    filter: 'contrast(1.2) saturate(1.2)'
+                    filter:
+                      'contrast(1.1) saturate(1.2) brightness(1.2) hue-rotate(5deg)'
                   }}
                   loading='lazy'
                   layout='responsive'
@@ -771,189 +844,479 @@ const moviesDetail = ({ moviesp1Item }) => {
                     height: '200px',
                     objectFit: 'cover',
                     boxShadow: '0 0 10px 0 #C0C0C0', // Shadow effect with black color
-                    filter: 'contrast(1.2) saturate(1.2)'
+                    filter:
+                      'contrast(1.1) saturate(1.2) brightness(1.2) hue-rotate(5deg)'
                   }}
                   loading='lazy'
                   layout='responsive'
                 />
               </div>
+
+              <Rating />
+
               <p
-        className="px-0 bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-4xl hover:text-blue-800 font-bold mt-2"
-        style={{
-          fontFamily: 'Poppins, sans-serif',
-        }}
-      >
-        Watch Online Movies & Tv Series.
-      </p>
-      <div
-        style={{
-          width: '100%',
-          height: '500px',
-          overflow: 'hidden',
-          position: 'relative',
-        }}
-        className="rounded-xl mr-8 flex flex-col border-1 border-blue-600 bg-black p-2"
-      >
-        <iframe
-          frameBorder="0"
-          src={src}
-          width="100%"
-          height="450px"
-          allowFullScreen
-          scrolling="0"
-          title="Video Player"
-          style={{
-            filter: 'contrast(1.2) saturate(1.3) brightness(1.1) hue-rotate(15deg)',
-          }}
-        ></iframe>
-
-        <p className="text-black hover:px-0 text-bg font-black bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-sm">
-          *Note: Use Setting in Player to improve the Quality of video to HD Quality 1080p.
-        </p>
-
-        <img
-          src={movieVideoItem.thumbnail}
-          alt="Video Thumbnail"
-          style={{
-            position: 'absolute',
-            top: '2px',
-            left: '10px',
-            width: '100px',
-            height: '56px',
-            borderRadius: '10px',
-          }}
-        />
-      </div>
-
-      <div className="flex flex-col items-center justify-center"></div>
-      {moviesp1Item.mp3player && (
-        <MP3Player mp3Url={moviesp1Item.mp3player} />
-      )}
-      <div
-        className="flex flex-col items-center justify-center"
-        style={{
-          marginTop: '50px',
-          marginBottom: '50px',
-          filter: 'contrast(1.1) saturate(1.1) brightness(1.0) hue-rotate(0deg)',
-        }}
-      >
-        {!showTimer ? (
-          <button
-            onClick={() => setShowTimer(true)}
-            className="animate-pulse bg-gradient-to-r from-amber-500 to-pink-500 text-black font-bold py-3 px-6 rounded-lg shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300 text-2xl"
-          >
-            Download Now
-          </button>
-        ) : (
-          <>
-            <p className="text-3xl font-bold mb-4">
-              Your download link will be ready in {seconds} seconds...
-            </p>
-
-            <Script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></Script>
-            <lottie-player
-              src="https://lottie.host/58d9c7ed-a39e-4cb6-b78a-e7cb1f9bf9cd/RHWR24wQSd.json"
-              background="#D3D3D3"
-              speed="1"
-              style={{ width: '250px' }}
-              loop
-              autoplay
-              direction="1"
-              mode="normal"
-            ></lottie-player>
-            <p
-              className="text-3xl font-bold mb-4 bg-gradient-to-r from-amber-500 to-pink-500 text-black py-3 px-6 rounded-lg shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300"
-              style={{
-                marginTop: '20px',
-              }}
-            >
-              Official Trailer.
-            </p>
-
-            <div
-              style={{
-                width: '100%',
-                height: '450px',
-                overflow: 'hidden',
-                marginBottom: '20px',
-              }}
-              className="rounded-xl flex border-1 border-blue-600 bg-black p-2  items-center justify-center"
-            >
-              <div
-                itemscope
-                itemtype="https://schema.org/VideoObject"
-                style={{ display: 'none' }}
+                // className='text-4xl font-bold mb-4'
+                className='px-0 bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-4xl hover:text-blue-800 font-bold mt-2'
+                style={{
+                  fontFamily: 'Poppins, sans-serif'
+                  // color: '#000',
+                  // textShadow: '2px 1px 1px #000000'
+                }}
               >
-                <meta itemprop="name" content={moviesp1Item.title} />
-                <meta
-                  itemprop="description"
-                  content={moviesp1Item.text}
-                />
-                <meta
-                  itemprop="uploadDate"
-                  content={moviesp1Item.datePublished}
-                />
-                <meta
-                  itemprop="thumbnailUrl"
-                  content={moviesp1Item.backimage}
-                />
-                <meta itemprop="duration" content="P34S" />
-                <meta
-                  itemprop="embedUrl"
-                  content={moviesp1Item.videourl}
+                Watch Online Movies & Tv Series.
+              </p>
+              <div
+                style={{
+                  width: '100%',
+                  height: '500px',
+                  overflow: 'hidden',
+                  position: 'relative'
+                }}
+                className='rounded-xl mr-8 flex flex-col border-1 border-blue-600 bg-black p-2'
+              >
+                {isTvShow && (
+                  <button
+                    onClick={handleNext}
+                    disabled={
+                      currentEpisodeIndex ===
+                      moviesp1Item.videotvitem.length - 1
+                    }
+                    style={{
+                      marginBottom: '10px',
+                      padding: '8px 16px',
+                      backgroundColor: '#51AFF7',
+                      color: 'white',
+                      border: 'none',
+                      cursor: 'pointer',
+                      borderRadius: '20px',
+                      fontWeight: 'bold',
+                      alignSelf: 'center'
+                    }}
+                  >
+                    Next - Episode{' '}
+                    {currentEpisodeIndex === moviesp1Item.videotvitem.length - 1
+                      ? 1
+                      : currentEpisodeIndex + 2}
+                  </button>
+                )}
+
+                {moviesp1Item.dailyitem ? (
+                  <iframe
+                    frameBorder='0'
+                    src={`https://geo.dailymotion.com/player/xkdl0.html?video=${moviesp1Item.dailyitem}&mute=true&Autoquality=1080p`}
+                    width='100%'
+                    height='450px'
+                    allowFullScreen
+                    scrolling='0'
+                    title='Video Player'
+                    style={{
+                      filter:
+                        'contrast(1.2) saturate(1.3) brightness(1.1) hue-rotate(15deg)'
+                    }}
+                  ></iframe>
+                ) : (
+                  <iframe
+                    frameBorder='0'
+                    src={src}
+                    width='100%'
+                    height='450px'
+                    allowFullScreen
+                    scrolling='0'
+                    title='Video Player'
+                    style={{
+                      filter:
+                        'contrast(1.2) saturate(1.3) brightness(1.1) hue-rotate(15deg)'
+                    }}
+                  ></iframe>
+                )}
+
+                <p className='text-black hover:px-0 text-bg font-black bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-sm'>
+                  *Note: Use Setting in Player to improve the Quality of video
+                  to HD Quality 1080p.
+                </p>
+
+                {isTvShow && (
+                  <button
+                    onClick={handlePrevious}
+                    disabled={currentEpisodeIndex === 0}
+                    style={{
+                      marginTop: '10px',
+                      padding: '8px 16px',
+                      backgroundColor: '#32CD32',
+                      color: 'white',
+                      border: 'none',
+                      cursor: 'pointer',
+                      borderRadius: '20px',
+                      fontWeight: 'bold',
+                      alignSelf: 'center'
+                    }}
+                  >
+                    Prev - Episode{' '}
+                    {currentEpisodeIndex === 0
+                      ? moviesp1Item.videotvitem.length
+                      : currentEpisodeIndex}
+                  </button>
+                )}
+
+                <img
+                  src={
+                    isTvShow
+                      ? currentVideoItem.thumbnail
+                      : movieVideoItem.thumbnail ||
+                        additionalMovieVideoItem.thumbnail
+                  }
+                  alt='Video Thumbnail'
+                  style={{
+                    position: 'absolute',
+                    top: '2px',
+                    left: '10px',
+                    width: '100px',
+                    height: '56px',
+                    borderRadius: '10px'
+                  }}
                 />
               </div>
-              <iframe
-                frameborder="0"
-                src={`https://geo.dailymotion.com/player/xkdl0.html?video=${moviesp1Item.traileritem}&mute=true&Autoquality=1080p`}
-                width="100%"
-                height="100%"
-                allowfullscreen
-                title="Dailymotion Video Player"
-                allow="autoplay; encrypted-media"
-              ></iframe>
-            </div>
-            {showTimer && seconds <= 0 && (
-              <div>
-                {Object.keys(moviesp1Item)
-                  .filter((key) => key.startsWith('downloadlink'))
-                  .map((key, index) => (
-                    <Link
-                      key={index}
-                      href={moviesp1Item[key]}
-                      target="_blank"
+              <div className='flex flex-col items-center justify-center'></div>
+              {moviesp1Item.mp3player && (
+                <MP3Player mp3Url={moviesp1Item.mp3player} />
+              )}
+
+              {/* <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                route='movies'
+                style={{
+                  marginTop: '50px',
+                  marginBottom: '50px',
+                  borderRadius: '50px',
+                  boxShadow: '0 0 10px 0 #fff',
+                  filter:
+                    'contrast(1.0) saturate(1.0) brightness(1.0) hue-rotate(0deg)'
+                }}
+              /> */}
+              <div
+                className='flex flex-col items-center justify-center'
+                style={{
+                  marginTop: '50px',
+                  marginBottom: '50px',
+                  filter:
+                    'contrast(1.1) saturate(1.1) brightness(1.0) hue-rotate(0deg)'
+                }}
+              >
+                {!showTimer ? (
+                  <button
+                    onClick={() => setShowTimer(true)}
+                    className='animate-pulse bg-gradient-to-r from-amber-500 to-pink-500 text-black font-bold py-3 px-6 rounded-lg shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300 text-2xl'
+                  >
+                    Download Now
+                  </button>
+                ) : (
+                  <>
+                    <p className='text-3xl font-bold mb-4'>
+                      Your download link will be ready in {seconds} seconds...
+                    </p>
+
+                    <Script src='https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js'></Script>
+                    <lottie-player
+                      src='https://lottie.host/58d9c7ed-a39e-4cb6-b78a-e7cb1f9bf9cd/RHWR24wQSd.json'
+                      background='#D3D3D3'
+                      speed='1'
+                      style={{ width: '250px' }}
+                      loop
+                      autoplay
+                      direction='1'
+                      mode='normal'
+                    ></lottie-player>
+                    <p
+                      className='text-3xl font-bold mb-4 bg-gradient-to-r from-amber-500 to-pink-500 text-black py-3 px-6 rounded-lg shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300'
+                      style={{
+                        marginTop: '20px'
+                      }}
+                    >
+                      Official Trailer.
+                    </p>
+
+                    <div
+                      style={{
+                        width: '100%',
+                        height: '450px',
+                        overflow: 'hidden',
+                        marginBottom: '20px'
+                      }}
+                      className='rounded-xl flex border-1 border-blue-600 bg-gray-600 p-2  items-center justify-center'
                     >
                       <div
-                        className="bg-gradient-to-r from-amber-500 to-pink-500 text-white font-bold py-3 px-6 rounded-lg shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300"
-                        style={{
-                          margin: 'auto',
-                          marginBottom: '50px',
-                          borderRadius: '50px',
-                          boxShadow: '0 0 10px 0 #fff',
-                          filter: 'contrast(1.0) saturate(1.0) brightness(1.0) hue-rotate(0deg)',
-                        }}
+                        itemscope
+                        itemtype='https://schema.org/VideoObject'
+                        style={{ display: 'none' }}
                       >
-                        <span
-                          style={{
-                            color: key === 'downloadlink1' ? '#FF0000' : '#0efa06',
-                            fontSize: '24px',
-                            textShadow: '3px 5px 5px #000',
-                          }}
-                        >
-                          <i
-                            className={key === 'downloadlink1' ? 'fa fa-magnet' : 'fa fa-download'}
-                            aria-hidden="true"
-                          ></i>{' '}
-                        </span>
-                        Click Here to Download {index + 1}
+                        <meta itemprop='name' content={moviesp1Item.title} />
+                        <meta
+                          itemprop='description'
+                          content={moviesp1Item.text}
+                        />
+                        <meta
+                          itemprop='uploadDate'
+                          content={moviesp1Item.datePublished}
+                        />
+                        <meta
+                          itemprop='thumbnailUrl'
+                          content={moviesp1Item.backimage}
+                        />
+                        <meta itemprop='duration' content='P34S' />
+                        <meta
+                          itemprop='embedUrl'
+                          content={moviesp1Item.videourl}
+                        />
                       </div>
-                    </Link>
-                  ))}
+                      <iframe
+                        frameborder='0'
+                        type='text/html'
+                        src={`https://geo.dailymotion.com/player/xkdl0.html?video=${moviesp1Item.traileritem}&mute=true&Autoquality=1080p`}
+                        width='100%'
+                        height='100%'
+                        allowfullscreen
+                        title='Dailymotion Video Player'
+                        allow='autoplay; encrypted-media'
+                      ></iframe>
+                    </div>
+                    {showTimer && seconds <= 0 && (
+                      <div>
+                        {Object.keys(moviesp1Item)
+                          .filter(key => key.startsWith('downloadlink'))
+                          .map((key, index) => (
+                            <Link
+                              key={index}
+                              href={moviesp1Item[key]}
+                              target='_blank'
+                            >
+                              <div
+                                className='bg-gradient-to-r from-amber-500 to-pink-500 text-white font-bold py-3 px-6 rounded-lg shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300'
+                                style={{
+                                  margin: 'auto',
+                                  marginBottom: '50px',
+                                  borderRadius: '50px',
+                                  boxShadow: '0 0 10px 0 #fff',
+                                  filter:
+                                    'contrast(1.0) saturate(1.0) brightness(1.0) hue-rotate(0deg)'
+                                }}
+                              >
+                                <span
+                                  style={{
+                                    color:
+                                      key === 'downloadlink1'
+                                        ? '#FF0000'
+                                        : '#0efa06',
+                                    fontSize: '24px',
+                                    textShadow: '3px 5px 5px #000'
+                                  }}
+                                >
+                                  <i
+                                    className={
+                                      key === 'downloadlink1'
+                                        ? 'fa fa-magnet'
+                                        : 'fa fa-download'
+                                    }
+                                    aria-hidden='true'
+                                  ></i>{' '}
+                                </span>
+                                Click Here to Download {index + 1}
+                              </div>
+                            </Link>
+                          ))}
+                      </div>
+                    )}
+                  </>
+                )}
               </div>
-            )}
-          </>
-        )}
-      </div>
+              <div className='flex flex-col items-center justify-center'>
+                {moviesp1Item.head2 && (
+                  <p className='bg-gradient-to-r from-amber-500 to-pink-500 font-bold py-3 px-6 rounded-lg shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300 text-bg text-black text-bg mt-2 text-3xl mb-2 items-center justify-center'>
+                    <strong>{moviesp1Item.head2}</strong>
+                  </p>
+                )}
+              </div>
+              <Image
+                src={moviesp1Item.image1}
+                alt={moviesp1Item.name}
+                width={1280}
+                height={720}
+                quality={90}
+                loading='lazy'
+                style={{
+                  width: '800px', // Ensures the image is displayed at this width
+                  height: '400px', // Ensures the image is displayed at this height
+                  margin: 'auto',
+                  marginBottom: '20px',
+                  borderRadius: '50px',
+                  boxShadow: '0 0 10px 0 #fff',
+                  filter:
+                    'contrast(1.3) saturate(1.4) brightness(1.2) hue-rotate(10deg)'
+                }}
+              />
+              {/* {moviesp1Item.news1.split('\n\n').map((paragraph, idx) => (
+                <p
+                  key={idx}
+                  className='description text-black font-bold mt-2 text-xl'
+                  style={{
+                    marginBottom: '10px',
+                    fontFamily: 'Poppins, sans-serif'
+                  }}
+                >
+                  {paragraph}
+                </p>
+              ))} */}
+
+              <div className='flex flex-col items-center justify-center'>
+                {moviesp1Item.image2 && (
+                  <Image
+                    src={moviesp1Item.image2}
+                    alt={moviesp1Item.name}
+                    width={1280}
+                    height={720}
+                    quality={90}
+                    loading='lazy'
+                    style={{
+                      width: '800px', // Ensures the image is displayed at this width
+                      height: '400px', // Ensures the image is displayed at this height
+                      margin: 'auto',
+                      marginBottom: '20px',
+                      borderRadius: '50px',
+                      boxShadow: '0 0 10px 0 #fff',
+                      filter:
+                        'contrast(1.3) saturate(1.4) brightness(1.2) hue-rotate(10deg)'
+                    }}
+                  />
+                )}
+
+                {moviesp1Item.image3 && (
+                  <Image
+                    src={moviesp1Item.image3}
+                    alt={moviesp1Item.name}
+                    width={1280}
+                    height={720}
+                    quality={90}
+                    loading='lazy'
+                    style={{
+                      width: '800px', // Ensures the image is displayed at this width
+                      height: '400px', // Ensures the image is displayed at this height
+                      margin: 'auto',
+                      marginBottom: '20px',
+                      borderRadius: '50px',
+                      boxShadow: '0 0 10px 0 #fff',
+                      filter:
+                        'contrast(1.3) saturate(1.4) brightness(1.2) hue-rotate(10deg)'
+                    }}
+                  />
+                )}
+
+                {moviesp1Item.image4 && (
+                  <Image
+                    src={moviesp1Item.image4}
+                    alt={moviesp1Item.name}
+                    width={1280}
+                    height={720}
+                    quality={90}
+                    loading='lazy'
+                    style={{
+                      width: '800px', // Ensures the image is displayed at this width
+                      height: '400px', // Ensures the image is displayed at this height
+                      margin: 'auto',
+                      marginBottom: '20px',
+                      borderRadius: '50px',
+                      boxShadow: '0 0 10px 0 #fff',
+                      filter:
+                        'contrast(1.3) saturate(1.4) brightness(1.2) hue-rotate(10deg)'
+                    }}
+                  />
+                )}
+
+                {moviesp1Item.image5 && (
+                  <Image
+                    src={moviesp1Item.image5}
+                    alt={moviesp1Item.name}
+                    width={1280}
+                    height={720}
+                    quality={90}
+                    // objectFit='cover'
+                    loading='lazy'
+                    style={{
+                      width: '800px', // Ensures the image is displayed at this width
+                      height: '400px', // Ensures the image is displayed at this height
+                      margin: 'auto',
+                      marginBottom: '20px',
+                      borderRadius: '50px',
+                      boxShadow: '0 0 10px 0 #fff',
+                      filter:
+                        'contrast(1.3) saturate(1.4) brightness(1.2) hue-rotate(10deg)'
+                    }}
+                  />
+                )}
+
+                {moviesp1Item.image6 && (
+                  <Image
+                    src={moviesp1Item.image6}
+                    alt={moviesp1Item.name}
+                    width={1280}
+                    height={720}
+                    quality={90}
+                    // objectFit='cover'
+                    loading='lazy'
+                    style={{
+                      width: '800px', // Ensures the image is displayed at this width
+                      height: '400px', // Ensures the image is displayed at this height
+                      margin: 'auto',
+                      marginBottom: '20px',
+                      borderRadius: '50px',
+                      boxShadow: '0 0 10px 0 #fff',
+                      filter:
+                        'contrast(1.3) saturate(1.4) brightness(1.2) hue-rotate(10deg)'
+                    }}
+                  />
+                )}
+
+                {moviesp1Item.image7 && (
+                  <Image
+                    src={moviesp1Item.image7}
+                    alt={moviesp1Item.name}
+                    width={1280}
+                    height={720}
+                    quality={90}
+                    loading='lazy'
+                    style={{
+                      width: '800px', // Ensures the image is displayed at this width
+                      height: '400px', // Ensures the image is displayed at this height
+                      margin: 'auto',
+                      marginBottom: '20px',
+                      borderRadius: '50px',
+                      boxShadow: '0 0 10px 0 #fff',
+                      filter:
+                        'contrast(1.3) saturate(1.4) brightness(1.2) hue-rotate(10deg)'
+                    }}
+                  />
+                )}
+
+                {moviesp1Item.image8 && (
+                  <Image
+                    src={moviesp1Item.image8}
+                    alt={moviesp1Item.name}
+                    width={1280}
+                    height={720}
+                    quality={90}
+                    loading='lazy'
+                    style={{
+                      width: '800px', // Ensures the image is displayed at this width
+                      height: '400px', // Ensures the image is displayed at this height
+                      margin: 'auto',
+                      marginBottom: '20px',
+                      borderRadius: '50px',
+                      boxShadow: '0 0 10px 0 #fff',
+                      filter:
+                        'contrast(1.3) saturate(1.4) brightness(1.2) hue-rotate(10deg)'
+                    }}
+                  />
+                )}
+              </div>
               <Pagination
                 currentPage={currentPage}
                 totalPages={totalPages}
@@ -967,210 +1330,6 @@ const moviesDetail = ({ moviesp1Item }) => {
                     'contrast(1.0) saturate(1.0) brightness(1.0) hue-rotate(0deg)'
                 }}
               />
-              <div className='flex flex-col items-center justify-center'>
-                <p
-                  className='bg-gradient-to-r from-amber-500 to-pink-500 font-bold py-3 px-6 rounded-lg shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300  text-bg text-black text-bg  mt-2 text-3xl mb-2 items-center justify-center '
-                  style={{
-                    marginTop: '50px',
-                    filter:
-                      'contrast(1.0) saturate(1.0) brightness(1.0) hue-rotate(0deg)'
-                  }}
-                >
-                  <strong> {moviesp1Item.head1} </strong>
-                </p>
-              </div>
-              <Image
-                src={moviesp1Item.image1}
-                alt={moviesp1Item.name}
-                width={1280}
-                height={720}
-                quality={90}
-                objectFit='cover'
-                loading='lazy'
-                style={{
-                  width: '800px', // Ensures the image is displayed at this width
-                  height: '400px', // Ensures the image is displayed at this height
-                  margin: 'auto',
-                  marginBottom: '20px',
-                  borderRadius: '50px',
-                  boxShadow: '0 0 10px 0 #fff',
-                  filter:
-                    'contrast(1.1) saturate(1.1) brightness(1.0) hue-rotate(0deg)'
-                }}
-              />
-              {moviesp1Item.news1.split('\n\n').map((paragraph, idx) => (
-                <p
-                  key={idx}
-                  className='description text-black font-bold mt-2 text-xl'
-                  style={{
-                    marginBottom: '10px',
-                    fontFamily: 'Poppins, sans-serif'
-                  }}
-                >
-                  {paragraph}
-                </p>
-              ))}
-              <div className='flex flex-col items-center justify-center'>
-                {moviesp1Item.head2 && (
-                  <p className='bg-gradient-to-r from-amber-500 to-pink-500 font-bold py-3 px-6 rounded-lg shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300 text-bg text-black text-bg mt-2 text-3xl mb-2 items-center justify-center'>
-                    <strong>{moviesp1Item.head2}</strong>
-                  </p>
-                )}
-
-                {moviesp1Item.image2 && (
-                  <Image
-                    src={moviesp1Item.image2}
-                    alt={moviesp1Item.name}
-                    width={1280}
-                    height={720}
-                    quality={90}
-                    objectFit='cover'
-                    loading='lazy'
-                    style={{
-                      width: '800px', // Ensures the image is displayed at this width
-                      height: '400px', // Ensures the image is displayed at this height
-                      margin: 'auto',
-                      marginBottom: '20px',
-                      borderRadius: '50px',
-                      boxShadow: '0 0 10px 0 #fff',
-                      filter:
-                        'contrast(1.1) saturate(1.1) brightness(1.0) hue-rotate(0deg)'
-                    }}
-                  />
-                )}
-
-                {moviesp1Item.image3 && (
-                  <Image
-                    src={moviesp1Item.image3}
-                    alt={moviesp1Item.name}
-                    width={1280}
-                    height={720}
-                    quality={90}
-                    objectFit='cover'
-                    loading='lazy'
-                    style={{
-                      width: '800px', // Ensures the image is displayed at this width
-                      height: '400px', // Ensures the image is displayed at this height
-                      margin: 'auto',
-                      marginBottom: '20px',
-                      borderRadius: '50px',
-                      boxShadow: '0 0 10px 0 #fff',
-                      filter:
-                        'contrast(1.1) saturate(1.1) brightness(1.0) hue-rotate(0deg)'
-                    }}
-                  />
-                )}
-
-                {moviesp1Item.image4 && (
-                  <Image
-                    src={moviesp1Item.image4}
-                    alt={moviesp1Item.name}
-                    width={1280}
-                    height={720}
-                    quality={90}
-                    objectFit='cover'
-                    loading='lazy'
-                    style={{
-                      width: '800px', // Ensures the image is displayed at this width
-                      height: '400px', // Ensures the image is displayed at this height
-                      margin: 'auto',
-                      marginBottom: '20px',
-                      borderRadius: '50px',
-                      boxShadow: '0 0 10px 0 #fff',
-                      filter:
-                        'contrast(1.1) saturate(1.1) brightness(1.0) hue-rotate(0deg)'
-                    }}
-                  />
-                )}
-
-                {moviesp1Item.image5 && (
-                  <Image
-                    src={moviesp1Item.image5}
-                    alt={moviesp1Item.name}
-                    width={1280}
-                    height={720}
-                    quality={90}
-                    objectFit='cover'
-                    loading='lazy'
-                    style={{
-                      width: '800px', // Ensures the image is displayed at this width
-                      height: '400px', // Ensures the image is displayed at this height
-                      margin: 'auto',
-                      marginBottom: '20px',
-                      borderRadius: '50px',
-                      boxShadow: '0 0 10px 0 #fff',
-                      filter:
-                        'contrast(1.1) saturate(1.1) brightness(1.0) hue-rotate(0deg)'
-                    }}
-                  />
-                )}
-
-                {moviesp1Item.image6 && (
-                  <Image
-                    src={moviesp1Item.image6}
-                    alt={moviesp1Item.name}
-                    width={1280}
-                    height={720}
-                    quality={90}
-                    objectFit='cover'
-                    loading='lazy'
-                    style={{
-                      width: '800px', // Ensures the image is displayed at this width
-                      height: '400px', // Ensures the image is displayed at this height
-                      margin: 'auto',
-                      marginBottom: '20px',
-                      borderRadius: '50px',
-                      boxShadow: '0 0 10px 0 #fff',
-                      filter:
-                        'contrast(1.1) saturate(1.1) brightness(1.0) hue-rotate(0deg)'
-                    }}
-                  />
-                )}
-
-                {moviesp1Item.image7 && (
-                  <Image
-                    src={moviesp1Item.image7}
-                    alt={moviesp1Item.name}
-                    width={1280}
-                    height={720}
-                    quality={90}
-                    objectFit='cover'
-                    loading='lazy'
-                    style={{
-                      width: '800px', // Ensures the image is displayed at this width
-                      height: '400px', // Ensures the image is displayed at this height
-                      margin: 'auto',
-                      marginBottom: '20px',
-                      borderRadius: '50px',
-                      boxShadow: '0 0 10px 0 #fff',
-                      filter:
-                        'contrast(1.1) saturate(1.1) brightness(1.0) hue-rotate(0deg)'
-                    }}
-                  />
-                )}
-
-                {moviesp1Item.image8 && (
-                  <Image
-                    src={moviesp1Item.image8}
-                    alt={moviesp1Item.name}
-                    width={1280}
-                    height={720}
-                    quality={90}
-                    objectFit='cover'
-                    loading='lazy'
-                    style={{
-                      width: '800px', // Ensures the image is displayed at this width
-                      height: '400px', // Ensures the image is displayed at this height
-                      margin: 'auto',
-                      marginBottom: '20px',
-                      borderRadius: '50px',
-                      boxShadow: '0 0 10px 0 #fff',
-                      filter:
-                        'contrast(1.1) saturate(1.1) brightness(1.0) hue-rotate(0deg)'
-                    }}
-                  />
-                )}
-              </div>
               {/* </div>
   </div> */}
             </div>
@@ -1185,7 +1344,7 @@ const moviesDetail = ({ moviesp1Item }) => {
                 textShadow: '1px 2px 2px #000'
               }}
             >
-              LATEST ENTERTAINMENT NEWS
+              LATEST MOVIE NEWS.
             </p>
             <div className='categorylatest-container'>
               <div className='cardlatest-container'>
@@ -1197,6 +1356,7 @@ const moviesDetail = ({ moviesp1Item }) => {
                           src={latestItem.image}
                           alt={latestItem.title}
                           className='rounded-lg mx-auto'
+                          priority
                           width={140} // Specify the desired width
                           height={140} // Specify the desired height
                           quality={90}
@@ -1204,7 +1364,7 @@ const moviesDetail = ({ moviesp1Item }) => {
                             width: '300px', // Ensures the image is displayed at this width
                             height: '300px', // Ensures the image is displayed at this height
                             filter:
-                              'contrast(1.1) saturate(1.1) brightness(1.0) hue-rotate(0deg)'
+                              'contrast(1.3) saturate(1.4) brightness(1.2) hue-rotate(10deg)'
                           }}
                         />
                         <p className='text-black text-lg font-semibold mt-2'>
@@ -1327,22 +1487,30 @@ const moviesDetail = ({ moviesp1Item }) => {
               margin-top: 20px;
             }
           }
+          @media (max-width: 768px) {
+            .text-3xl {
+              font-size: 1.5rem;
+            }
+            .ml-2 {
+              margin-left: 0.5rem;
+            }
+          }
         `}</style>
       </div>
     </div>
   )
 }
 
-export async function getStaticPaths () {
-  const paths = moviesp1Data.map(item => ({
-    params: { id: item.id }
-  }))
+// export async function getStaticPaths () {
+//   const paths = moviesp1Data.map(item => ({
+//     params: { id: item.id }
+//   }))
 
-  return { paths, fallback: false }
-}
+//   return { paths, fallback: false }
+// }
 
-export async function getStaticProps ({ params }) {
-  const moviesp1Item = moviesp1Data.find(item => item.id === params.id)
-  return { props: { moviesp1Item } }
-}
-export default moviesDetail
+// export async function getStaticProps ({ params }) {
+//   const moviesp1Item = moviesp1Data.find(item => item.id === params.id)
+//   return { props: { moviesp1Item } }
+// }
+export default moviesp1Detail

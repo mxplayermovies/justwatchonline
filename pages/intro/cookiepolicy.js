@@ -50,14 +50,14 @@ const cookiepolicy = () => {
       {
         '@type': 'Organization',
         '@id': 'https://moviescentral.vercel.app/#organization',
-        name: 'Movies Central™ - Explore. Discover. Download.',
+        name: 'Movies Central - Explore. Discover. Watch.',
         url: 'https://moviescentral.vercel.app'
       },
       {
         '@type': 'WebSite',
         '@id': 'https://moviescentral.vercel.app/#website',
         url: 'https://moviescentral.vercel.app',
-        name: 'Movies Central™ - Explore. Discover. Download.',
+        name: 'Movies Central - Explore. Discover. Watch.',
         publisher: {
           '@type': 'Organization',
           '@id': 'https://moviescentral.vercel.app/#organization'
@@ -116,7 +116,7 @@ const cookiepolicy = () => {
             publisher: {
               '@type': 'Organization',
               '@id': 'https://moviescentral.vercel.app/#organization',
-              name: 'Movies Central™ - Explore. Discover. Download.',
+              name: 'Movies Central - Explore. Discover. Watch.',
               url: 'https://moviescentral.vercel.app'
             }
           },
@@ -143,7 +143,7 @@ const cookiepolicy = () => {
             publisher: {
               '@type': 'Organization',
               '@id': 'https://moviescentral.vercel.app/#organization',
-              name: 'Movies Central™ - Explore. Discover. Download.',
+              name: 'Movies Central - Explore. Discover. Watch.',
               url: 'https://moviescentral.vercel.app'
             }
           },
@@ -170,7 +170,7 @@ const cookiepolicy = () => {
             publisher: {
               '@type': 'Organization',
               '@id': 'https://moviescentral.vercel.app/#organization',
-              name: 'Movies Central™ - Explore. Discover. Download.',
+              name: 'Movies Central - Explore. Discover. Watch.',
               url: 'https://moviescentral.vercel.app'
             }
           }
@@ -183,7 +183,7 @@ const cookiepolicy = () => {
   return (
     <div>
       <Head>
-        <title>Movies Central™ | Cookie Policy</title>
+        <title>Movies Central | Cookie Policy</title>
         <link
           rel='sitemap'
           type='application/xml'
@@ -222,7 +222,7 @@ const cookiepolicy = () => {
         />
         <meta
           name='keywords'
-           content='movies central, movies, tvshow, watch free movies, watch free tvshow, watch free adult, watch free trailers, watch movies online, watch tvshow online, watch adult online, watch trailers online, download movies, download tvshow, download adult, watch full movies, watch full tvshow, watch full adult, watch full trailers, watch hd movies, watch hd tvshow, watch hd adult watch hd trailers'
+         content='movies central, movies, tvshow, watch free movies, watch free tvshow, watch free adult, watch free trailers, watch movies online, watch tvshow online, watch adult online, watch trailers online, download movies, download tvshow, download adult, watch full movies, watch full tvshow, watch full adult, watch full trailers, watch hd movies, watch hd tvshow, watch hd adult watch hd trailers'
         />
        
         <link
@@ -231,31 +231,31 @@ const cookiepolicy = () => {
         />
         <meta property='og:locale' content='en_US' />
         <meta property='og:type' content='website' />
-        <meta property='og:title' content='Movies Central™ ' />
+        <meta property='og:title' content='Movies Central ' />
         <meta
           property='og:description'
-          content='Welcome to Movies Central™ – your go-to spot for free online movies! Watch and enjoy HD streaming, and catch the latest tvshows. Dive into cinema with Movies Central™!'
+         content='Welcome to Movies Central™ – your go-to spot for free online movies! Watch and enjoy HD streaming, and catch the latest movies & tvshows. Dive into cinema with Movies Central™!'
         />
         <meta
           property='og:url'
           content='https://moviescentral.vercel.app/intro/tearms/'
         />
-        <meta property='og:site_name' content='Movies Central™ ' />
+        <meta property='og:site_name' content='Movies Central ' />
         <meta
           property='og:image'
-          content='https://moviescentral.vercel.app/og_image.jpg'
+          content='https://moviescentral.vercel.app/og_image.webp'
         />
         <meta property='og:image:width' content='1280' />
         <meta property='og:image:height' content='720' />
         <meta property='og:image:type' content='image/jpg' />
-        <meta name='application-name' content='Movies Central™ ' />
+        <meta name='application-name' content='Movies Central ' />
         <meta
           property='article:modified_time'
           content='2024-01-01T13:13:13+00:00'
         />
            <meta
           property='description'
-           content='Welcome to Movies Central™ – your go-to spot for free online movies! Watch and enjoy HD streaming, and catch the latest tvshows. Dive into cinema with Movies Central™!'
+        content='Welcome to Movies Central™ – your go-to spot for free online movies! Watch and enjoy HD streaming, and catch the latest movies & tvshows. Dive into cinema with Movies Central™!'
         />
         <link
           rel='sitemap'
@@ -317,7 +317,7 @@ const cookiepolicy = () => {
             >
               <h1 style={headingStyle}>Cookie Policy</h1>
               <p style={{ color: '#666', marginBottom: '24px' }}>
-                This is the Cookie Policy for Movies Central™, accessible from
+                This is the Cookie Policy for Movies Central, accessible from
                 https://moviescentral.vercel.app and its subdomains.
               </p>
 

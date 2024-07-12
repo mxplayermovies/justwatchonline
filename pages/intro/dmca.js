@@ -50,14 +50,14 @@ const dmca = () => {
       {
         '@type': 'Organization',
         '@id': 'https://moviescentral.vercel.app/#organization',
-        name: 'Movies Central™ - Explore. Discover. Download.',
+        name: 'Movies Central - Explore. Discover. Watch.',
         url: 'https://moviescentral.vercel.app'
       },
       {
         '@type': 'WebSite',
         '@id': 'https://moviescentral.vercel.app/#website',
         url: 'https://moviescentral.vercel.app',
-        name: 'Movies Central™ - Explore. Discover. Download.',
+        name: 'Movies Central - Explore. Discover. Watch.',
         publisher: {
           '@type': 'Organization',
           '@id': 'https://moviescentral.vercel.app/#organization'
@@ -116,7 +116,7 @@ const dmca = () => {
             publisher: {
               '@type': 'Organization',
               '@id': 'https://moviescentral.vercel.app/#organization',
-              name: 'Movies Central™ - Explore. Discover. Download.',
+              name: 'Movies Central - Explore. Discover. Watch.',
               url: 'https://moviescentral.vercel.app'
             }
           },
@@ -143,7 +143,7 @@ const dmca = () => {
             publisher: {
               '@type': 'Organization',
               '@id': 'https://moviescentral.vercel.app/#organization',
-              name: 'Movies Central™ - Explore. Discover. Download.',
+              name: 'Movies Central - Explore. Discover. Watch.',
               url: 'https://moviescentral.vercel.app'
             }
           },
@@ -170,7 +170,7 @@ const dmca = () => {
             publisher: {
               '@type': 'Organization',
               '@id': 'https://moviescentral.vercel.app/#organization',
-              name: 'Movies Central™ - Explore. Discover. Download.',
+              name: 'Movies Central - Explore. Discover. Watch.',
               url: 'https://moviescentral.vercel.app'
             }
           }
@@ -184,7 +184,7 @@ const dmca = () => {
   return (
     <div>
       <Head>
-        <title>Movies Central™ | DMCA</title>
+        <title>Movies Central | DMCA</title>
         <link
           rel='sitemap'
           type='application/xml'
@@ -232,31 +232,31 @@ const dmca = () => {
         />
         <meta property='og:locale' content='en_US' />
         <meta property='og:type' content='website' />
-        <meta property='og:title' content='Movies Central™ ' />
+        <meta property='og:title' content='Movies Central ' />
         <meta
           property='og:description'
-           content='Welcome to Movies Central™ – your go-to spot for free online movies! Watch and enjoy HD streaming, and catch the latest tvshows. Dive into cinema with Movies Central™!'
+        content='Welcome to Movies Central™ – your go-to spot for free online movies! Watch and enjoy HD streaming, and catch the latest movies & tvshows. Dive into cinema with Movies Central™!'
         />
         <meta
           property='og:url'
           content='https://moviescentral.vercel.app/intro/tearms/'
         />
-        <meta property='og:site_name' content='Movies Central™ ' />
+        <meta property='og:site_name' content='Movies Central ' />
         <meta
           property='og:image'
-          content='https://moviescentral.vercel.app/og_image.jpg'
+          content='https://moviescentral.vercel.app/og_image.webp'
         />
         <meta property='og:image:width' content='1280' />
         <meta property='og:image:height' content='720' />
         <meta property='og:image:type' content='image/jpg' />
-        <meta name='application-name' content='Movies Central™ ' />
+        <meta name='application-name' content='Movies Central ' />
         <meta
           property='article:modified_time'
           content='2024-01-01T13:13:13+00:00'
         />
            <meta
           property='description'
-          content='Welcome to Movies Central™ – your go-to spot for free online movies! Watch and enjoy HD streaming, and catch the latest tvshows. Dive into cinema with Movies Central™!'
+         content='Welcome to Movies Central™ – your go-to spot for free online movies! Watch and enjoy HD streaming, and catch the latest movies & tvshows. Dive into cinema with Movies Central™!'
         />
         <link
           rel='sitemap'
@@ -322,12 +322,12 @@ const dmca = () => {
               <p style={{ color: '#666', marginBottom: '24px' }}>
                 All trademarks, registered trademarks, product names, and
                 company names or logos appearing on the site are the property of
-                their respective owners. AZ Movies™ complies with the federal
+                their respective owners. Movies Central™ complies with the federal
                 Digital Millennium Copyright Act (DMCA) by responding to
                 credible notices of alleged infringement that adhere to the DMCA
                 and other applicable laws. As part of our response protocol, we
                 may take down or disable access to material hosted on the
-                AZ Movies™ website that is claimed to be infringing. In such
+                Movies Central™ website that is claimed to be infringing. In such
                 cases, we will earnestly attempt to establish contact with the
                 developer who posted the disputed material, allowing them the
                 opportunity to present a counter notification as outlined by the
@@ -338,7 +338,7 @@ const dmca = () => {
                 Counter-Notification, it is recommended to seek legal advice to
                 fully comprehend your rights and obligations under the DMCA and
                 other relevant laws. The subsequent notice guidelines are
-                designed to align with AZ Movies™ responsibilities under the
+                designed to align with Movies Central™ responsibilities under the
                 DMCA, particularly section 512(c), and do not constitute legal
                 counsel.
               </p>
@@ -352,7 +352,7 @@ const dmca = () => {
                 }}
               >
                 <li>
-                  To submit a notice of infringing material on AZ Movies™, kindly
+                  To submit a notice of infringing material on Movies Central™, kindly
                   provide a notification containing the ensuing details:
                 </li>
                 <li>

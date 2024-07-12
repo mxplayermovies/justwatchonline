@@ -23,14 +23,14 @@ const contact = () => {
       {
         '@type': 'Organization',
         '@id': 'https://moviescentral.vercel.app/#organization',
-        name: 'Movies Central™ - Explore. Discover. Download.',
+        name: 'Movies Central - Explore. Discover. Watch.',
         url: 'https://moviescentral.vercel.app'
       },
       {
         '@type': 'WebSite',
         '@id': 'https://moviescentral.vercel.app/#website',
         url: 'https://moviescentral.vercel.app',
-        name: 'Movies Central™ - Explore. Discover. Download.',
+        name: 'Movies Central - Explore. Discover. Watch.',
         publisher: {
           '@type': 'Organization',
           '@id': 'https://moviescentral.vercel.app/#organization'
@@ -89,7 +89,7 @@ const contact = () => {
             publisher: {
               '@type': 'Organization',
               '@id': 'https://moviescentral.vercel.app/#organization',
-              name: 'Movies Central™ - Explore. Discover. Download.',
+              name: 'Movies Central - Explore. Discover. Watch.',
               url: 'https://moviescentral.vercel.app'
             }
           },
@@ -116,7 +116,7 @@ const contact = () => {
             publisher: {
               '@type': 'Organization',
               '@id': 'https://moviescentral.vercel.app/#organization',
-              name: 'Movies Central™ - Explore. Discover. Download.',
+              name: 'Movies Central - Explore. Discover. Watch.',
               url: 'https://moviescentral.vercel.app'
             }
           },
@@ -143,7 +143,7 @@ const contact = () => {
             publisher: {
               '@type': 'Organization',
               '@id': 'https://moviescentral.vercel.app/#organization',
-              name: 'Movies Central™ - Explore. Discover. Download.',
+              name: 'Movies Central - Explore. Discover. Watch.',
               url: 'https://moviescentral.vercel.app'
             }
           }
@@ -157,7 +157,7 @@ const contact = () => {
   return (
     <div>
       <Head>
-        <title>Movies Central™ | Contact Us</title>
+        <title>Movies Central | Contact Us</title>
 
         <link
           rel='sitemap'
@@ -197,7 +197,7 @@ const contact = () => {
         />
         <meta
           name='keywords'
-            content='movies central, movies, tvshow, watch free movies, watch free tvshow, watch free adult, watch free trailers, watch movies online, watch tvshow online, watch adult online, watch trailers online, download movies, download tvshow, download adult, watch full movies, watch full tvshow, watch full adult, watch full trailers, watch hd movies, watch hd tvshow, watch hd adult watch hd trailers'
+         content='movies central, movies, tvshow, watch free movies, watch free tvshow, watch free adult, watch free trailers, watch movies online, watch tvshow online, watch adult online, watch trailers online, download movies, download tvshow, download adult, watch full movies, watch full tvshow, watch full adult, watch full trailers, watch hd movies, watch hd tvshow, watch hd adult watch hd trailers'
         />
         
         <link
@@ -206,31 +206,31 @@ const contact = () => {
         />
         <meta property='og:locale' content='en_US' />
         <meta property='og:type' content='website' />
-        <meta property='og:title' content='Movies Central™ ' />
+        <meta property='og:title' content='Movies Central ' />
         <meta
           property='og:description'
-         content='Welcome to Movies Central™ – your go-to spot for free online movies! Watch and enjoy HD streaming, and catch the latest tvshows. Dive into cinema with Movies Central™!'
+        content='Welcome to Movies Central™ – your go-to spot for free online movies! Watch and enjoy HD streaming, and catch the latest movies & tvshows. Dive into cinema with Movies Central™!'
         />
         <meta
           property='og:url'
           content='https://moviescentral.vercel.app/intro/contact/'
         />
-        <meta property='og:site_name' content='Movies Central™ ' />
+        <meta property='og:site_name' content='Movies Central ' />
         <meta
           property='og:image'
-          content='https://moviescentral.vercel.app/og_image.jpg'
+          content='https://moviescentral.vercel.app/og_image.webp'
         />
         <meta property='og:image:width' content='1280' />
         <meta property='og:image:height' content='720' />
         <meta property='og:image:type' content='image/jpg' />
-        <meta name='application-name' content='Movies Central™ ' />
+        <meta name='application-name' content='Movies Central ' />
         <meta
           property='article:modified_time'
           content='2024-01-01T13:13:13+00:00'
         />
         <meta
           property='description'
-       content='Welcome to Movies Central™ – your go-to spot for free online movies! Watch and enjoy HD streaming, and catch the latest tvshows. Dive into cinema with Movies Central™!'
+         content='Welcome to Movies Central™ – your go-to spot for free online movies! Watch and enjoy HD streaming, and catch the latest movies & tvshows. Dive into cinema with Movies Central™!'
         />
         <link
           rel='sitemap'
@@ -285,7 +285,7 @@ const contact = () => {
               <p className='text-gray-500 mb-6'>
                 Feel free to use the form below to provide us with your
                 feedback, suggestions, or collaboration or request inquiries
-                related to Movies Central™. We welcome your input to help us
+                related to Movies Central. We welcome your input to help us
                 echance our services and offerings.
               </p>
             

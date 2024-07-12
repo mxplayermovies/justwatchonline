@@ -233,9 +233,9 @@ const tvshowDetail = ({ tvshowItem }) => {
       },
       {
         '@type': 'Person',
-        '@id': 'https://moviescentral.vercel.app/author/Movies Central™/',
+        '@id': 'https://moviescentral.vercel.app/author/Movies Centralï¿½/',
         name: 'Dr Trailer',
-        url: 'https://moviescentral.vercel.app/author/Movies Central™/',
+        url: 'https://moviescentral.vercel.app/author/Movies Centralï¿½/',
         image: {
           '@type': 'ImageObject',
           '@id': 'https://gravatar.com/drtrailer2022',
@@ -253,7 +253,7 @@ const tvshowDetail = ({ tvshowItem }) => {
         dateModified: tvshowItem.dateModified,
         articleSection: 'TvShow',
         author: {
-          '@id': 'https://moviescentral.vercel.app/author/Movies Central™/'
+          '@id': 'https://moviescentral.vercel.app/author/Movies Centralï¿½/'
         },
         publisher: {
           '@id': 'https://gravatar.com/drtrailer2022/#person'
@@ -285,7 +285,7 @@ const tvshowDetail = ({ tvshowItem }) => {
         dateModified: tvshowItem.dateModified,
         articleSection: 'TvShow',
         author: {
-          '@id': 'https://moviescentral.vercel.app/author/Movies Central™/'
+          '@id': 'https://moviescentral.vercel.app/author/Movies Centralï¿½/'
         },
         publisher: {
           '@id': 'https://gravatar.com/drtrailer2022/#person'

@@ -51,14 +51,14 @@ const Tearms = () => {
       {
         '@type': 'Organization',
         '@id': 'https://moviescentral.vercel.app/#organization',
-        name: 'Movies Central™ - Explore. Discover. Download.',
+        name: 'Movies Central - Explore. Discover. Watch.',
         url: 'https://moviescentral.vercel.app'
       },
       {
         '@type': 'WebSite',
         '@id': 'https://moviescentral.vercel.app/#website',
         url: 'https://moviescentral.vercel.app',
-        name: 'Movies Central™ - Explore. Discover. Download.',
+        name: 'Movies Central - Explore. Discover. Watch.',
         publisher: {
           '@type': 'Organization',
           '@id': 'https://moviescentral.vercel.app/#organization'
@@ -117,7 +117,7 @@ const Tearms = () => {
             publisher: {
               '@type': 'Organization',
               '@id': 'https://moviescentral.vercel.app/#organization',
-              name: 'Movies Central™ - Explore. Discover. Download.',
+              name: 'Movies Central - Explore. Discover. Watch.',
               url: 'https://moviescentral.vercel.app'
             }
           },
@@ -144,7 +144,7 @@ const Tearms = () => {
             publisher: {
               '@type': 'Organization',
               '@id': 'https://moviescentral.vercel.app/#organization',
-              name: 'Movies Central™ - Explore. Discover. Download.',
+              name: 'Movies Central - Explore. Discover. Watch.',
               url: 'https://moviescentral.vercel.app'
             }
           },
@@ -171,7 +171,7 @@ const Tearms = () => {
             publisher: {
               '@type': 'Organization',
               '@id': 'https://moviescentral.vercel.app/#organization',
-              name: 'Movies Central™ - Explore. Discover. Download.',
+              name: 'Movies Central - Explore. Discover. Watch.',
               url: 'https://moviescentral.vercel.app'
             }
           }
@@ -185,7 +185,7 @@ const Tearms = () => {
   return (
     <div>
         <Head>
-        <title>Movies Central™ | Terms of Use</title>
+        <title>Movies Central | Terms of Use</title>
         <link
             rel='sitemap'
             type='application/xml'
@@ -227,7 +227,7 @@ const Tearms = () => {
           />
           <meta
             name='keywords'
-              content='movies central, movies, tvshow, watch free movies, watch free tvshow, watch free adult, watch free trailers, watch movies online, watch tvshow online, watch adult online, watch trailers online, download movies, download tvshow, download adult, watch full movies, watch full tvshow, watch full adult, watch full trailers, watch hd movies, watch hd tvshow, watch hd adult watch hd trailers'
+           content='movies central, movies, tvshow, watch free movies, watch free tvshow, watch free adult, watch free trailers, watch movies online, watch tvshow online, watch adult online, watch trailers online, download movies, download tvshow, download adult, watch full movies, watch full tvshow, watch full adult, watch full trailers, watch hd movies, watch hd tvshow, watch hd adult watch hd trailers'
           />
          
           <link rel='canonical' href='https://moviescentral.vercel.app/intro/tearms' />
@@ -235,27 +235,27 @@ const Tearms = () => {
           <meta property='og:type' content='website' />
           <meta
             property='og:title'
-            content='Movies Central™ '
+            content='Movies Central '
           />
           <meta
             property='og:description'
-            content='Welcome to Movies Central™ – your go-to spot for free online movies! Watch and enjoy HD streaming, and catch the latest tvshows. Dive into cinema with Movies Central™!'
+           content='Welcome to Movies Central™ – your go-to spot for free online movies! Watch and enjoy HD streaming, and catch the latest movies & tvshows. Dive into cinema with Movies Central™!'
           />
           <meta property='og:url' content='https://moviescentral.vercel.app/intro/tearms/' />
           <meta
             property='og:site_name'
-            content='Movies Central™ '
+            content='Movies Central '
           />
           <meta
             property='og:image'
-            content='https://moviescentral.vercel.app/og_image.jpg'
+            content='https://moviescentral.vercel.app/og_image.webp'
           />
           <meta property='og:image:width' content='1280' />
           <meta property='og:image:height' content='720' />
           <meta property='og:image:type' content='image/jpg' />
           <meta
             name='application-name'
-            content='Movies Central™ '
+            content='Movies Central '
           />
           <meta
             property='article:modified_time'
@@ -263,7 +263,7 @@ const Tearms = () => {
           />
              <meta
           property='description'
-          content='Welcome to Movies Central™ – your go-to spot for free online movies! Watch and enjoy HD streaming, and catch the latest tvshows. Dive into cinema with Movies Central™!'
+      content='Welcome to Movies Central™ – your go-to spot for free online movies! Watch and enjoy HD streaming, and catch the latest movies & tvshows. Dive into cinema with Movies Central™!'
         />
           <link
             rel='sitemap'

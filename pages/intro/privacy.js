@@ -26,14 +26,14 @@ const Privacy = () => {
       {
         '@type': 'Organization',
         '@id': 'https://moviescentral.vercel.app/#organization',
-        name: 'Movies Central™ - Explore. Discover. Download.',
+        name: 'Movies Central - Explore. Discover. Watch.',
         url: 'https://moviescentral.vercel.app'
       },
       {
         '@type': 'WebSite',
         '@id': 'https://moviescentral.vercel.app/#website',
         url: 'https://moviescentral.vercel.app',
-        name: 'Movies Central™ - Explore. Discover. Download.',
+        name: 'Movies Central - Explore. Discover. Watch.',
         publisher: {
           '@type': 'Organization',
           '@id': 'https://moviescentral.vercel.app/#organization'
@@ -92,7 +92,7 @@ const Privacy = () => {
             publisher: {
               '@type': 'Organization',
               '@id': 'https://moviescentral.vercel.app/#organization',
-              name: 'Movies Central™ - Explore. Discover. Download.',
+              name: 'Movies Central - Explore. Discover. Watch.',
               url: 'https://moviescentral.vercel.app'
             }
           },
@@ -119,7 +119,7 @@ const Privacy = () => {
             publisher: {
               '@type': 'Organization',
               '@id': 'https://moviescentral.vercel.app/#organization',
-              name: 'Movies Central™ - Explore. Discover. Download.',
+              name: 'Movies Central - Explore. Discover. Watch.',
               url: 'https://moviescentral.vercel.app'
             }
           },
@@ -146,7 +146,7 @@ const Privacy = () => {
             publisher: {
               '@type': 'Organization',
               '@id': 'https://moviescentral.vercel.app/#organization',
-              name: 'Movies Central™ - Explore. Discover. Download.',
+              name: 'Movies Central - Explore. Discover. Watch.',
               url: 'https://moviescentral.vercel.app'
             }
           }
@@ -160,7 +160,7 @@ const Privacy = () => {
   return (
     <div>
        <Head>
-        <title>Movies Central™ | Privacy Policy</title>
+        <title>Movies Central | Privacy Policy</title>
       
         <link
             rel='sitemap'
@@ -203,7 +203,7 @@ const Privacy = () => {
           />
           <meta
             name='keywords'
-             content='movies central, movies, tvshow, watch free movies, watch free tvshow, watch free adult, watch free trailers, watch movies online, watch tvshow online, watch adult online, watch trailers online, download movies, download tvshow, download adult, watch full movies, watch full tvshow, watch full adult, watch full trailers, watch hd movies, watch hd tvshow, watch hd adult watch hd trailers'
+            content='movies central, movies, tvshow, watch free movies, watch free tvshow, watch free adult, watch free trailers, watch movies online, watch tvshow online, watch adult online, watch trailers online, download movies, download tvshow, download adult, watch full movies, watch full tvshow, watch full adult, watch full trailers, watch hd movies, watch hd tvshow, watch hd adult watch hd trailers'
           />
          
           <link rel='canonical' href='https://moviescentral.vercel.app/intro/privacy' />
@@ -211,27 +211,27 @@ const Privacy = () => {
           <meta property='og:type' content='website' />
           <meta
             property='og:title'
-            content='Movies Central™ '
+            content='Movies Central '
           />
           <meta
             property='og:description'
-            content='Welcome to Movies Central™ – your go-to spot for free online movies! Watch and enjoy HD streaming, and catch the latest tvshows. Dive into cinema with Movies Central™!'
+          content='Welcome to Movies Central™ – your go-to spot for free online movies! Watch and enjoy HD streaming, and catch the latest movies & tvshows. Dive into cinema with Movies Central™!'
           />
           <meta property='og:url' content='https://moviescentral.vercel.app/intro/privacy/' />
           <meta
             property='og:site_name'
-            content='Movies Central™ '
+            content='Movies Central '
           />
           <meta
             property='og:image'
-            content='https://moviescentral.vercel.app/og_image.jpg'
+            content='https://moviescentral.vercel.app/og_image.webp'
           />
           <meta property='og:image:width' content='1280' />
           <meta property='og:image:height' content='720' />
           <meta property='og:image:type' content='image/jpg' />
           <meta
             name='application-name'
-            content='Movies Central™ '
+            content='Movies Central '
           />
           <meta
             property='article:modified_time'
@@ -239,7 +239,7 @@ const Privacy = () => {
           />
              <meta
           property='description'
-         content='Welcome to Movies Central™ – your go-to spot for free online movies! Watch and enjoy HD streaming, and catch the latest tvshows. Dive into cinema with Movies Central™!'
+       content='Welcome to Movies Central™ – your go-to spot for free online movies! Watch and enjoy HD streaming, and catch the latest movies & tvshows. Dive into cinema with Movies Central™!'
         />
           <link
             rel='sitemap'
@@ -293,15 +293,15 @@ const Privacy = () => {
   <div className="flex flex-wrap">
     <div className="grow-0 shrink-0 basis-auto mb-12 md:mb-0 w-full  px-3 lg:px-6">
       <h1 className="text-3xl font-bold mb-6">Privacy Policy</h1>
-      <p className="font-bold mb-2">Movies Central™ </p>
+      <p className="font-bold mb-2">Movies Central </p>
       <p className="text-gray-500 mb-6">
-      Movies Central™ International(Movies Central™) is committed to protecting your privacy. This Privacy Policy applies only to the Web Sites and applications published by Movies Central™ International.
+      Movies Central International(Movies Central) is committed to protecting your privacy. This Privacy Policy applies only to the Web Sites and applications published by Movies Central International.
       </p>
       <p className="font-bold mb-2">Note: Use of Information</p>
       <p className="text-gray-500 mb-6">
       Information that we collect  </p>
       <p className="text-gray-500 mb-6">
-      Movies Central™ may collect information from its users in three different ways: directly from the user, from traffic references of hostingservers and from cookies.
+      Movies Central may collect information from its users in three different ways: directly from the user, from traffic references of hostingservers and from cookies.
       </p>
       <p className="font-bold mb-2">We use the information we collect to:</p>
       <p className="text-gray-500 mb-6">
@@ -318,7 +318,7 @@ const Privacy = () => {
 
      
       <p className="text-gray-500">
-      We do not make warranties that this site will operate error free. If you see an error, please contact the <a className="font-bold text-blue-500 mb-6" href="mailto:moviescentralpublisher@outlook.com ">webmaster</a>. By entering this site you agree to hold the owners, employees, advertisers of Movies Central™  free from any and all liability.This site (Movies Central™ ) do not offer any membership.If you have any questions please feel free to <a className="font-bold text-blue-500 mb-6" href="mailto:moviescentralpublisher@outlook.com">contact us</a>.
+      We do not make warranties that this site will operate error free. If you see an error, please contact the <a className="font-bold text-blue-500 mb-6" href="mailto:moviescentralpublisher@outlook.com ">webmaster</a>. By entering this site you agree to hold the owners, employees, advertisers of Movies Central  free from any and all liability.This site (Movies Central ) do not offer any membership.If you have any questions please feel free to <a className="font-bold text-blue-500 mb-6" href="mailto:moviescentralpublisher@outlook.com">contact us</a>.
       </p>
     </div>
 

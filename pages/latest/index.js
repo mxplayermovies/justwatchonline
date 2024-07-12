@@ -3,7 +3,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import latestData from '../../public/latest.json'
 // import Marquee from '../../components/Marquee'
-// import Pagination from '../../components/Pagination'
+import Pagination from '../../components/Pagination'
 import Head from 'next/head'
 import Script from 'next/script'
 
@@ -11,7 +11,7 @@ const uwatchfreeSchema = JSON.stringify([
   {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    name: 'Movies Central™ - Explore. Discover. Download.',
+    name: 'Movies Central™ - Explore. Discover. Watch.',
     url: 'https://moviescentral.vercel.app/',
     image: ['https://moviescentral.vercel.app/favicon.ico'],
     logo: {
@@ -41,7 +41,7 @@ const softwareSchema = JSON.stringify({
   '@context': 'https://schema.org',
   '@type': 'Article',
   '@id': 'https://moviescentral.vercel.app/latest/',
-  headline: 'Latest | Movies Central™',
+  headline: 'Movies Central™ - Explore. Discover. Watch.',
   url: 'https://moviescentral.vercel.app/latest/',
   description:
     'Welcome to Movies Central™ – your go-to spot for free online movies! Watch and enjoy HD streaming, and catch the latest movies & tvshows. Dive into cinema with Movies Central™!',
@@ -53,7 +53,7 @@ const softwareSchema = JSON.stringify({
   },
   publisher: {
     '@type': 'Organization',
-    name: 'Movies Central - Explore. Discover. Download.',
+    name: 'Movies Central™ - Explore. Discover. Watch.',
     logo: {
       '@type': 'ImageObject',
       url: 'https://moviescentral.vercel.app/og_image.jpg'
@@ -79,7 +79,7 @@ const breadcrumbSchema = JSON.stringify({
     {
       '@type': 'ListItem',
       position: 1,
-      name: 'Windows',
+      name: 'Movies Central™',
       item: 'https://moviescentral.vercel.app/'
     },
     {
@@ -94,17 +94,17 @@ const breadcrumbSchema = JSON.stringify({
 const latestPage = ({ items }) => {
   const [latest, setLatest] = useState(latestData)
 
-  const [currentPage, setCurrentPage] = useState(1)
-  const totalPages = 0 // Assume there are 3 pages
+  // const [currentPage, setCurrentPage] = useState(1)
+  // const totalPages = 0 // Assume there are 3 pages
 
-  useEffect(() => {
-    // Logic to fetch browsers for the current page
-  }, [currentPage])
+  // useEffect(() => {
+  //   // Logic to fetch browsers for the current page
+  // }, [currentPage])
 
   return (
     <div className='w-full' style={{ backgroundColor: '#D3D3D3' }}>
       <Head>
-        <title> Entertainment News | Movies Central™</title>
+        <title> Latest Movies News | Movies Central™</title>
         <link rel='canonical' href='https://moviescentral.vercel.app/latest/' />
         <meta
           name='robots'
@@ -114,12 +114,11 @@ const latestPage = ({ items }) => {
         <meta name='googlebot' content='index,follow' />
         <meta name='revisit-after' content='1 days' />
         <meta property='og:locale' content='en_US' />
-        <meta property='og:type' content='video.movie' />
-        {/* <meta property='og:type' content='website' /> */}
+        <meta property="og:type" content="video.movie" />
         <meta property='og:title' content=' Latest Blog | Movies Central' />
         <meta
           property='og:description'
-          content='Welcome to Movies Central™ – your go-to spot for free online movies! Watch and enjoy HD streaming, and catch the latest movies & tvshows. Dive into cinema with Movies Central™!'
+        content='Welcome to Movies Central™ – your go-to spot for free online movies! Watch and enjoy HD streaming, and catch the latest movies & tvshows. Dive into cinema with Movies Central™!'
         />
 
         <meta
@@ -128,7 +127,7 @@ const latestPage = ({ items }) => {
         />
 
         <meta property='og:site_name' content='Movies Central' />
-        {/* <meta property='og:type' content='article' /> */}
+        <meta property='og:type' content='article' />
         <meta
           property=' og:image:alt'
           content='https://moviescentral.vercel.app/og_image.jpg'
@@ -142,7 +141,7 @@ const latestPage = ({ items }) => {
         />
         <meta
           name='keywords'
-           content='movies central, movies, tvshow, watch free movies, watch free tvshow, watch free adult, watch free trailers, watch movies online, watch tvshow online, watch adult online, watch trailers online, download movies, download tvshow, download adult, watch full movies, watch full tvshow, watch full adult, watch full trailers, watch hd movies, watch hd tvshow, watch hd adult watch hd trailers'
+         content='movies central, movies, tvshow, watch free movies, watch free tvshow, watch free adult, watch free trailers, watch movies online, watch tvshow online, watch adult online, watch trailers online, download movies, download tvshow, download adult, watch full movies, watch full tvshow, watch full adult, watch full trailers, watch hd movies, watch hd tvshow, watch hd adult watch hd trailers'
         />
         <meta
           property='og:image'
@@ -155,20 +154,28 @@ const latestPage = ({ items }) => {
         <meta name='twitter:label1' content='Est. reading time' />
         <meta name='twitter:data1' content='1 minute' />
         <meta
+          property='description'
+         content='Welcome to Movies Central™ – your go-to spot for free online movies! Watch and enjoy HD streaming, and catch the latest movies & tvshows. Dive into cinema with Movies Central™!'
+        />
+        <meta
           name='google-site-verification'
           content='4dFu4PUk1pc1IYqU6Brt84akCwNxaoUpKSO3gDW0kJ0'
         />
         <meta
           name='facebook-domain-verification'
-          content='du918bycikmo1jw78wcl9ih6ziphd7'
+          content='zifsy861dlzorbop8eww76tsqlf7t4'
         />
         <meta
           name='dailymotion-domain-verification'
           content='dmv6sg06w9r5eji88'
         />
 
-        {/* <script src='https://www.youtube.com/iframe_api' /> */}
-        <script
+        
+     
+      </Head>
+      <Script src='../../propler/ads.js' defer />
+      <Script src='../../propler/ads2.js' defer />
+      <script
           type='application/ld+json'
           dangerouslySetInnerHTML={{ __html: uwatchfreeSchema }}
         />
@@ -180,13 +187,6 @@ const latestPage = ({ items }) => {
         <script
           type='application/ld+json'
           dangerouslySetInnerHTML={{ __html: breadcrumbSchema }}
-        />
-        <link
-          rel='stylesheet'
-          href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css'
-          integrity='sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=='
-          crossorigin='anonymous'
-          referrerpolicy='no-referrer'
         />
         {/* Webpushr tracking code */}
         <script
@@ -205,10 +205,6 @@ const latestPage = ({ items }) => {
           `
           }}
         />
-      </Head>
-      <Script src='../../propler/ads.js' defer />
-      <Script src='../../propler/ads2.js' defer />
-
       {/* <div className='container'> */}
       <h1
         className='badge bg-gradient-to-r from-pink-500 to-amber-500 font-bold py-3 px-6  shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300'
@@ -223,7 +219,7 @@ const latestPage = ({ items }) => {
           marginBottom: '15px'
         }}
       >
-        Movies Central Latest Entertainment Section.
+        Latest Movies Central™ -  News Section.
       </h1>
       {/* <Marquee /> */}
       {/* <p
@@ -241,10 +237,9 @@ const latestPage = ({ items }) => {
       >
         Select Categories.{' '}
       </p> */}
-      <div
+   <div
           className='shadow-lg flex items-center justify-center'
           role='navigation'
-          
         >
           <ul
             id='menu-header-menu'
@@ -260,47 +255,37 @@ const latestPage = ({ items }) => {
                 </a>
               </li>
             </button>
-
             <button className='border border-black p-2 m-1 hover:bg-orange-100'>
-              <li id='menu-item-284913' className='menu-softwarecategories'>
-                <a href='../trailers/'>
-                  <h3 className='text-black hover:px-0 text-bg font-black bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-xl'>
-                    Trailers<span className='p'></span>
-                  </h3>
-                </a>
-              </li>
-            </button>
-          <button className='border border-black p-2 m-1 hover:bg-orange-100'>
-              <li id='menu-item-11610' className='menu-graphicdesign'>
+              <li id='menu-item-194' className='menu-tutorials'>
                 <a
                   href='../movies/'
                   className='text-black hover:px-0 text-bg font-black bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-xl'
                 >
-                  Movies<span className='p'></span>
-                </a>
-              </li>
-            </button>
-           <button className='border border-black p-2 m-1 hover:bg-orange-100'>
-              <li id='menu-item-84' className='menu-antivirus'>
-                <a
-                  href='../tvshow/'
-                  className='text-black hover:px-0 text-bg font-black bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-xl'
-                >
-                  Tv Show<span className='p'></span>
+                  Movies <span className='p'></span>
                 </a>
               </li>
             </button>
             <button className='border border-black p-2 m-1 hover:bg-orange-100'>
-              <li id='menu-item-84' className='menu-antivirus'>
+              <li id='menu-item-194' className='menu-tutorials'>
+                <a
+                  href='../tvshow/'
+                  className='text-black hover:px-0 text-bg font-black bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-xl'
+                >
+                  Tv Show <span className='p'></span>
+                </a>
+              </li>
+            </button>
+            <button className='border border-black p-2 m-1 hover:bg-orange-100'>
+              <li id='menu-item-194' className='menu-tutorials'>
                 <a
                   href='../adult/'
                   className='text-black hover:px-0 text-bg font-black bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-xl'
                 >
-                  Adult<span className='p'></span>
+                  Adult <span className='p'></span>
                 </a>
               </li>
             </button>
-          <button className='border border-black p-2 m-1 hover:bg-orange-100'>
+            <button className='border border-black p-2 m-1 hover:bg-orange-100'>
               <li id='menu-item-194' className='menu-tutorials'>
                 <a
                   href='../latest/'
@@ -312,22 +297,20 @@ const latestPage = ({ items }) => {
             </button>
           </ul>
         </div>
-        <a
+      <a
           href='https://t.me/watchmovietvshow/'
           target='_blank'
           rel='noopener noreferrer'
           className='bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent font-bold text-3xl mt-2 flex items-center justify-center'
-          style={{ marginTop: '25px', marginBottom:'25px' }}
+          style={{ marginTop: '15px' }}
         >
           <span className='px-0 bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-3xl hover:text-blue-800 font-bold mt-2'>
             For Request or Demand Movies Join Telegram
             <i className='fab fa-telegram text-blue-600 hover:text-gray-600 ml-2 w-12 h-12 animate-pulse '></i>
           </span>
         </a>
-      {/* </div> */}
-    
       <div className='container'>
-      
+     
         <div className='flex-container'>
           <div className='main-content'>
             <div className='card-container'>
@@ -348,18 +331,39 @@ const latestPage = ({ items }) => {
                           width: '400px', // Ensures the image is displayed at this width
                           height: '300px', // Ensures the image is displayed at this height
                           filter:
-                            'contrast(1.1) saturate(1.1) brightness(1.0) hue-rotate(0deg)'
+                            'contrast(1.3) saturate(1.4) brightness(1.2) hue-rotate(10deg)'
                         }}
                       />
                       <p className='text-black text-2xl font-semibold mt-2'>
                         {item.name}
                       </p>
                       <p className='text-black text-bg font-semibold mt-2'>
-                        Date: {item.license}, Platform: {item.platform}
+                        Publish Date: {item.license}
                       </p>
-                      <p className='text-black text-bg font-semibold mt-2'>
-                      Country of origin: {item.country}
-                      </p>
+                      <h2 className='text-black font-bold mt-2 text-sm mb-2 items-center justify-center '>
+              {' '}
+              Author: {item.group}.
+            </h2>
+             <Image
+                src={item.directorimg}
+                alt={item.group}
+                width={100}
+                height={100}
+                quality={90}
+                objectFit='cover'
+                loading='lazy'
+                style={{
+                  width: '50px', // Ensures the image is displayed at this width
+                  height: '50px', // Ensures the image is displayed at this height
+                  margin: 'auto',
+                  marginBottom: '20px',
+                  borderRadius: '80px',
+                  boxShadow: '0 0 10px 0 #fff',
+                  filter:
+                    'contrast(1.0) saturate(1.0) brightness(1.0) hue-rotate(0deg)'
+                }}
+              />
+
 
                       <div className='bg-gradient-to-r from-pink-700 to-blue-700 bg-clip-text text-transparent text-black text-lg font-semibold mt-2'>
                         {item.text}
@@ -383,6 +387,7 @@ const latestPage = ({ items }) => {
                 Many More Coming Soon...
               </p>
             </div>
+           
             {/* <Pagination currentPage={currentPage} totalPages={totalPages} route="latest" /> */}
           </div>
           </div>
@@ -493,6 +498,14 @@ const latestPage = ({ items }) => {
               margin-top: 20px;
             }
           }
+              @media (max-width: 768px) {
+      .text-3xl {
+        font-size: 1.5rem;
+      }
+      .ml-2 {
+        margin-left: 0.5rem;
+      }
+    }
         `}</style>
       </div>
     </div>

@@ -13,7 +13,7 @@ const uwatchfreeSchema = JSON.stringify([
   {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    name: 'Movies Central™ - Explore. Discover. Download.',
+    name: 'Movies Central™ - Explore. Discover. Watch.',
     url: 'https://moviescentral.vercel.app/',
     image: ['https://moviescentral.vercel.app/favicon.ico'],
     logo: {
@@ -31,7 +31,8 @@ const uwatchfreeSchema = JSON.stringify([
       '@type': 'SearchAction',
       target: {
         '@type': 'EntryPoint',
-        urlTemplate: 'https://moviescentral.vercel.app/search?q={search_term_string}'
+        urlTemplate:
+          'https://moviescentral.vercel.app/search?q={search_term_string}'
       },
       'query-input': 'required name=search_term_string'
     }
@@ -42,11 +43,11 @@ const softwareSchema = JSON.stringify({
   '@context': 'https://schema.org',
   '@type': 'Article',
   '@id': 'https://moviescentral.vercel.app/adult/',
-  headline: 'Movies Central™ - Explore. Discover. Download.',
+  headline: 'Movies Central™ - Explore. Discover. Watch.',
   url: 'https://moviescentral.vercel.app/adult/',
   description:
-     'Welcome to Movies Central™ – your go-to spot for free online movies! Watch and enjoy HD streaming, and catch the latest movies & tvshows. Dive into cinema with Movies Central™!',
-  image: 'https://moviescentral.vercel.app/og_image.jpg',
+    'Welcome to Movies Central™ – your go-to spot for free online movies! Watch and enjoy HD streaming, and catch the latest movies & tvshows. Dive into cinema with Movies Central™!',
+  image: 'https://moviescentral.vercel.app/wp-content/uploads/adult.webp',
   author: {
     '@type': 'Person',
     name: 'DrTrailer',
@@ -54,7 +55,7 @@ const softwareSchema = JSON.stringify({
   },
   publisher: {
     '@type': 'Organization',
-    name: 'Movies Central™ - Explore. Discover. Download.',
+    name: 'Movies Central™ - Explore. Discover. Watch.',
     logo: {
       '@type': 'ImageObject',
       url: 'https://moviescentral.vercel.app/og_image.jpg'
@@ -105,8 +106,11 @@ const adultPage = ({ items }) => {
   return (
     <div className='w-full' style={{ backgroundColor: '#D3D3D3' }}>
       <Head>
-        <title> Watch Adult Movies - Movies Central™</title>
-        <link rel='canonical' href='https://moviescentral.vercel.app/adult/' />
+        <title> Movies Central™ - Adult Section.</title>
+        <link
+          rel='canonical'
+          href='https://moviescentral.vercel.app/adult/'
+        />
         <meta
           name='robots'
           content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'
@@ -116,30 +120,32 @@ const adultPage = ({ items }) => {
         <meta name='revisit-after' content='1 days' />
         <meta property='og:locale' content='en_US' />
         <meta property='og:type' content='video.movie' />
-        {/* <meta property='og:type' content='website' /> */}
         <meta
           property='og:title'
-          content='  Movies Central™ - Explore. Discover. Download.'
+          content='  Movies Central™ - Explore. Discover. Watch.'
         />
         <meta
           property='og:description'
-          content='Welcome to Movies Central™ – your go-to spot for free online movies! Watch and enjoy HD streaming, and catch the latest movies & tvshows. Dive into cinema with Movies Central™!'
+         content='Welcome to Movies Central™ – your go-to spot for free online movies! Watch and enjoy HD streaming, and catch the latest movies & tvshows. Dive into cinema with Movies Central™!'
         />
 
-        <meta property='og:url' content='https://moviescentral.vercel.app/adult' />
+        <meta
+          property='og:url'
+          content='https://moviescentral.vercel.app/adult'
+        />
 
-        <meta property='og:site_name' content='Movies Central' />
-        {/* <meta property='og:type' content='article' /> */}
+        <meta property='og:site_name' content='Movies Central™' />
+        <meta property='og:type' content='article' />
         <meta
           property=' og:image:alt'
-          content='https://moviescentral.vercel.app/wp-content/uploads/og_image.jpg'
+          content='https://moviescentral.vercel.app/og_image.jpg'
         />
-        <meta
+           <meta
           property='description'
-           content='Welcome to Movies Central™ – your go-to spot for free online movies! Watch and enjoy HD streaming, and catch the latest movies & tvshows. Dive into cinema with Movies Central™!'
+          content='Welcome to Movies Central™ – your go-to spot for free online movies! Watch and enjoy HD streaming, and catch the latest movies & tvshows. Dive into cinema with Movies Central™!'
         />
         <meta name='mobile-web-app-capable' content='yes' />
-        <meta property='article:section' content='Adult' />
+        <meta property='article:section' content='adult' />
         <meta name='author' content='admin' />
         <meta
           property='article:modified_time'
@@ -147,8 +153,8 @@ const adultPage = ({ items }) => {
         />
         <meta
           name='keywords'
-              content='movies central, movies, tvshow, watch free movies, watch free tvshow, watch free adult, watch free trailers, watch movies online, watch tvshow online, watch adult online, watch trailers online, download movies, download tvshow, download adult, watch full movies, watch full tvshow, watch full adult, watch full trailers, watch hd movies, watch hd tvshow, watch hd adult watch hd trailers'
-             />
+        content='movies central, movies, tvshow, watch free movies, watch free tvshow, watch free adult, watch free trailers, watch movies online, watch tvshow online, watch adult online, watch trailers online, download movies, download tvshow, download adult, watch full movies, watch full tvshow, watch full adult, watch full trailers, watch hd movies, watch hd tvshow, watch hd adult watch hd trailers'
+        />
         <meta
           property='og:image'
           content='https://moviescentral.vercel.app/og_image.jpg'
@@ -171,7 +177,11 @@ const adultPage = ({ items }) => {
           name='dailymotion-domain-verification'
           content='dmv6sg06w9r5eji88'
         />
-        <script
+           
+      </Head>
+      <Script src='../../propler/ads.js' defer />
+      <Script src='../../propler/ads2.js' defer />
+      <script
           type='application/ld+json'
           dangerouslySetInnerHTML={{ __html: uwatchfreeSchema }}
         />
@@ -183,13 +193,6 @@ const adultPage = ({ items }) => {
         <script
           type='application/ld+json'
           dangerouslySetInnerHTML={{ __html: breadcrumbSchema }}
-        />
-        <link
-          rel='stylesheet'
-          href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css'
-          integrity='sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=='
-          crossorigin='anonymous'
-          referrerpolicy='no-referrer'
         />
         {/* Webpushr tracking code */}
         <script
@@ -208,10 +211,6 @@ const adultPage = ({ items }) => {
           `
           }}
         />
-      </Head>
-      <Script src='../../propler/ads2.js' defer />
-      <Script src='../../propler/ads.js' defer />
-      
 
       <h1
         className='badge bg-gradient-to-r from-pink-500 to-amber-500 font-bold py-3 px-6  shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300'
@@ -226,7 +225,7 @@ const adultPage = ({ items }) => {
           marginBottom: '15px'
         }}
       >
-        Movies Central Adult Section.
+        Latest Movies Central™ - Adult Section.
       </h1>
 
       <div
@@ -247,46 +246,37 @@ const adultPage = ({ items }) => {
               </a>
             </li>
           </button>
-
+       
           <button className='border border-black p-2 m-1 hover:bg-orange-100'>
-            <li id='menu-item-284913' className='menu-softwarecategories'>
-              <a href='../trailers/'>
-                <h3 className='text-black hover:px-0 text-bg font-black bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-xl'>
-                  Trailers<span className='p'></span>
-                </h3>
-              </a>
-            </li>
-          </button>
-          <button className='border border-black p-2 m-1 hover:bg-orange-100'>
-            <li id='menu-item-11610' className='menu-graphicdesign'>
+            <li id='menu-item-194' className='menu-tutorials'>
               <a
                 href='../movies/'
                 className='text-black hover:px-0 text-bg font-black bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-xl'
               >
-                Movies<span className='p'></span>
+                Movies <span className='p'></span>
               </a>
             </li>
           </button>
           <button className='border border-black p-2 m-1 hover:bg-orange-100'>
-            <li id='menu-item-84' className='menu-antivirus'>
-              <a
-                href='../tvshow/'
-                className='text-black hover:px-0 text-bg font-black bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-xl'
-              >
-                Tv Show<span className='p'></span>
-              </a>
-            </li>
-          </button>
-          <button className='border border-black p-2 m-1 hover:bg-orange-100'>
-            <li id='menu-item-84' className='menu-antivirus'>
-              <a
-                href='../adult/'
-                className='text-black hover:px-0 text-bg font-black bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-xl'
-              >
-                Adult<span className='p'></span>
-              </a>
-            </li>
-          </button>
+              <li id='menu-item-194' className='menu-tutorials'>
+                <a
+                  href='../tvshow/'
+                  className='text-black hover:px-0 text-bg font-black bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-xl'
+                >
+                  Tv Show <span className='p'></span>
+                </a>
+              </li>
+            </button>
+            <button className='border border-black p-2 m-1 hover:bg-orange-100'>
+              <li id='menu-item-194' className='menu-tutorials'>
+                <a
+                  href='../adult/'
+                  className='text-black hover:px-0 text-bg font-black bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-xl'
+                >
+                  Adult <span className='p'></span>
+                </a>
+              </li>
+            </button>
           <button className='border border-black p-2 m-1 hover:bg-orange-100'>
             <li id='menu-item-194' className='menu-tutorials'>
               <a
@@ -299,18 +289,20 @@ const adultPage = ({ items }) => {
           </button>
         </ul>
       </div>
+
       <a
-        href='https://t.me/watchmovietvshow/'
-        target='_blank'
-        rel='noopener noreferrer'
-        className='bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent font-bold text-3xl mt-2 flex items-center justify-center'
-        style={{ marginTop: '15px' }}
-      >
-        <span className='px-0 bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-3xl hover:text-blue-800 font-bold mt-2'>
-          For Request or Demand Movies Join Telegram
-          <i className='fab fa-telegram text-blue-600 hover:text-gray-600 ml-2 w-12 h-12 animate-pulse '></i>
-        </span>
-      </a>
+          href='https://t.me/watchmovietvshow/'
+          target='_blank'
+          rel='noopener noreferrer'
+          className='bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent font-bold text-3xl mt-2 flex items-center justify-center'
+          style={{ marginTop: '15px' }}
+        >
+          <span className='px-0 bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-3xl hover:text-blue-800 font-bold mt-2'>
+            For Request or Demand Adult Join Telegram
+            <i className='fab fa-telegram text-blue-600 hover:text-gray-600 ml-2 w-12 h-12 animate-pulse '></i>
+          </span>
+        </a>
+
       {/* <Pagination
                 currentPage={currentPage}
                 totalPages={totalPages}
@@ -382,7 +374,7 @@ const adultPage = ({ items }) => {
                 Many More Coming Soon...
               </p>
             </div>
-            {/* <Pagination
+         {/* <Pagination
                 currentPage={currentPage}
                 totalPages={totalPages}
                 route='adult'
@@ -407,7 +399,7 @@ const adultPage = ({ items }) => {
                 textShadow: '1px 2px 2px #000'
               }}
             >
-              LATEST ENTERTAINMENT NEWS
+              LATEST MOVIE NEWS.
             </p>
             <div className='categorylatest-container'>
               <div className='cardlatest-container'>
@@ -549,14 +541,14 @@ const adultPage = ({ items }) => {
               margin-top: 20px;
             }
           }
-          @media (max-width: 768px) {
-            .text-3xl {
-              font-size: 1.5rem;
-            }
-            .ml-2 {
-              margin-left: 0.5rem;
-            }
-          }
+         @media (max-width: 768px) {
+      .text-3xl {
+        font-size: 1.5rem;
+      }
+      .ml-2 {
+        margin-left: 0.5rem;
+      }
+    }
         `}</style>
       </div>
     </div>

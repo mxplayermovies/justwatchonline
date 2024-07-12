@@ -7,7 +7,6 @@ import Pagination from '../../../components/Pagination'
 import AdultSkipAds from '../../../components/AdultSkipAds'
 import Head from 'next/head'
 import Image from 'next/image'
-
 import Link from 'next/link'
 import HomeStyles from '@styles/styles.module.css'
 import Script from 'next/script'
@@ -222,9 +221,9 @@ const adultDetail = ({ adultItem }) => {
       },
       {
         '@type': 'Person',
-        '@id': 'https://moviescentral.vercel.app/author/Movies Central™/',
+        '@id': 'https://moviescentral.vercel.app/author/Movies Centralï¿½/',
         name: 'Dr Trailer',
-        url: 'https://moviescentral.vercel.app/author/Movies Central™/',
+        url: 'https://moviescentral.vercel.app/author/Movies Centralï¿½/',
         image: {
           '@type': 'ImageObject',
           '@id': 'https://gravatar.com/drtrailer2022',
@@ -242,7 +241,7 @@ const adultDetail = ({ adultItem }) => {
         dateModified: adultItem.dateModified,
         articleSection: 'Adult',
         author: {
-          '@id': 'https://moviescentral.vercel.app/author/Movies Central™/'
+          '@id': 'https://moviescentral.vercel.app/author/Movies Centralï¿½/'
         },
         publisher: {
           '@id': 'https://gravatar.com/drtrailer2022/#person'
@@ -274,7 +273,7 @@ const adultDetail = ({ adultItem }) => {
         dateModified: adultItem.dateModified,
         articleSection: 'Adult',
         author: {
-          '@id': 'https://moviescentral.vercel.app/author/Movies Central™/'
+          '@id': 'https://moviescentral.vercel.app/author/Movies Centralï¿½/'
         },
         publisher: {
           '@id': 'https://gravatar.com/drtrailer2022/#person'

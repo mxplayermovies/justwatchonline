@@ -22,7 +22,7 @@ export default function ytmag ({ movie }) {
             <Head>
                 <meta charSet="UTF-8" />
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-                <title>Movies Central - Explore. Discover. Download.</title>
+                <title>Youtube Magazine - Explore. Discover. Watch.</title>
                 {/* Add your other meta tags here */}
                 <script
                     type="application/ld+json"
@@ -56,14 +56,14 @@ export default function ytmag ({ movie }) {
                                     },
                                     "inLanguage": "en-US",
                                     "mainEntityOfPage": {
-                                        "@id": "https://moviescentral.vercel.appauthor/moviescentral/#webpage"
+                                        "@id": "https://moviescentral.vercel.appauthor/Youtube Magazine/#webpage"
                                     }
                                 },
                                 {
                                     "@type": "Person",
-                                    "@id": "https://moviescentral.vercel.appauthor/moviescentral/",
+                                    "@id": "https://moviescentral.vercel.appauthor/Youtube Magazine/",
                                     "name": "Dr Trailer",
-                                    "url": "https://moviescentral.vercel.appauthor/moviescentral/",
+                                    "url": "https://moviescentral.vercel.appauthor/Youtube Magazine/",
                                     "image": {
                                         "@type": "ImageObject",
                                         "@id": "https://gravatar.com/drtrailer2022",
@@ -75,17 +75,22 @@ export default function ytmag ({ movie }) {
                                         "https://moviescentral.vercel.app"
                                     ],
                                     "mainEntityOfPage": {
-                                        "@id": "https://moviescentral.vercel.appauthor/moviescentral/#webpage"
+                                        "@id": "https://moviescentral.vercel.appauthor/Youtube Magazine/#webpage"
                                     }
                                 }
                             ]
                         }`
                     }}
                 ></script>
+                    <script
+            async
+            src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5527677677744511'
+            crossorigin='anonymous'
+          ></script>
             </Head>
  
             <div id="main">
-            <h1 className="flex flex-col text-center py-5 font-bold text-3xl items-center justify-center" style={{ color: "#40D7BC", textShadow: "5px 5px 2px #000" }}>Movies Central - Explore. Discover. Download. </h1>
+            <h1 className="flex flex-col text-center py-5 font-bold text-3xl items-center justify-center" style={{ color: "#40D7BC", textShadow: "5px 5px 2px #000" }}>Youtube Magazine - Explore. Discover. Watch. </h1>
                 <div className="container" style={{justifyContent: 'center', alignItems: 'center', height: '10vh', marginTop: '100px', }}>
                     <div className="home-main">
                         <div className="hm-logo"><a title="" href="https://moviescentral.vercel.app" id="logo-home"></a></div>

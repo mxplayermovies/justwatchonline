@@ -1,6 +1,5 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 
-
 class MyDocument extends Document {
   render () {
     return (
@@ -43,25 +42,21 @@ class MyDocument extends Document {
           />
           <meta
             name='keywords'
-              content='movies central, movies, tvshow, watch free movies, watch free tvshow, watch free adult, watch free trailers, watch movies online, watch tvshow online, watch adult online, watch trailers online, download movies, download tvshow, download adult, watch full movies, watch full tvshow, watch full adult, watch full trailers, watch hd movies, watch hd tvshow, watch hd adult watch hd trailers'
+            content='Movies Central, a to z movies, a-z movies, Movies Central, watch free movies, watch movies online, download movies, watch full movies, watch hd movies'
           />
-            {/* <meta
-              name='description'
-              content='Movies Central™ - Explore. Discover. Download.'
-            /> */}
-          {/* <link
+         <link
             rel='canonical'
             href='https://moviescentral.vercel.app/'
-          /> */}
+          />
           <meta property='og:locale' content='en_US' />
-          <meta property='og:type' content='website' />
+          <meta property="og:type" content="video.movie" />
           <meta
             property='og:title'
-            content='Movies Central™ - Explore. Discover. Download.'
+            content='Movies Central™ - Explore. Discover. Watch.'
           />
           <meta
             property='og:description'
-            content='Welcome to Movies Central™ – your go-to spot for free online movies! Watch and enjoy HD streaming, and catch the latest movies & tvshows. Dive into cinema with Movies Central™!'
+            content='Welcome to Movies Central™ – your go-to spot for free online movies! Watch films from A to Z, enjoy HD streaming, and catch the latest trailers. Dive into cinema with Movies Central™!'
           />
           <meta
             property='og:url'
@@ -69,18 +64,18 @@ class MyDocument extends Document {
           />  
           <meta
             property='og:site_name'
-            content='Movies Central - Explore. Discover. Download.'
+            content='Movies Central.™ - Explore. Discover. Watch.'
           />
-          <meta
+          {/* <meta
             property='og:image'
             content='https://moviescentral.vercel.app/og_image.jpg'
-          />
+          /> */}
           <meta property='og:image:width' content='1280' />
           <meta property='og:image:height' content='720' />
           <meta property='og:image:type' content='image/webp' />
           <meta
             name='application-name'
-            content='Movies Central - Explore. Discover. Download.'
+            content='Movies Central.™ - Explore. Discover. Watch.'
           />
           <meta
             property='article:modified_time'
@@ -92,11 +87,18 @@ class MyDocument extends Document {
             title='Sitemap'
             href='https://moviescentral.vercel.app/sitemap.xml'
           />
-          <meta name='twitter:card' content='summary_large_image' />
+             <link
+          rel='stylesheet'
+          href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css'
+          integrity='sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=='
+          crossorigin='anonymous'
+       
+        />
+       <meta name='twitter:card' content='summary_large_image' />
       
           <meta
             name='google-adsense-account'
-            content='ca-pub-#'
+            content='ca-pub-5527677677744511'
           />
           <meta
             name='google-site-verification'
@@ -104,19 +106,19 @@ class MyDocument extends Document {
           />
           <meta
             name='facebook-domain-verification'
-            content='du918bycikmo1jw78wcl9ih6ziphd7'
+            content='zifsy861dlzorbop8eww76tsqlf7t4'
           />
           <meta
             name='dailymotion-domain-verification'
             content='dmdzuqt3p027t2adn'
           />
           <meta name='monetag' content='35a75bbdeae678c82776e64fb78cdac5' />
-          {/* <script
-            dangerouslySetInnerHTML={{
-              __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-W62BF3BQ');`,
-            }}
-          /> */}
-           
+          
+          <link
+            rel='stylesheet'
+            href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css'
+          />
+          {/* <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" /> */}
         </Head>
 
         <body>
@@ -130,7 +132,6 @@ class MyDocument extends Document {
               style={{ display: 'none', visibility: 'hidden' }}
             ></iframe>
           </noscript> */}
-       
         </body>
       </Html>
     )

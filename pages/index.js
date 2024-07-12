@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react'
-import adultData from '../public/adult.json'
-import latestData from '../public/latest.json'
+import { FaTelegram } from 'react-icons/fa'
 import moviesData from '../public/movies.json'
+import latestData from '../public/latest.json'
+import moviesp1Data from '../public/moviesp1.json'
+import adultData from '../public/adult.json'
 import tvshowData from '../public/tvshow.json'
-import trailersData from '../public/trailers.json'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
+// import Script from 'next/script'
 
 // Function to shuffle an array and return the first few items
 function getRandomItems (array, numberOfItems) {
@@ -16,32 +18,42 @@ function getRandomItems (array, numberOfItems) {
 const HomePage = () => {
   const [latest, setlatest] = useState(latestData)
 
+  // const [movies, setmovies] = useState(moviesData.slice(0, 4)) // Only the first 2 items
+  // // const [browser, setbrowser] = useState(browserData.slice(0, 2)) // Only the first 2 items
+
   // Initial state with a consistent set of data
-  const [adult, setadult] = useState(adultData.slice(0, 3))
-  const [movies, setmovies] = useState(moviesData.slice(0, 3))
-  const [tvshow, settvshow] = useState(tvshowData.slice(0, 3))
-  const [trailers, settrailers] = useState(trailersData.slice(0, 3))  
+  const [movies, setmovies] = useState(moviesData.slice(0, 4))
+  const [moviesp1, setmoviesp1] = useState(moviesp1Data.slice(0, 4))
+  const [adult, setadult] = useState(adultData.slice(0, 4))
+  const [tvshow, settvshow] = useState(tvshowData.slice(0, 4))
+  // const [graphicdesign, setgraphicdesign] = useState(
+  //   graphicdesignData.slice(0, 2))
+  // const [recaps, setrecaps] = useState(recapsData.slice(0, 4))
 
-  // Update the state with random items after the component mounts
+  // // Update the state with random items after the component mounts
   useEffect(() => {
-    const shuffledadultData = getRandomItems(adultData, 3)
-    const shuffledmoviesData = getRandomItems(moviesData, 3)
-    const shuffledtvshowData = getRandomItems(tvshowData, 3)
-    const shuffledtrailersData = getRandomItems(trailersData, 3)
+    const shuffledmoviesData = getRandomItems(moviesData, 4)
+    const shuffledmoviesp1Data = getRandomItems(moviesp1Data, 4)
+    const shuffledadultData = getRandomItems(adultData, 4)
+    const shuffledtvshowData = getRandomItems(tvshowData, 4)
+    //   const shuffledgraphicdesignData = getRandomItems(graphicdesignData, 2)
+    // const shuffledrecapsData = getRandomItems(recapsData, 4)
 
-    setadult(shuffledadultData)
     setmovies(shuffledmoviesData)
+    setmoviesp1(shuffledmoviesp1Data)
+    setadult(shuffledadultData)
     settvshow(shuffledtvshowData)
-    settrailers(shuffledtrailersData)
+    //   setgraphicdesign(shuffledgraphicdesignData)
+    // setrecaps(shuffledrecapsData)
   }, [])
 
-  const pageTitle = 'Movies Central™ - Explore. Discover. Download.'
+  const pageTitle = 'Movies Central™ - Explore. Discover. Watch.'
 
   const uwatchfreeSchema = JSON.stringify([
     {
       '@context': 'https://schema.org',
       '@type': 'Organization',
-      name: 'Movies Central™ - Explore. Discover. Download.',
+      name: 'Movies Central™ - Explore. Discover. Watch.',
       url: 'https://moviescentral.vercel.app/',
       image: ['https://moviescentral.vercel.app/favicon.ico'],
       logo: {
@@ -59,7 +71,8 @@ const HomePage = () => {
         '@type': 'SearchAction',
         target: {
           '@type': 'EntryPoint',
-          urlTemplate: 'https://moviescentral.vercel.app/search?q={search_term_string}'
+          urlTemplate:
+            'https://moviescentral.vercel.app/search?q={search_term_string}'
         },
         'query-input': 'required name=search_term_string'
       }
@@ -71,35 +84,36 @@ const HomePage = () => {
     '@graph': [
       {
         '@type': 'Person',
-        '@id': 'https://moviescentral.vercel.app/author/moviescentral/',
-        name: 'Dr Trailer',
-        url: 'https://moviescentral.vercel.app/author/moviescentral/',
+        '@id': 'https://moviescentral.vercel.app/author/moviesmagazine/',
+        name: 'Dr tvshow',
+        url: 'https://moviescentral.vercel.app/author/moviesmagazine/',
         image: {
           '@type': 'ImageObject',
-          '@id': 'https://gravatar.com/drtrailer2022',
-          url: 'https://gravatar.com/drtrailer2022',
-          caption: 'Dr Trailer',
+          '@id': 'https://gravatar.com/drtvshow2022',
+          url: 'https://gravatar.com/drtvshow2022',
+          caption: 'Dr tvshow',
           inLanguage: 'en-US'
         }
       },
       {
         '@type': 'Organization',
         '@id': 'https://moviescentral.vercel.app/#organization',
-        name: 'Movies Central™ - Explore. Discover. Download.',
-        url: 'https://moviescentral.vercel.app'
+        name: 'Movies Central™ - Explore. Discover. Watch.',
+        url: 'https://moviescentral.vercel.app/'
       },
       {
         '@type': 'WebSite',
         '@id': 'https://moviescentral.vercel.app/#website',
-        url: 'https://moviescentral.vercel.app',
-        name: 'Movies Central™ - Explore. Discover. Download.',
+        url: 'https://moviescentral.vercel.app/',
+        name: 'Movies Central™ - Explore. Discover. Watch.',
         publisher: {
           '@type': 'Organization',
           '@id': 'https://moviescentral.vercel.app/#organization'
         },
         potentialAction: {
           '@type': 'SearchAction',
-          target: 'https://moviescentral.vercel.app/?s={search_term_string}',
+          target:
+            'https://moviescentral.vercel.app/?s={search_term_string}',
           'query-input': 'required name=search_term_string'
         }
       },
@@ -112,14 +126,14 @@ const HomePage = () => {
         dateModified: '2024-01-13T13:13:00+00:00',
         about: {
           '@type': 'Person',
-          '@id': 'https://moviescentral.vercel.app/author/moviescentral/',
-          name: 'Dr Trailer',
-          url: 'https://moviescentral.vercel.app/author/moviescentral/',
+          '@id': 'https://moviescentral.vercel.app/author/moviesmagazine/',
+          name: 'Dr tvshow',
+          url: 'https://moviescentral.vercel.app/author/moviesmagazine/',
           image: {
             '@type': 'ImageObject',
-            '@id': 'https://gravatar.com/drtrailer2022',
-            url: 'https://gravatar.com/drtrailer2022',
-            caption: 'Dr Trailer',
+            '@id': 'https://gravatar.com/drtvshow2022',
+            url: 'https://gravatar.com/drtvshow2022',
+            caption: 'Dr tvshow',
             inLanguage: 'en-US'
           }
         },
@@ -132,75 +146,84 @@ const HomePage = () => {
             '@type': 'Article',
             '@id': 'https://moviescentral.vercel.app/',
             url: 'https://moviescentral.vercel.app/',
-            headline: 'Movies Central™ - Explore. Discover. Download.',
+            headline: 'Movies Central™ - Explore. Discover. Watch.',
             datePublished: '2024-01-13T13:00:00+00:00',
             dateModified: '2024-01-13T13:13:00+00:00',
             author: {
               '@type': 'Person',
-              '@id': 'https://moviescentral.vercel.app/author/moviescentral/',
-              name: 'Dr Trailer',
-              url: 'https://moviescentral.vercel.app/author/moviescentral/',
+              '@id':
+                'https://moviescentral.vercel.app/author/moviesmagazine./',
+              name: 'Dr tvshow',
+              url: 'https://moviescentral.vercel.app/author/moviesmagazine/',
               image: {
                 '@type': 'ImageObject',
-                '@id': 'https://gravatar.com/drtrailer2022',
-                url: 'https://gravatar.com/drtrailer2022',
-                caption: 'Dr Trailer',
+                '@id': 'https://gravatar.com/drtvshow2022',
+                url: 'https://gravatar.com/drtvshow2022',
+                caption: 'Dr tvshow',
                 inLanguage: 'en-US'
               }
             },
             publisher: {
               '@type': 'Organization',
               '@id': 'https://moviescentral.vercel.app/#organization',
-              name: 'Movies Central™ - Explore. Discover. Download.',
-              url: 'https://moviescentral.vercel.app'
+              name: 'Movies Central™ - Explore. Discover. Watch.',
+              url: 'https://moviescentral.vercel.app/'
             }
           },
           {
             '@type': 'Article',
             '@id': 'https://moviescentral.vercel.app/',
             url: 'https://moviescentral.vercel.app/',
-            headline: 'Movies Central™ - Explore. Discover. Download.',
+            headline: 'Movies Central™ - Explore. Discover. Watch.',
             datePublished: '2024-01-13T13:00:00+00:00',
             dateModified: '2024-01-13T13:13:00+00:00',
             author: {
               '@type': 'Person',
-              '@id': 'https://moviescentral.vercel.app/author/moviescentral/',
-              name: 'Dr Trailer',
-              url: 'https://moviescentral.vercel.app/author/moviescentral/',
+              '@id':
+                'https://moviescentral.vercel.app/author/moviesmagazine/',
+              name: 'Dr tvshow',
+              url: 'https://moviescentral.vercel.app/author/moviesmagazine/',
               image: {
                 '@type': 'ImageObject',
-                '@id': 'https://gravatar.com/drtrailer2022',
-                url: 'https://gravatar.com/drtrailer2022',
-                caption: 'Dr Trailer',
+                '@id': 'https://gravatar.com/drtvshow2022',
+                url: 'https://gravatar.com/drtvshow2022',
+                caption: 'Dr tvshow',
                 inLanguage: 'en-US'
               }
             },
             publisher: {
               '@type': 'Organization',
               '@id': 'https://moviescentral.vercel.app/#organization',
-              name: 'Movies Central™ - Explore. Discover. Download.',
-              url: 'https://moviescentral.vercel.app'
+              name: 'Movies Central™ - Explore. Discover. Watch.',
+              url: 'https://moviescentral.vercel.app/'
             }
           },
           {
             '@type': 'Article',
             '@id': 'https://moviescentral.vercel.app/',
             url: 'https://moviescentral.vercel.app/',
-            headline: 'Movies Central™ - Explore. Discover. Download.',
+            headline: 'Movies Central™ - Explore. Discover. Watch.',
             datePublished: '2024-01-13T13:00:00+00:00',
             dateModified: '2024-01-13T13:13:00+00:00',
             author: {
               '@type': 'Person',
-              '@id': 'https://moviescentral.vercel.app/author/moviescentral/',
-              name: 'Dr Trailer',
-              url: 'https://moviescentral.vercel.app/author/moviescentral/',
+              '@id':
+                'https://moviescentral.vercel.app/author/moviesmagazine/',
+              name: 'Dr tvshow',
+              url: 'https://moviescentral.vercel.app/author/moviesmagazine/',
               image: {
                 '@type': 'ImageObject',
-                '@id': 'https://gravatar.com/drtrailer2022',
-                url: 'https://gravatar.com/drtrailer2022',
-                caption: 'Dr Trailer',
+                '@id': 'https://gravatar.com/drtvshow2022',
+                url: 'https://gravatar.com/drtvshow2022',
+                caption: 'Dr tvshow',
                 inLanguage: 'en-US'
               }
+            },
+            publisher: {
+              '@type': 'Organization',
+              '@id': 'https://moviescentral.vercel.app/#organization',
+              name: 'Movies Central™ - Explore. Discover. Watch.',
+              url: 'https://moviescentral.vercel.app/'
             }
           }
         ]
@@ -223,11 +246,7 @@ const HomePage = () => {
             name='viewport'
             content='width=device-width, initial-scale=1.0'
           />
-          <link
-            rel='icon'
-            type='image/x-icon'
-            href='/favicon.ico'
-          />
+          <link rel='icon' type='image/x-icon' href='/favicon.ico' />
           <link
             rel='apple-touch-icon'
             sizes='180x180'
@@ -254,28 +273,27 @@ const HomePage = () => {
           />
           <meta
             name='keywords'
-               content='movies central, movies, tvshow, watch free movies, watch free tvshow, watch free adult, watch free trailers, watch movies online, watch tvshow online, watch adult online, watch trailers online, download movies, download tvshow, download adult, watch full movies, watch full tvshow, watch full adult, watch full trailers, watch hd movies, watch hd tvshow, watch hd adult watch hd trailers'
-          />
-          <meta
-            name='description'
-            content='Movies Central™ - Explore. Discover. Download.'
+            content='Movies Central, a to z movies, a-z movies, Movies Central, watch free movies, watch movies online, download movies, watch full movies, watch hd movies'
           />
           <link rel='canonical' href='https://moviescentral.vercel.app/' />
           <meta property='og:locale' content='en_US' />
           <meta property='og:type' content='video.movie' />
-          {/* <meta property='og:type' content='website' /> */}
+
           <meta
             property='og:title'
-            content='Movies Central™ - Explore. Discover. Download.'
+            content='Movies Central.™ - Explore. Discover. Watch.'
           />
           <meta
             property='og:description'
-            content='Welcome to Movies Central™ – your go-to spot for free online movies! Watch and enjoy HD streaming, and catch the latest tvshows. Dive into cinema with Movies Central™!'
+            content='Welcome to A to Z Movies™ – your go-to spot for free online movies! Watch films from A to Z, enjoy HD streaming, and catch the latest tvshows. Dive into cinema with A to Z Movies™!'
           />
-          <meta property='og:url' content='https://moviescentral.vercel.app/' />
+          <meta
+            property='og:url'
+            content='https://moviescentral.vercel.app/'
+          />
           <meta
             property='og:site_name'
-            content='Movies Central™ - Explore. Discover. Download.'
+            content='Movies Central.™ - Explore. Discover. Watch.'
           />
           <meta
             property='og:image'
@@ -283,15 +301,19 @@ const HomePage = () => {
           />
           <meta property='og:image:width' content='1280' />
           <meta property='og:image:height' content='720' />
-          <meta property='og:image:type' content='image/webp' />
+          <meta property='og:image:type' content='image/jpeg' />
           <meta
             name='application-name'
-            content='Movies Central™ - Explore. Discover. Download.'
+            content='Movies Central™ - Explore. Discover. Watch.'
           />
           <meta
             property='article:modified_time'
             content='2024-01-01T13:13:13+00:00'
           />
+             <meta
+          property='description'
+          content='Welcome to Movies Central™ – your go-to spot for free online movies! Watch films from A to Z, enjoy HD streaming, and catch the latest tvshows. Dive into cinema with Movies Central™!'
+        />
           <link
             rel='sitemap'
             type='application/xml'
@@ -299,10 +321,13 @@ const HomePage = () => {
             href='https://moviescentral.vercel.app/sitemap.xml'
           />
           <meta name='twitter:card' content='summary_large_image' />
-          <meta name="trustpilot-one-time-domain-verification-id" content="48b41bc7-60cf-4de8-9c3b-6a55be476696"/>
+          <meta
+            name='trustpilot-one-time-domain-verification-id'
+            content='48b41bc7-60cf-4de8-9c3b-6a55be476696'
+          />
           <meta
             name='google-adsense-account'
-            content='ca-pub-#'
+            content='ca-pub-5527677677744511'
           />
           <meta
             name='google-site-verification'
@@ -310,14 +335,18 @@ const HomePage = () => {
           />
           <meta
             name='facebook-domain-verification'
-            content='du918bycikmo1jw78wcl9ih6ziphd7'
+            content='zifsy861dlzorbop8eww76tsqlf7t4'
           />
           <meta
             name='dailymotion-domain-verification'
             content='dmdzuqt3p027t2adn'
           />
           <meta name='monetag' content='35a75bbdeae678c82776e64fb78cdac5' />
-          <script
+       
+         
+         
+        </Head>
+        <script
             type='application/ld+json'
             dangerouslySetInnerHTML={{ __html: rankMathSchema }}
           />
@@ -325,14 +354,7 @@ const HomePage = () => {
             type='application/ld+json'
             dangerouslySetInnerHTML={{ __html: uwatchfreeSchema }}
           />
-           <link
-          rel='stylesheet'
-          href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css'
-          integrity='sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=='
-          crossorigin='anonymous'
-          referrerpolicy='no-referrer'
-        />
-          <script
+           <script
             dangerouslySetInnerHTML={{
               __html: `
             (function (w, d, s, id) {
@@ -348,26 +370,8 @@ const HomePage = () => {
           `
             }}
           />
-        </Head>
-
-       
-        {/* <Marquee  /> */}
-    
-        <div
-        className={`w-full`}
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-          fontFamily: 'Poppins, sans-serif',
-          fontWeight: 500,
-          textAlign: 'center',
-          backgroundColor: '#D3D3D3'
-        }}
-      >
-         <h1
-           className='text-black bg-gradient-to-r from-pink-500 to-amber-500 font-bold py-3 px-6 rounded-lg shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300 text-3xl'
+        <h1
+          className='text-black bg-gradient-to-r from-pink-500 to-amber-500 font-bold py-3 px-6 rounded-lg shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300'
           style={{
             justifyContent: 'center',
             alignItems: 'center',
@@ -376,19 +380,21 @@ const HomePage = () => {
             fontFamily: 'Poppins, sans-serif',
             fontWeight: 'bold',
             textAlign: 'center',
-            marginBottom:"20px"
-         
+            marginBottom: '15px'
           }}
         >
-          Welcome to Movies Central™
-          
+          Welcome to AtoZ Movies™
         </h1>
-        {/* <p
-          className='px-0 bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-2xl hover:text-blue-800 font-bold mt-2'
-          >
+        <p
+          className='px-0 bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-xl  hover:text-blue-800 font-bold mt-2'
+          style={{
+            marginTop: '15px'
+          }}
+        >
           {' '}
-          Explore. Discover. Download {' '}
-        </p> */}
+          Explore. Discover. Watch.{' '}
+        </p>
+
         <div
           className='shadow-lg flex items-center justify-center'
           role='navigation'
@@ -407,43 +413,33 @@ const HomePage = () => {
                 </a>
               </li>
             </button>
-
             <button className='border border-black p-2 m-1 hover:bg-orange-100'>
-              <li id='menu-item-284913' className='menu-softwarecategories'>
-                <a href='../trailers/'>
-                  <h3 className='text-black hover:px-0 text-bg font-black bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-xl'>
-                    Trailers<span className='p'></span>
-                  </h3>
-                </a>
-              </li>
-            </button>
-            <button className='border border-black p-2 m-1 hover:bg-orange-100'>
-              <li id='menu-item-11610' className='menu-graphicdesign'>
+              <li id='menu-item-194' className='menu-tutorials'>
                 <a
                   href='../movies/'
                   className='text-black hover:px-0 text-bg font-black bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-xl'
                 >
-                  Movies<span className='p'></span>
+                  Movies <span className='p'></span>
                 </a>
               </li>
             </button>
             <button className='border border-black p-2 m-1 hover:bg-orange-100'>
-              <li id='menu-item-84' className='menu-antivirus'>
+              <li id='menu-item-194' className='menu-tutorials'>
                 <a
                   href='../tvshow/'
                   className='text-black hover:px-0 text-bg font-black bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-xl'
                 >
-                  Tv Show<span className='p'></span>
+                  Tv Show <span className='p'></span>
                 </a>
               </li>
             </button>
             <button className='border border-black p-2 m-1 hover:bg-orange-100'>
-              <li id='menu-item-84' className='menu-antivirus'>
+              <li id='menu-item-194' className='menu-tutorials'>
                 <a
                   href='../adult/'
                   className='text-black hover:px-0 text-bg font-black bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-xl'
                 >
-                  Adult<span className='p'></span>
+                  Adult <span className='p'></span>
                 </a>
               </li>
             </button>
@@ -463,81 +459,29 @@ const HomePage = () => {
           href='https://t.me/watchmovietvshow/'
           target='_blank'
           rel='noopener noreferrer'
-          className='bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent font-bold text-2xl mt-2 flex items-center justify-center'
-          style={{ marginTop: '25px', }}
+          className='bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent font-bold text-3xl mt-2 flex items-center justify-center'
+          style={{ marginTop: '15px' }}
         >
           <span className='px-0 bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-3xl hover:text-blue-800 font-bold mt-2'>
             For Request or Demand Movies Join Telegram
             <i className='fab fa-telegram text-blue-600 hover:text-gray-600 ml-2 w-12 h-12 animate-pulse '></i>
           </span>
         </a>
-        </div>
-        
-        {/* <h3
-          className='px-0 bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent  font-bold hover:text-blue-800 text-3xl  mt-2'
-          style={{
-            marginTop: '25px'
-          }}
-        >
-          Most Latest & Popular Movies & Tv Shows{' '}
-        </h3> */}
         <div className='container'>
           <div className='flex-container'>
             <div className='category-container'>
               <div className='card-container'>
-              {trailers.map(trailersItem => (
-                  <div key={trailersItem.id} className='card'>
-                    <a href={`/trailers/${trailersItem.id}`}>
-                    <p
-                          className='text-black text-xl bg-gradient-to-r from-amber-500 to-pink-500 font-bold py-3 px-6 rounded-lg shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300'
-                          style={{ marginBottom: '20px' }}
-                        >
-                          {trailersItem.name}
-                        </p>
-                      <div className='relative'>
-                    
-                        <Image
-                          src={trailersItem.image}
-                          alt={trailersItem.title}
-                          className='rounded-lg '
-                          width={140} // Specify the desired width
-                          height={140} // Specify the desired height
-                          quality={90}
-                          style={{
-                            width: '200px', // Ensures the image is displayed at this width
-                            height: '300px',  // Ensures the image is displayed at this height
-                            filter:
-                               'contrast(1.1) saturate(1.1) brightness(1.0) hue-rotate(0deg)'
-                          }}
-                        />
-                     
-                        <div className='bg-gradient-to-r from-pink-700 to-blue-700 bg-clip-text text-transparent text-black text-lg font-semibold mt-2'>
-                          {trailersItem.text}
-                        </div>
-                        <div className='badge bg-gradient-to-r from-pink-500 to-amber-500 font-bold py-3 px-6 rounded-lg shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300'>
-                          {trailersItem.badge}
-                        </div>
-                      </div>
-                    </a>
-                  </div>
-                ))}
-                  <a href='../trailers/'>
-                 <p className=' animate-pulse text-black text-2xl font-bold mt-2text-black hover:px-0 text-bg  bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent '  style={{
-                  marginTop: '15px', }}>
-                  Many More Coming Soon...Click Here  <span className='p'></span>
-                </p>
-                </a>
-                {movies.map(moviesItem => (
+              {movies.map(moviesItem => (
                   <div key={moviesItem.id} className='card'>
                     <a href={`/movies/${moviesItem.id}`}>
-                    <p
-                          className='text-black text-xl bg-gradient-to-r from-amber-500 to-pink-500 font-bold py-3 px-6 rounded-lg shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300'
-                          style={{ marginBottom: '20px' }}
-                        >
-                          {moviesItem.name}
-                        </p>
-                      <div className='relative'>
+                      <p
+                       className='text-black text-xl bg-gradient-to-r from-pink-500 to-amber-500 font-bold py-3 px-6 rounded-lg shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300'
                     
+                        style={{ marginBottom: '20px' }}
+                      >
+                        {moviesItem.name}
+                      </p>
+                      <div className='relative'>
                         <Image
                           src={moviesItem.image}
                           alt={moviesItem.title}
@@ -545,14 +489,15 @@ const HomePage = () => {
                           width={140} // Specify the desired width
                           height={140} // Specify the desired height
                           quality={90}
+                          priority
                           style={{
                             width: '200px', // Ensures the image is displayed at this width
-                            height: '300px',  // Ensures the image is displayed at this height
+                            height: '300px', // Ensures the image is displayed at this height
                             filter:
-                               'contrast(1.1) saturate(1.1) brightness(1.0) hue-rotate(0deg)'
+                              'contrast(1.3) saturate(1.4) brightness(1.2) hue-rotate(10deg)'
                           }}
                         />
-                     
+
                         <div className='bg-gradient-to-r from-pink-700 to-blue-700 bg-clip-text text-transparent text-black text-lg font-semibold mt-2'>
                           {moviesItem.text}
                         </div>
@@ -563,22 +508,60 @@ const HomePage = () => {
                     </a>
                   </div>
                 ))}
-                  <a href='../movies/'>
-                 <p className=' animate-pulse text-black text-2xl font-bold mt-2text-black hover:px-0 text-bg  bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent '  style={{
-                  marginTop: '15px', }}>
-                  Many More Coming Soon...Click Here  <span className='p'></span>
-                </p>
-                </a>
+                 
              
+                {moviesp1.map(moviesp1Item => (
+                  <div key={moviesp1Item.id} className='card'>
+                    <a href={`/movies-page1/${moviesp1Item.id}`}>
+                      <p
+                       className='text-black text-xl bg-gradient-to-r from-pink-500 to-amber-500 font-bold py-3 px-6 rounded-lg shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300'
+                    
+                        style={{ marginBottom: '20px' }}
+                      >
+                        {moviesp1Item.name}
+                      </p>
+                      <div className='relative'>
+                        <Image
+                          src={moviesp1Item.image}
+                          alt={moviesp1Item.title}
+                          className='rounded-lg '
+                          width={140} // Specify the desired width
+                          height={140} // Specify the desired height
+                          quality={90}
+                          priority
+                          style={{
+                            width: '200px', // Ensures the image is displayed at this width
+                            height: '300px', // Ensures the image is displayed at this height
+                            filter:
+                              'contrast(1.3) saturate(1.4) brightness(1.2) hue-rotate(10deg)'
+                          }}
+                        />
+
+                        <div className='bg-gradient-to-r from-pink-700 to-blue-700 bg-clip-text text-transparent text-black text-lg font-semibold mt-2'>
+                          {moviesp1Item.text}
+                        </div>
+                        <div className='badge bg-gradient-to-r from-pink-500 to-amber-500 font-bold py-3 px-6 rounded-lg shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300'>
+                          {moviesp1Item.badge}
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                ))}
+                   <a
+                  href='../movies/'
+                  className='animate-pulse text-black hover:px-0 font-black bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-2xl'
+                >
+                  Many More Coming Soon...Click Here.
+                </a>
                 {tvshow.map(tvshowItem => (
                   <div key={tvshowItem.id} className='card'>
                     <a href={`/tvshow/${tvshowItem.id}`}>
-                    <p
-                          className='text-black text-xl bg-gradient-to-r from-amber-500 to-pink-500 font-bold py-3 px-6 rounded-lg shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300'
-                          style={{ marginBottom: '20px' }}
-                        >
-                          {tvshowItem.name}
-                        </p>
+                      <p
+                        className='text-black text-xl bg-gradient-to-r from-amber-500 to-pink-500 font-bold py-3 px-6 rounded-lg shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300'
+                        style={{ marginBottom: '20px' }}
+                      >
+                        {tvshowItem.name}
+                      </p>
                       <div className='relative'>
                         <Image
                           src={tvshowItem.image}
@@ -589,12 +572,12 @@ const HomePage = () => {
                           quality={90}
                           style={{
                             width: '200px', // Ensures the image is displayed at this width
-                            height: '300px',  // Ensures the image is displayed at this height
+                            height: '300px', // Ensures the image is displayed at this height
                             filter:
-                               'contrast(1.1) saturate(1.1) brightness(1.0) hue-rotate(0deg)'
+                              'contrast(1.1) saturate(1.2) brightness(1.2) hue-rotate(5deg)'
                           }}
                         />
-                     
+
                         <div className='bg-gradient-to-r from-pink-700 to-blue-700 bg-clip-text text-transparent text-black text-lg font-semibold mt-2'>
                           {tvshowItem.text}
                         </div>
@@ -605,21 +588,21 @@ const HomePage = () => {
                     </a>
                   </div>
                 ))}
-                 <a href='../tvshow/'>
-                 <p className=' animate-pulse text-black text-2xl font-bold mt-2text-black hover:px-0 text-bg  bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent '  style={{
-                  marginTop: '15px', }}>
-                  Many More Coming Soon...Click Here  <span className='p'></span>
-                </p>
+                <a
+                  href='../tvshow/'
+                  className='animate-pulse text-black hover:px-0 font-black bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-2xl'
+                >
+                  Many More Coming Soon...Click Here.
                 </a>
-                 {adult.map(adultItem => (
+                  {adult.map(adultItem => (
                   <div key={adultItem.id} className='card'>
                     <a href={`/adult/${adultItem.id}`}>
-                    <p
-                          className='text-black text-xl bg-gradient-to-r from-amber-500 to-pink-500 font-bold py-3 px-6 rounded-lg shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300'
-                          style={{ marginBottom: '20px' }}
-                        >
-                          {adultItem.name}
-                        </p>
+                      <p
+                        className='text-black text-xl bg-gradient-to-r from-amber-500 to-pink-500 font-bold py-3 px-6 rounded-lg shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300'
+                        style={{ marginBottom: '20px' }}
+                      >
+                        {adultItem.name}
+                      </p>
                       <div className='relative'>
                         <Image
                           src={adultItem.image}
@@ -630,12 +613,12 @@ const HomePage = () => {
                           quality={90}
                           style={{
                             width: '200px', // Ensures the image is displayed at this width
-                            height: '300px',  // Ensures the image is displayed at this height
+                            height: '300px', // Ensures the image is displayed at this height
                             filter:
-                               'contrast(1.1) saturate(1.1) brightness(1.0) hue-rotate(0deg)'
+                              'contrast(1.1) saturate(1.2) brightness(1.2) hue-rotate(5deg)'
                           }}
                         />
-                        
+
                         <div className='bg-gradient-to-r from-pink-700 to-blue-700 bg-clip-text text-transparent text-black text-lg font-semibold mt-2'>
                           {adultItem.text}
                         </div>
@@ -646,12 +629,61 @@ const HomePage = () => {
                     </a>
                   </div>
                 ))}
-                 <a href='../adult/'>
-                 <p className=' animate-pulse text-black text-2xl font-bold mt-2text-black hover:px-0 text-bg  bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent '  style={{
-                  marginTop: '15px', }}>
-                  Many More Coming Soon...Click Here  <span className='p'></span>
-                </p>
+                <a
+                  href='../adult/'
+                  className='animate-pulse text-black hover:px-0 font-black bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-2xl'
+                >
+                  Many More Coming Soon...Click Here.
                 </a>
+
+                {/* {graphicdesign.map(graphicdesignItem => (
+                  <div key={graphicdesignItem.id} className='card'>
+                    <a href={`/graphic-design/${graphicdesignItem.id}`}>
+                      <p
+                        className='text-black text-xl bg-gradient-to-r from-amber-500 to-pink-500 font-bold py-3 px-6 rounded-lg shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300'
+                        style={{ marginBottom: '20px' }}
+                      >
+                        {graphicdesignItem.name}
+                      </p>
+                      <div className='relative'>
+                        <Image
+                          src={graphicdesignItem.image}
+                          alt={graphicdesignItem.title}
+                          className='rounded-lg '
+                          width={140} // Specify the desired width
+                          height={140} // Specify the desired height
+                          quality={90}
+                          style={{
+                            width: '200px', // Ensures the image is displayed at this width
+                            height: '300px', // Ensures the image is displayed at this height
+                            filter:
+                              'contrast(1.2) saturate(1.5) brightness(1.0) hue-rotate(-15deg)'
+                          }}
+                        />
+
+                        <div className='bg-gradient-to-r from-pink-700 to-blue-700 bg-clip-text text-transparent text-black text-lg font-semibold mt-2'>
+                          {graphicdesignItem.text}
+                        </div>
+                        <div className='badge bg-gradient-to-r from-pink-500 to-amber-500 font-bold py-3 px-6 rounded-lg shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300'>
+                          {graphicdesignItem.badge}
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                ))}
+                <p
+                  className=' animate-pulse text-black text-2xl font-semibold mt-2'
+                  style={{
+                    marginTop: '15px',
+                    color: '#000',
+                    font: 'bold',
+                    textShadow: '1px 2px 2px #000 '
+                  }}
+                >
+                  Many More Coming Soon...
+                </p> */}
+                 
+                
               </div>
             </div>
             <div className='sidebar'>
@@ -664,7 +696,7 @@ const HomePage = () => {
                   textShadow: '1px 2px 2px #000 '
                 }}
               >
-                LATEST ENTERTAINMENT NEWS{' '}
+                LATEST MOVIE NEWS{' '}
               </p>
               <div className='categorylatest-container'>
                 <div className='cardlatest-container'>
@@ -681,9 +713,9 @@ const HomePage = () => {
                             quality={90}
                             style={{
                               width: '300px', // Ensures the image is displayed at this width
-                              height: '300px',  // Ensures the image is displayed at this height
+                              height: '300px', // Ensures the image is displayed at this height
                               filter:
-                                 'contrast(1.1) saturate(1.1) brightness(1.0) hue-rotate(0deg)'
+                                'contrast(1.1) saturate(1.2) brightness(1.2) hue-rotate(5deg)'
                             }}
                           />
                           <p className='text-black text-lg font-semibold mt-2'>
@@ -828,6 +860,15 @@ const HomePage = () => {
 
             .sidebar {
               margin-top: 20px;
+            }
+          }
+
+          @media (max-width: 768px) {
+            .text-3xl {
+              font-size: 1.5rem;
+            }
+            .ml-2 {
+              margin-left: 0.5rem;
             }
           }
         `}</style>

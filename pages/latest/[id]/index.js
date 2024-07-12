@@ -5,24 +5,29 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import HomeStyles from '@styles/styles.module.css'
+import MP3Player from '../../../components/MP3Player'
 import Pagination from '../../../components/Pagination'
+// import Marquee from '../../../components/Marquee'
 import Script from 'next/script'
 
 const latestDetail = ({ latest }) => {
   const router = useRouter()
   const { id } = router.query
+
   const [currentPage, setCurrentPage] = useState(1)
   const totalPages = 0 // Assume there are 3 pages
+
+  useEffect(() => {
+    // Logic to fetch browsers for the current page
+  }, [currentPage])
 
   const uwatchfreeSchema = JSON.stringify([
     {
       '@context': 'https://schema.org',
       '@type': 'Organization',
-      name: 'Movies Central™ - Explore. Discover. Download.',
+      name: 'Movies Central™ - Explore. Discover. Watch.',
       url: 'https://moviescentral.vercel.app/',
-      image: [
-        'https://moviescentral.vercel.app/favicon.ico'
-      ],
+      image: ['https://moviescentral.vercel.app/favicon.ico'],
       logo: {
         '@type': 'ImageObject',
         url: 'https://moviescentral.vercel.app/logo.png',
@@ -56,8 +61,8 @@ const latestDetail = ({ latest }) => {
       },
       {
         '@type': 'WebSite',
-        '@id': 'https://moviescentral.vercel.app#website',
-        url: 'https://moviescentral.vercel.app',
+        '@id': 'https://moviescentral.vercel.app/#website',
+        url: 'https://moviescentral.vercel.app/',
         name: 'Movies Central',
         publisher: {
           '@id': 'https://gravatar.com/drtrailer2022/#person'
@@ -72,15 +77,15 @@ const latestDetail = ({ latest }) => {
         datePublished: '2024-01-13T13:00:00+00:00',
         dateModified: '2024-01-13T13:13:00+00:00',
         isPartOf: {
-          '@id': 'https://moviescentral.vercel.app#website'
+          '@id': 'https://moviescentral.vercel.app/#website'
         },
         inLanguage: 'en-US'
       },
       {
         '@type': 'Person',
-        '@id': 'https://moviescentral.vercel.app/author/Movies Central�/',
+        '@id': 'https://moviescentral.vercel.app/author/latest/',
         name: 'Dr Trailer',
-        url: 'https://moviescentral.vercel.appauthor/Movies Central�/',
+        url: 'https://moviescentral.vercel.app/author/latest/',
         image: {
           '@type': 'ImageObject',
           '@id': 'https://gravatar.com/drtrailer2022',
@@ -88,24 +93,25 @@ const latestDetail = ({ latest }) => {
           caption: 'Dr Trailer',
           inLanguage: 'en-US'
         },
-        sameAs: ['https://moviescentral.vercel.app']
+        sameAs: ['https://moviescentral.vercel.app/']
       },
       {
         '@type': 'Article',
         '@id': `/${latest['latest.watch']}#article`,
-        headline: ` ${latest.name} | Movies Central`,
+        headline: `Watch ${latest.name} | Movies Central™`,
         datePublished: '2024-01-13T13:00:00+00:00',
         dateModified: '2024-01-13T13:13:00+00:00',
         articleSection: 'latest',
         author: {
-          '@id': 'https://moviescentral.vercel.appauthor/Movies Central�/'
+          '@id': 'https://moviescentral.vercel.app/author/latest/'
         },
         publisher: {
           '@id': 'https://gravatar.com/drtrailer2022/#person'
         },
-        description: `Welcome to Movies Central™ – your go-to spot for free online movies! Watch and enjoy HD streaming, and catch the latest movies & tvshows. Dive into cinema with Movies Central™!`,
+        description:
+          'Welcome to Movies Central™ – your go-to spot for free online movies! Watch and enjoy HD streaming, and catch the latest movies & tvshows. Dive into cinema with Movies Central™!',
         image: latest.image,
-        name: ` ${latest.name} | Movies Central`,
+        name: `Watch ${latest.name} | Movies Central™`,
         isPartOf: {
           '@id': `/${latest['latest.watch']}#webpage`
         },
@@ -117,19 +123,20 @@ const latestDetail = ({ latest }) => {
       {
         '@type': 'BlogPosting',
         '@id': `/${latest['latest.watch']}#blogPost`,
-        headline: ` ${latest.name} | Movies Central`,
+        headline: `Watch ${latest.name} | Movies Central™`,
         datePublished: '2024-01-13T13:00:00+00:00',
         dateModified: '2024-01-13T13:13:00+00:00',
         articleSection: 'latest',
         author: {
-          '@id': 'https://moviescentral.vercel.appauthor/Movies Central�/'
+          '@id': 'https://moviescentral.vercel.app/author/latest/'
         },
         publisher: {
           '@id': 'https://gravatar.com/drtrailer2022/#person'
         },
-        description: `Welcome to Movies Central™ – your go-to spot for free online movies! Watch and enjoy HD streaming, and catch the latest movies & tvshows. Dive into cinema with Movies Central™!`,
+        description:
+          'Welcome to Movies Central™ – your go-to spot for free online movies! Watch and enjoy HD streaming, and catch the latest movies & tvshows. Dive into cinema with Movies Central™!',
         image: latest.image,
-        name: ` ${latest.name} | Movies Central`,
+        name: `Watch ${latest.name} | Movies Central™`,
         '@id': `/${latest['latest.watch']}#richSnippet`,
         isPartOf: {
           '@id': `/${latest['latest.watch']}#webpage`
@@ -170,7 +177,7 @@ const latestDetail = ({ latest }) => {
     },
     publisher: {
       '@type': 'Organization',
-      name: 'Movies Central',
+      name: 'Movies Central™',
       logo: {
         '@type': 'ImageObject',
         url: 'https://moviescentral.vercel.app/og_image.jpg'
@@ -193,27 +200,26 @@ const latestDetail = ({ latest }) => {
           name='robots'
           content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'
         />
-        <title> {latest && latest.name} | A to Z Entertainment News</title>
+        <title> {latest && latest.name} | Movies Central™</title>
         <link rel='canonical' href={latest && latest.url} />
         <meta name='robots' content='index, follow' />
         <meta name='googlebot' content='index,follow' />
         <meta name='revisit-after' content='1 days' />
         <meta property='og:locale' content='en_US' />
         <meta property='og:type' content='video.movie' />
-        {/* <meta property='og:type' content='website' /> */}
         <meta
           property='og:title'
-          content={`${latest && latest.name} - Movies Central`}
+          content={`${latest && latest.name} - Movies Central™`}
         />
 
         <meta
           property='og:description'
-         content='Welcome to Movies Central™ – your go-to spot for free online movies! Watch and enjoy HD streaming, and catch the latest movies & tvshows. Dive into cinema with Movies Central™!'
+          content='Welcome to Movies Central™ – your go-to spot for free online movies! Watch and enjoy HD streaming, and catch the latest movies & tvshows. Dive into cinema with Movies Central™!'
         />
-        <meta property='og:url' content={`${latest && latest.siteurl}`} />
+        <meta property='og:url' content={`${latest && latest.url}`} />
         <meta name='keywords' content={`${latest && latest.keywords}`} />
         <meta property='og:site_name' content='Movies Central' />
-        {/* <meta property='og:type' content='article' /> */}
+        <meta property='og:type' content='article' />
         <meta property=' og:image:alt' content={`${latest && latest.group}`} />
         <meta name='mobile-web-app-capable' content='yes' />
         <meta property='article:section' content='latest' />
@@ -231,43 +237,43 @@ const latestDetail = ({ latest }) => {
         <meta name='twitter:label1' content='Est. reading time' />
         <meta name='twitter:data1' content='1 minute' />
         <meta
+          property='description'
+          content='Welcome to Movies Central™ – your go-to spot for free online movies! Watch and enjoy HD streaming, and catch the latest movies & tvshows. Dive into cinema with Movies Central™!'
+        />
+        <meta
           name='google-site-verification'
           content='4dFu4PUk1pc1IYqU6Brt84akCwNxaoUpKSO3gDW0kJ0'
         />
         <meta
           name='facebook-domain-verification'
-          content='du918bycikmo1jw78wcl9ih6ziphd7'
+          content='zifsy861dlzorbop8eww76tsqlf7t4'
         />
         <meta
           name='dailymotion-domain-verification'
           content='dmv6sg06w9r5eji88'
         />
 
-        <script
-          type='application/ld+json'
-          dangerouslySetInnerHTML={{ __html: uwatchfreeSchema }}
-        />
+        {/* <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" /> */}
+      </Head>
+      <Script src='../../propler/ads.js' defer />
+      <Script src='../../propler/ads2.js' defer />
+      <script
+        type='application/ld+json'
+        dangerouslySetInnerHTML={{ __html: uwatchfreeSchema }}
+      />
 
-        <script
-          type='application/ld+json'
-          dangerouslySetInnerHTML={{ __html: rankMathSchema }}
-        />
-        <script
-          type='application/ld+json'
-          dangerouslySetInnerHTML={{ __html: newsArticleJson }}
-        />
-
-        <link
-          rel='stylesheet'
-          href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css'
-          integrity='sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=='
-          crossorigin='anonymous'
-          referrerpolicy='no-referrer'
-        />
-        {/* Webpushr tracking code */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
+      <script
+        type='application/ld+json'
+        dangerouslySetInnerHTML={{ __html: rankMathSchema }}
+      />
+      <script
+        type='application/ld+json'
+        dangerouslySetInnerHTML={{ __html: newsArticleJson }}
+      />
+      {/* Webpushr tracking code */}
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `
             (function (w, d, s, id) {
               if (typeof (w.webpushr) !== 'undefined') return;
               w.webpushr = w.webpushr || function () { (w.webpushr.q = w.webpushr.q || []).push(arguments) };
@@ -277,15 +283,10 @@ const latestDetail = ({ latest }) => {
               fjs.parentNode.appendChild(js);
             }(window, document, 'script', 'webpushr-jssdk'));
 
-            webpushr('setup', { 'key': 'BPnvX1gufyeWbUkYBykeaRgy2SGGB5_giiGqUtjX8Y5jzgKOii5z7_0rQcLJKp_me9euk7xhLdibNsjHkvEShPQ' });
+            webpushr('setup', { 'key': 'BPnvX1gufyeWbUkYBykeaRgy2SGGB5_giiGqUtjX8Y5jzgKOii5z7_0rQcLJKp_me9euk7xhLdibNsjHkvEShPQ''});
           `
-          }}
-        />
-      </Head>
-      <Script src='../../propler/ads2.js' defer />
-      <Script src='../../propler/ads.js' defer />
- 
-
+        }}
+      />
       <div
         className={`w-full`}
         style={{
@@ -302,15 +303,21 @@ const latestDetail = ({ latest }) => {
         }}
       >
         <h1
-         className='text-black bg-gradient-to-r from-pink-500 to-amber-500 font-bold py-3 px-6 rounded-lg shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300 text-3xl'
-         style={{
-           fontFamily: 'Poppins, sans-serif',
-           fontWeight: 'bold',
-          //  marginBottom: '12px'
-         }}
-       >
-        LATEST ENTERTAINMENT NEWS
+          className='badge bg-gradient-to-r from-pink-500 to-amber-500 font-bold py-3 px-6  shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300'
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            padding: '10px',
+            fontSize: '35px',
+            fontFamily: 'Poppins, sans-serif',
+            fontWeight: 'bold',
+            textAlign: 'center',
+            marginBottom: '15px'
+          }}
+        >
+          Latest Movies Central™ - Movies News.
         </h1>
+        {/* <Marquee /> */}
         {/* 
         <p
           className='px-0 text-black font-bold bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-xl hover:text-blue-800 mt-2'
@@ -327,10 +334,9 @@ const latestDetail = ({ latest }) => {
         >
           Select Categories.{' '}
         </p> */}
-       <div
+        <div
           className='shadow-lg flex items-center justify-center'
           role='navigation'
-          
         >
           <ul
             id='menu-header-menu'
@@ -346,47 +352,37 @@ const latestDetail = ({ latest }) => {
                 </a>
               </li>
             </button>
-
             <button className='border border-black p-2 m-1 hover:bg-orange-100'>
-              <li id='menu-item-284913' className='menu-softwarecategories'>
-                <a href='../trailers/'>
-                  <h3 className='text-black hover:px-0 text-bg font-black bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-xl'>
-                    Trailers<span className='p'></span>
-                  </h3>
-                </a>
-              </li>
-            </button>
-          <button className='border border-black p-2 m-1 hover:bg-orange-100'>
-              <li id='menu-item-11610' className='menu-graphicdesign'>
+              <li id='menu-item-194' className='menu-tutorials'>
                 <a
                   href='../movies/'
                   className='text-black hover:px-0 text-bg font-black bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-xl'
                 >
-                  Movies<span className='p'></span>
-                </a>
-              </li>
-            </button>
-           <button className='border border-black p-2 m-1 hover:bg-orange-100'>
-              <li id='menu-item-84' className='menu-antivirus'>
-                <a
-                  href='../tvshow/'
-                  className='text-black hover:px-0 text-bg font-black bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-xl'
-                >
-                  Tv Show<span className='p'></span>
+                  Movies <span className='p'></span>
                 </a>
               </li>
             </button>
             <button className='border border-black p-2 m-1 hover:bg-orange-100'>
-              <li id='menu-item-84' className='menu-antivirus'>
+              <li id='menu-item-194' className='menu-tutorials'>
+                <a
+                  href='../tvshow/'
+                  className='text-black hover:px-0 text-bg font-black bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-xl'
+                >
+                  Tv Show <span className='p'></span>
+                </a>
+              </li>
+            </button>
+            <button className='border border-black p-2 m-1 hover:bg-orange-100'>
+              <li id='menu-item-194' className='menu-tutorials'>
                 <a
                   href='../adult/'
                   className='text-black hover:px-0 text-bg font-black bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-xl'
                 >
-                  Adult<span className='p'></span>
+                  Adult <span className='p'></span>
                 </a>
               </li>
             </button>
-          <button className='border border-black p-2 m-1 hover:bg-orange-100'>
+            <button className='border border-black p-2 m-1 hover:bg-orange-100'>
               <li id='menu-item-194' className='menu-tutorials'>
                 <a
                   href='../latest/'
@@ -403,7 +399,7 @@ const latestDetail = ({ latest }) => {
           target='_blank'
           rel='noopener noreferrer'
           className='bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent font-bold text-3xl mt-2 flex items-center justify-center'
-          style={{ marginTop: '25px', marginBottom:'25px' }}
+          style={{ marginTop: '15px' }}
         >
           <span className='px-0 bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text text-transparent text-3xl hover:text-blue-800 font-bold mt-2'>
             For Request or Demand Movies Join Telegram
@@ -416,7 +412,7 @@ const latestDetail = ({ latest }) => {
           route='latest'
           style={{
             marginTop: '50px',
-       
+            marginBottom: '50px',
             borderRadius: '50px',
             boxShadow: '0 0 10px 0 #fff',
             filter:
@@ -429,14 +425,14 @@ const latestDetail = ({ latest }) => {
             alt={latest.name}
             width={1280}
             height={720}
-            
+            objectFit='cover'
             loading='lazy'
             style={{
               width: '800px', // Ensures the image is displayed at this width
               height: '400px', // Ensures the image is displayed at this height
               margin: 'auto',
+              marginTop: '20px',
               marginBottom: '20px',
-              marginTop: '25px',
               borderRadius: '50px',
               boxShadow: '0 0 10px 0 #fff',
               filter:
@@ -460,26 +456,26 @@ const latestDetail = ({ latest }) => {
               {' '}
               Author: {latest.group}.
             </h2>
-             <Image
-                src={latest.directorimg}
-                alt={latest.group}
-                width={100}
-                height={100}
-                quality={90}
-                
-                loading='lazy'
-                style={{
-                  width: '50px', // Ensures the image is displayed at this width
-                  height: '50px', // Ensures the image is displayed at this height
-                  margin: 'auto',
-                  marginBottom: '20px',
-                  borderRadius: '80px',
-                  boxShadow: '0 0 10px 0 #fff',
-                  filter:
-                    'contrast(1.0) saturate(1.0) brightness(1.0) hue-rotate(0deg)'
-                }}
-              />
-         
+            <Image
+              src={latest.directorimg}
+              alt={latest.group}
+              width={100}
+              height={100}
+              quality={90}
+              objectFit='cover'
+              loading='lazy'
+              style={{
+                width: '50px', // Ensures the image is displayed at this width
+                height: '50px', // Ensures the image is displayed at this height
+                margin: 'auto',
+                marginBottom: '20px',
+                borderRadius: '80px',
+                boxShadow: '0 0 10px 0 #fff',
+                filter:
+                  'contrast(1.0) saturate(1.0) brightness(1.0) hue-rotate(0deg)'
+              }}
+            />
+
             {latest.head1 && (
               <p className='text-black font-bold mt-2 text-3xl mb-2 items-center justify-center '>
                 <strong>{latest.head1}</strong>
@@ -492,7 +488,7 @@ const latestDetail = ({ latest }) => {
                 width={1280}
                 height={720}
                 quality={90}
-                
+                objectFit='cover'
                 loading='lazy'
                 style={{
                   width: '800px', // Ensures the image is displayed at this width
@@ -519,7 +515,20 @@ const latestDetail = ({ latest }) => {
                   {paragraph}
                 </p>
               ))}
-
+            {latest.mp3player && <MP3Player mp3Url={latest.mp3player} />}
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              route='latest'
+              style={{
+                marginTop: '50px',
+                marginBottom: '50px',
+                borderRadius: '50px',
+                boxShadow: '0 0 10px 0 #fff',
+                filter:
+                  'contrast(1.0) saturate(1.0) brightness(1.0) hue-rotate(0deg)'
+              }}
+            />
             {latest.head2 && (
               <p className='text-black font-bold mt-2 text-3xl mb-2 items-center justify-center '>
                 <strong>{latest.head2}</strong>
@@ -532,12 +541,13 @@ const latestDetail = ({ latest }) => {
                 width={1280}
                 height={720}
                 quality={90}
-                
+                objectFit='cover'
                 loading='lazy'
                 style={{
                   width: '800px', // Ensures the image is displayed at this width
                   height: '400px', // Ensures the image is displayed at this height
                   margin: 'auto',
+                  marginTop: '50px',
                   marginBottom: '20px',
                   borderRadius: '50px',
                   boxShadow: '0 0 10px 0 #fff',
@@ -572,7 +582,7 @@ const latestDetail = ({ latest }) => {
                 width={1280}
                 height={720}
                 quality={90}
-                
+                objectFit='cover'
                 loading='lazy'
                 style={{
                   width: '800px', // Ensures the image is displayed at this width
@@ -612,7 +622,7 @@ const latestDetail = ({ latest }) => {
                 width={1280}
                 height={720}
                 quality={90}
-                
+                objectFit='cover'
                 loading='lazy'
                 style={{
                   width: '800px', // Ensures the image is displayed at this width
@@ -640,19 +650,7 @@ const latestDetail = ({ latest }) => {
                 </p>
               ))}
           </div>
-          <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          route='latest'
-          style={{
-            marginTop: '50px',
-       
-            borderRadius: '50px',
-            boxShadow: '0 0 10px 0 #fff',
-            filter:
-              'contrast(1.0) saturate(1.0) brightness(1.0) hue-rotate(0deg)'
-          }}
-        />
+          
         </div>
         <style jsx>{`
           /* Global styles */
@@ -697,6 +695,14 @@ const latestDetail = ({ latest }) => {
 
             .sidebar {
               margin-top: 20px;
+            }
+          }
+          @media (max-width: 768px) {
+            .text-3xl {
+              font-size: 1.5rem;
+            }
+            .ml-2 {
+              margin-left: 0.5rem;
             }
           }
         `}</style>

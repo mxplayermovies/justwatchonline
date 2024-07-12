@@ -42,12 +42,12 @@ class MyDocument extends Document {
           />
           <meta
             name='keywords'
-            content='Movies Central, a to z movies, a-z movies, Movies Central, watch free movies, watch movies online, download movies, watch full movies, watch hd movies'
+            content='Movies Central, Movies Central, a-z movies, Movies Central, watch free movies, watch movies online, download movies, watch full movies, watch hd movies'
           />
-         <link
+         {/* <link
             rel='canonical'
             href='https://moviescentral.vercel.app/'
-          />
+          /> */}
           <meta property='og:locale' content='en_US' />
           <meta property="og:type" content="video.movie" />
           <meta
@@ -56,7 +56,7 @@ class MyDocument extends Document {
           />
           <meta
             property='og:description'
-            content='Welcome to Movies Central™ – your go-to spot for free online movies! Watch films from A to Z, enjoy HD streaming, and catch the latest trailers. Dive into cinema with Movies Central™!'
+            content='Welcome to Movies Central™ – your go-to spot for free online movies! Watch films  HD streaming, and catch the latest trailers. Dive into cinema with Movies Central™!'
           />
           <meta
             property='og:url'

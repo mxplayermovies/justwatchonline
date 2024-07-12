@@ -271,9 +271,13 @@ const HomePage = () => {
             name='robots'
             content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'
           />
+           <meta
+            property='description'
+            content='Welcome to Movies Central™ – your go-to spot for free online movies! Watch films HD streaming, and catch the latest tvshows. Dive into cinema with Movies Central™!'
+          />
           <meta
             name='keywords'
-            content='Movies Central, a to z movies, a-z movies, Movies Central, watch free movies, watch movies online, download movies, watch full movies, watch hd movies'
+           content='movies central, movies, tvshow, watch free movies, watch free tvshow, watch free adult, watch free trailers, watch movies online, watch tvshow online, watch adult online, watch trailers online, download movies, download tvshow, download adult, watch full movies, watch full tvshow, watch full adult, watch full trailers, watch hd movies, watch hd tvshow, watch hd adult watch hd trailers'
           />
           <link rel='canonical' href='https://moviescentral.vercel.app/' />
           <meta property='og:locale' content='en_US' />
@@ -285,7 +289,7 @@ const HomePage = () => {
           />
           <meta
             property='og:description'
-            content='Welcome to A to Z Movies™ – your go-to spot for free online movies! Watch films from A to Z, enjoy HD streaming, and catch the latest tvshows. Dive into cinema with A to Z Movies™!'
+            content='Welcome to Movies Central™ – your go-to spot for free online movies! Watch films  HD streaming, and catch the latest tvshows. Dive into cinema with Movies Central™!'
           />
           <meta
             property='og:url'
@@ -312,7 +316,7 @@ const HomePage = () => {
           />
              <meta
           property='description'
-          content='Welcome to Movies Central™ – your go-to spot for free online movies! Watch films from A to Z, enjoy HD streaming, and catch the latest tvshows. Dive into cinema with Movies Central™!'
+          content='Welcome to Movies Central™ – your go-to spot for free online movies! Watch films  HD streaming, and catch the latest tvshows. Dive into cinema with Movies Central™!'
         />
           <link
             rel='sitemap'

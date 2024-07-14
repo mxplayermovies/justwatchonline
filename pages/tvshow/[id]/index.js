@@ -1104,7 +1104,7 @@ const tvshowDetail = ({ tvshowItem }) => {
                       'contrast(1.0) saturate(1.0) brightness(1.0) hue-rotate(0deg)'
                   }}
                 >
-                  <strong> {tvshowItem.head1} </strong>
+                  <strong> {tvshowItem.head2} </strong>
                 </p>
               </div>
               <Image
@@ -1125,7 +1125,7 @@ const tvshowDetail = ({ tvshowItem }) => {
                     'contrast(1.1) saturate(1.1) brightness(1.0) hue-rotate(0deg)'
                 }}
               />
-              {tvshowItem.news1.split('\n\n').map((paragraph, idx) => (
+              {/* {tvshowItem.news1.split('\n\n').map((paragraph, idx) => (
                 <p
                   key={idx}
                   className='description text-black font-bold mt-2 text-xl'
@@ -1136,13 +1136,13 @@ const tvshowDetail = ({ tvshowItem }) => {
                 >
                   {paragraph}
                 </p>
-              ))}
+              ))} */}
               <div className='flex flex-col items-center justify-center'>
-                {tvshowItem.head2 && (
+                {/* {tvshowItem.head2 && (
                   <p className='bg-gradient-to-r from-amber-500 to-pink-500 font-bold py-3 px-6 rounded-lg shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300 text-bg text-black text-bg mt-2 text-3xl mb-2 items-center justify-center'>
                     <strong>{tvshowItem.head2}</strong>
                   </p>
-                )}
+                )} */}
 
                 {tvshowItem.image2 && (
                   <Image

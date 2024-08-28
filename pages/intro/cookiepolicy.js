@@ -2,7 +2,6 @@ import React from 'react'
 import Head from 'next/head'
 import Script from 'next/script'
 
-
 const cookiepolicy = () => {
   const containerStyle = {
     margin: '24px auto',
@@ -50,14 +49,14 @@ const cookiepolicy = () => {
       {
         '@type': 'Organization',
         '@id': 'https://moviescentral.vercel.app/#organization',
-        name: 'Movies Central™online™ - Explore. Discover. Download.',
+        name: 'Movies Central™ - Explore. Discover. Download.',
         url: 'https://moviescentral.vercel.app'
       },
       {
         '@type': 'WebSite',
         '@id': 'https://moviescentral.vercel.app/#website',
         url: 'https://moviescentral.vercel.app',
-        name: 'Movies Central™online™ - Explore. Discover. Download.',
+        name: 'Movies Central™ - Explore. Discover. Download.',
         publisher: {
           '@type': 'Organization',
           '@id': 'https://moviescentral.vercel.app/#organization'
@@ -116,7 +115,7 @@ const cookiepolicy = () => {
             publisher: {
               '@type': 'Organization',
               '@id': 'https://moviescentral.vercel.app/#organization',
-              name: 'Movies Central™online™ - Explore. Discover. Download.',
+              name: 'Movies Central™ - Explore. Discover. Download.',
               url: 'https://moviescentral.vercel.app'
             }
           },
@@ -143,7 +142,7 @@ const cookiepolicy = () => {
             publisher: {
               '@type': 'Organization',
               '@id': 'https://moviescentral.vercel.app/#organization',
-              name: 'Movies Central™online™ - Explore. Discover. Download.',
+              name: 'Movies Central™ - Explore. Discover. Download.',
               url: 'https://moviescentral.vercel.app'
             }
           },
@@ -170,7 +169,7 @@ const cookiepolicy = () => {
             publisher: {
               '@type': 'Organization',
               '@id': 'https://moviescentral.vercel.app/#organization',
-              name: 'Movies Central™online™ - Explore. Discover. Download.',
+              name: 'Movies Central™ - Explore. Discover. Download.',
               url: 'https://moviescentral.vercel.app'
             }
           }
@@ -179,11 +178,10 @@ const cookiepolicy = () => {
     ]
   })
 
-
   return (
     <div>
       <Head>
-        <title>Movies Central™online™ | Cookie Policy</title>
+        <title>Movies Central™ | Cookie Policy</title>
         <link
           rel='sitemap'
           type='application/xml'
@@ -191,11 +189,7 @@ const cookiepolicy = () => {
           href='https://moviescentral.vercel.app/sitemap.xml'
         />
         <meta name='viewport' content='width=device-width, initial-scale=1.0' />
-        <link
-          rel='icon'
-          type='image/x-icon'
-          href='/favicon.ico'
-        />
+        <link rel='icon' type='image/x-icon' href='/favicon.ico' />
         <link
           rel='apple-touch-icon'
           sizes='180x180'
@@ -220,13 +214,13 @@ const cookiepolicy = () => {
           name='robots'
           content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'
         />
-       <meta
+        <meta
           name='keywords'
-          content='Movies Central,Movies CentralHUB,Movies CentralFREE,Movies Central-hd,Movies Centralx,Movies Central-org,Movies Central-com,Movies Central official,Movies Central,Movies Central free,free movies,movies online,watch movies online,watch movies free,Movies Central, gomovies,putlocker,putlockers,soap2day'
+          content='free movies,movies online,watch movies online,watch movies free,download movies,123 movies,yes movies,gomovies,putlocker,putlockers,soap2day'
         />
-       <meta
+        <meta
           property='description'
-          content='Movies Central™online™ - Stream HD movies and TV series for free on Movies Central™ Online. Explore, stream, and download full-length movies and shows in HD quality without registration.'
+          content='Movies Central™ - Stream HD movies and TV series for free on 123Movies Online. Explore, stream, and download full-length movies and shows in HD quality without registration.'
         />
 
         <link
@@ -235,16 +229,16 @@ const cookiepolicy = () => {
         />
         <meta property='og:locale' content='en_US' />
         <meta property='og:type' content='website' />
-        <meta property='og:title' content='Movies Central™online™ ' />
+        <meta property='og:title' content='Movies Central™ ' />
         <meta
           property='og:description'
-          content='Movies Central™online™ - Stream HD movies and TV series for free on Movies Central™ Online. Explore, stream, and download full-length movies and shows in HD quality without registration.'
+          content='Movies Central™ - Stream HD movies and TV series for free on 123Movies Online. Explore, stream, and download full-length movies and shows in HD quality without registration.'
         />
         <meta
           property='og:url'
           content='https://moviescentral.vercel.app/intro/tearms/'
         />
-        <meta property='og:site_name' content='Movies Central™online™ ' />
+        <meta property='og:site_name' content='Movies Central™ ' />
         <meta
           property='og:image'
           content='https://moviescentral.vercel.app/og_image.jpg'
@@ -252,7 +246,7 @@ const cookiepolicy = () => {
         <meta property='og:image:width' content='1280' />
         <meta property='og:image:height' content='720' />
         <meta property='og:image:type' content='image/jpg' />
-        <meta name='application-name' content='Movies Central™online™ ' />
+        <meta name='application-name' content='Movies Central™ ' />
         <meta
           property='article:modified_time'
           content='2024-01-01T13:13:13+00:00'
@@ -266,7 +260,7 @@ const cookiepolicy = () => {
         <meta name='twitter:card' content='summary_large_image' />
         <meta
           name='google-site-verification'
-          content='4dFu4PUk1pc1IYqU6Brt84akCwNxaoUpKSO3gDW0kJ0'
+          content='o8uNsADswyHnNPA69n9gI7u6L4_cdjN4iT5lRhHHtMU'
         />
         <meta
           name='facebook-domain-verification'
@@ -281,12 +275,11 @@ const cookiepolicy = () => {
           type='application/ld+json'
           dangerouslySetInnerHTML={{ __html: rankMathSchema }}
         />
-      
       </Head>
-      
+
       <div style={containerStyle}>
         <section style={sectionStyle}>
-        <a
+          <a
             href='https://t.me/watchmovietvshow/'
             target='_blank'
             rel='noopener noreferrer'
@@ -311,7 +304,7 @@ const cookiepolicy = () => {
             >
               <h1 style={headingStyle}>Cookie Policy</h1>
               <p style={{ color: '#666', marginBottom: '24px' }}>
-                This is the Cookie Policy for Movies Central™online™, accessible from
+                This is the Cookie Policy for Movies Central™, accessible from
                 and its subdomains.
               </p>
 
@@ -415,8 +408,6 @@ const cookiepolicy = () => {
             </div>
           </div>
         </section>
-
-   
       </div>
     </div>
   )

@@ -1,7 +1,32 @@
-import Head from 'next/head';
-import Link from 'next/link';
+import Head from 'next/head'
+import Link from 'next/link'
+import { useEffect } from 'react'
 
-export default function HomePage() {
+export default function HomePage () {
+  useEffect(() => {
+    // Add the Ko-fi widget script to the page
+    const script = document.createElement('script')
+    script.src = 'https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'
+    script.async = true
+
+    script.onload = () => {
+      if (typeof kofiWidgetOverlay !== 'undefined') {
+        kofiWidgetOverlay.draw('payat', {
+          type: 'floating-chat',
+          'floating-chat.donateButton.text': 'Support me',
+          'floating-chat.donateButton.background-color': '#00b9fe',
+          'floating-chat.donateButton.text-color': '#fff'
+        })
+      }
+    }
+
+    document.body.appendChild(script)
+
+    return () => {
+      // Cleanup if the component is unmounted
+      document.body.removeChild(script)
+    }
+  }, [])
 
   const uwatchfreeSchema = JSON.stringify([
     {
@@ -25,7 +50,8 @@ export default function HomePage() {
         '@type': 'SearchAction',
         target: {
           '@type': 'EntryPoint',
-          urlTemplate: 'https://moviescentral.vercel.app/search?q={search_term_string}'
+          urlTemplate:
+            'https://moviescentral.vercel.app/search?q={search_term_string}'
         },
         'query-input': 'required name=search_term_string'
       }
@@ -206,7 +232,7 @@ export default function HomePage() {
   })
   return (
     <>
-        <Head>
+      <Head>
         <title>Movies Central™ - Explore. Stream. Online.</title>
 
         <link
@@ -242,9 +268,9 @@ export default function HomePage() {
           name='robots'
           content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'
         />
-       <meta
+        <meta
           name='keywords'
-          content='Movies Central,Movies CentralHUB,Movies CentralFREE,Movies Central-hd,Movies Centralx,Movies Central-org,Movies Central-com,Movies Central official,Movies Central,Movies Central free,free movies,movies online,watch movies online,watch movies free,Movies Central, gomovies,putlocker,putlockers,soap2day'
+          content='free movies,movies online,watch movies online,watch movies free,download movies,123 movies,yes movies,gomovies,putlocker,putlockers,soap2day'
         />
         <meta
           name='description'
@@ -258,7 +284,7 @@ export default function HomePage() {
           property='og:title'
           content='Movies Central™ - Explore. Stream. Online. '
         />
-        <meta property='og:url' content='https://moviescentral.vercel.app/' />
+        <meta property='og:url' content='https://moviescentral.vercel.app' />
         <meta
           property='og:site_name'
           content='Movies Central™ - Explore. Stream. Online. '
@@ -299,7 +325,7 @@ export default function HomePage() {
         />
         <meta
           name='google-site-verification'
-          content='4dFu4PUk1pc1IYqU6Brt84akCwNxaoUpKSO3gDW0kJ0'
+          content='o8uNsADswyHnNPA69n9gI7u6L4_cdjN4iT5lRhHHtMU'
         />
 
         <meta
@@ -333,13 +359,30 @@ export default function HomePage() {
             Discover the Best Movies and TV Shows to Stream on Movies Central™
           </h2>
           <p className='description'>
-            Welcome to <strong>Movies Central™</strong>, your premier destination for streaming the latest and most popular movies and TV shows. Our platform offers an extensive collection of entertainment options, allowing you to explore a wide variety of genres and discover new favorites. Whether you're looking for action-packed thrillers, heartwarming dramas, or laugh-out-loud comedies, <strong>Movies Central™</strong> has something for everyone.
+            Welcome to <strong>Movies Central™</strong>, your premier
+            destination for streaming the latest and most popular movies and TV
+            shows. Our platform offers an extensive collection of entertainment
+            options, allowing you to explore a wide variety of genres and
+            discover new favorites. Whether you're looking for action-packed
+            thrillers, heartwarming dramas, or laugh-out-loud comedies,{' '}
+            <strong>Movies Central™</strong> has something for everyone.
           </p>
           <p className='description'>
-            With a user-friendly interface and high-quality streaming, <strong>Movies Central™</strong> makes it easy to find and enjoy your favorite content. Our library is regularly updated with the latest releases, ensuring that you have access to the newest movies and TV shows as soon as they are available. Stream online seamlessly and enjoy an immersive viewing experience from the comfort of your home.
+            With a user-friendly interface and high-quality streaming,{' '}
+            <strong>Movies Central™</strong> makes it easy to find and enjoy
+            your favorite content. Our library is regularly updated with the
+            latest releases, ensuring that you have access to the newest movies
+            and TV shows as soon as they are available. Stream online seamlessly
+            and enjoy an immersive viewing experience from the comfort of your
+            home.
           </p>
           <p className='description'>
-            At <strong>Movies Central™</strong>, we are committed to providing a top-notch streaming service that meets all your entertainment needs. Join us today and explore the vast world of movies and TV shows available at your fingertips. Whether you're a casual viewer or a dedicated binge-watcher, <strong>Movies Central™</strong> is the perfect place to stream online and stay entertained.
+            At <strong>Movies Central™</strong>, we are committed to providing a
+            top-notch streaming service that meets all your entertainment needs.
+            Join us today and explore the vast world of movies and TV shows
+            available at your fingertips. Whether you're a casual viewer or a
+            dedicated binge-watcher, <strong>Movies Central™</strong> is the
+            perfect place to stream online and stay entertained.
           </p>
 
           <a
@@ -504,5 +547,5 @@ export default function HomePage() {
         }
       `}</style>
     </>
-  );
+  )
 }

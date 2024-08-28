@@ -1,109 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import latestData from '../../public/latest.json'
-import moviesData from '../../public/movies.json'
 import { useRouter } from 'next/router'
+import Head from 'next/head'
+import Script from 'next/script'
 import GoogleTranslate from '../../components/GoogleTranslate'
 import SocialSharing from '../../components/SocialSharing'
 import SearchComponent from '../../components/SearchComponent'
-import Head from 'next/head'
-import Script from 'next/script'
 
-const uwatchfreeSchema = JSON.stringify([
-  {
-    '@context': 'https://schema.org',
-    '@type': 'Organization',
-    name: 'Movies Central - Explore. Discover. Download.',
-    url: 'https://moviescentral.vercel.app/',
-    image: ['https://moviescentral.vercel.app/favicon.ico'],
-    logo: {
-      '@type': 'ImageObject',
-      url: 'https://moviescentral.vercel.app/logo.png',
-      width: 280,
-      height: 80
-    }
-  },
-  {
-    '@context': 'https://schema.org',
-    '@type': 'WebSite',
-    url: 'https://moviescentral.vercel.app/',
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: {
-        '@type': 'EntryPoint',
-        urlTemplate:
-          'https://moviescentral.vercel.app/search?q={search_term_string}'
-      },
-      'query-input': 'required name=search_term_string'
-    }
-  }
-])
-
-const softwareSchema = JSON.stringify({
-  '@context': 'https://schema.org',
-  '@type': 'Article',
-  '@id': 'https://moviescentral.vercel.app/page1',
-  headline: 'Main Section 1 | Movies Central™',
-  url: 'https://moviescentral.vercel.app/page1',
-  description:
-    'Movies Central - Stream HD movies and TV series for free on Movies Central Online. Explore, stream, and download full-length movies and shows in HD quality without registration.',
-  image: 'https://moviescentral.vercel.app/og_image.jpg',
-  author: {
-    '@type': 'Person',
-    name: 'DrTrailer',
-    url: 'https://gravatar.com/drtrailer2022'
-  },
-  publisher: {
-    '@type': 'Organization',
-    name: 'Movies Central - Explore. Discover. Download.',
-    logo: {
-      '@type': 'ImageObject',
-      url: 'https://moviescentral.vercel.app/og_image.jpg'
-    }
-  },
-  datePublished: '2024-06-02',
-  dateModified: '2024-06-02',
-  mainEntityOfPage: {
-    '@type': 'WebPage',
-    '@id': 'https://moviescentral.vercel.app/page1'
-  },
-  additionalProperty: {
-    '@type': 'PropertyValue',
-    name: 'Action Platform',
-    value: ['movies Web Platform', 'iOS Platform', 'Android Platform']
-  }
-})
-
-const breadcrumbSchema = JSON.stringify({
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
-  itemListElement: [
-    {
-      '@type': 'ListItem',
-      position: 1,
-      name: 'Windows',
-      item: 'https://moviescentral.vercel.app/'
-    },
-    {
-      '@type': 'ListItem',
-      position: 2,
-      name: 'movies',
-      item: 'https://moviescentral.vercel.app/page1'
-    }
-  ]
-})
-
-const page1 = ({ items }) => {
-  const [latest, setLatest] = useState(latestData)
-
+const page7 = ({ items }) => {
+  const [latest, setLatest] = useState(items || []) // Ensure items is defined, fallback to an empty array if undefined
   const router = useRouter() // Initialize the router
-  const sections = [
-    // { title: 'Latest Trailer', items: trailers },
-    { title: 'Main Section.', items: items }
-    // { title: 'Latest TV Series.', items: tvshows }
-    // { title: 'Adult Content.', items: adults }
-  ]
 
   const [currentPage, setCurrentPage] = useState(1)
 
@@ -144,9 +51,9 @@ const page1 = ({ items }) => {
   const softwareSchema = JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'Article',
-    '@id': 'https://moviescentral.vercel.app/page1',
-    headline: 'Movies Section | Movies Central™',
-    url: 'https://moviescentral.vercel.app/page1',
+    '@id': 'https://moviescentral.vercel.app/page7',
+    headline: 'Main Section 8 | Movies Central™',
+    url: 'https://moviescentral.vercel.app/page7',
     description:
       'Movies Central - Stream HD movies and TV series for free on Movies Central Online. Explore, stream, and download full-length movies and shows in HD quality without registration.',
     image: 'https://moviescentral.vercel.app/og_image.jpg',
@@ -167,7 +74,7 @@ const page1 = ({ items }) => {
     dateModified: '2024-06-02',
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': 'https://moviescentral.vercel.app/page1'
+      '@id': 'https://moviescentral.vercel.app/page7'
     },
     additionalProperty: {
       '@type': 'PropertyValue',
@@ -190,17 +97,16 @@ const page1 = ({ items }) => {
         '@type': 'ListItem',
         position: 2,
         name: 'movies',
-        item: 'https://moviescentral.vercel.app/page1'
+        item: 'https://moviescentral.vercel.app/page7'
       }
     ]
   })
 
   return (
-    // <div className='w-full' style={{ backgroundColor: '#D3D3D3' }}>
     <div className='w-full' style={{ backgroundColor: '#000' }}>
       <Head>
-        <title> Main Section 1 | Movies Central™</title>
-        <link rel='canonical' href='https://moviescentral.vercel.app/page1' />
+        <title> Main Section 8 | Movies Central™</title>
+        <link rel='canonical' href='https://moviescentral.vercel.app/page7' />
         <meta
           name='robots'
           content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'
@@ -210,7 +116,7 @@ const page1 = ({ items }) => {
         <meta name='revisit-after' content='1 days' />
         <meta property='og:locale' content='en_US' />
         <meta property='og:type' content='website' />
-        <meta property='og:title' content=' Main Section 1 | Movies Central™' />
+        <meta property='og:title' content=' Main Section 8 | Movies Central™' />
         <meta
           property='og:description'
           content='Movies Central™ - Stream HD movies and TV series for free on Movies Central Online. Explore, stream, and download full-length movies and shows in HD quality without registration.'
@@ -218,7 +124,7 @@ const page1 = ({ items }) => {
 
         <meta
           property='og:url'
-          content='https://moviescentral.vercel.app/page1'
+          content='https://moviescentral.vercel.app/page7'
         />
 
         <meta property='og:site_name' content='Movies Central™' />
@@ -278,9 +184,8 @@ const page1 = ({ items }) => {
       <SocialSharing />
       <Script src='../../propler/ads.js' defer />
       <Script src='../../propler/ads2.js' defer />
-
       <h1
-        className='text-2xl sm:text-3xl md:text-4xl lg:text-5xl badge bg-gradient-to-r from-pink-500 to-amber-500 font-bold py-3 px-6  shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300'
+        className='text-2xl sm:text-3xl md:text-4xl lg:text-5xl badge bg-gradient-to-r from-pink-500 to-amber-500 font-bold py-3 px-6 shadow-lg hover:from-amber-600 hover:to-pink-600 transition duration-300'
         style={{
           justifyContent: 'center',
           alignItems: 'center',
@@ -295,11 +200,10 @@ const page1 = ({ items }) => {
         Movies Central Main Section.
       </h1>
       <GoogleTranslate />
-      <span className='px-0 bg-clip-text text-sm text-black font-bold mt-2'>
+      <span className='px-0 bg-clip-text text-sm text-black font-bold mt-2 '>
         <SearchComponent />
       </span>
       <div className='flex flex-wrap justify-center my-4 gap-2'>
-        {/* TV Show movies button */}
         <Link href='/home' passHref>
           <button
             className={`px-4 py-2 border rounded ${
@@ -312,7 +216,6 @@ const page1 = ({ items }) => {
           </button>
         </Link>
 
-        {/* Page 2, Page 3, Page 4 buttons */}
         {[2, 3, 4, 5, 6, 7, 8, 9].map(page => (
           <Link key={page} href={`/home/page${page}`} passHref>
             <button
@@ -330,54 +233,61 @@ const page1 = ({ items }) => {
 
       <div className='container mx-auto px-4 py-6'>
         <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6'>
-          {items.map(item => (
-            <div
-              key={item.id}
-              className='card bg-white rounded-lg shadow-lg overflow-hidden transform transition-transform hover:scale-105 duration-300'
-            >
-              <Link href={item.siteurl}>
-                <div>
-                  <div className='relative'>
-                    {/* Badge in front of the image */}
-                    <div className='absolute top-2 left-2 z-10 badge bg-gradient-to-r from-pink-500 to-amber-500 text-white py-2 px-4 rounded-lg text-center font-bold'>
-                      {item.badge}
-                    </div>
-                    <div className='aspect-w-16 aspect-h-9 w-full'>
-                      <Image
-                        src={item.image}
-                        alt={item.title}
-                        width={1280}
-                        height={720}
-                        className='w-full h-full rounded-t-lg'
-                        quality={90}
-                        loading='lazy'
-                        style={{
-                          borderRadius: '0.5rem',
-                          objectFit: 'cover',
-                          filter:
-                            'contrast(1.1) saturate(1.1) brightness(1.0) hue-rotate(0deg)'
-                        }}
-                      />
-                    </div>
+          {latest.map(item => {
+            // Ensure item.siteurl is defined
+            if (!item.siteurl) {
+              console.warn(`Missing siteurl for item with id ${item.id}`) // Debugging: log missing siteurl
+              return null // Skip rendering this item
+            }
 
-                    <div className='p-4 '>
-                      <h2 className='font-bold text-xl text-blue-500 flex flex-col items-center justify-center'>
-                        {item.title}
-                      </h2>
-                      <h3 className='text-gray-700 mb-2'>{item.news1}</h3>
-                      <p className='font-bold text-black mb-2 flex flex-col items-center justify-center'>
-                        {' '}
-                        Genre:{' '}
-                      </p>
-                      <p className='font-bold text-black mb-2 flex flex-col items-center justify-center'>
-                        {item.genre}
-                      </p>
+            return (
+              <div
+                key={item.id}
+                className='card bg-white rounded-lg shadow-lg overflow-hidden transform transition-transform hover:scale-105 duration-300'
+              >
+                <Link href={item.siteurl} passHref>
+                  <div>
+                    <div className='relative'>
+                      <div className='absolute top-2 left-2 z-10 badge bg-gradient-to-r from-pink-500 to-amber-500 text-white py-2 px-4 rounded-lg text-center font-bold'>
+                        {item.badge}
+                      </div>
+                      <div className='aspect-w-16 aspect-h-9 w-full'>
+                        <Image
+                          src={item.image}
+                          alt={item.title}
+                          width={1280}
+                          height={720}
+                          className='w-full h-full rounded-t-lg'
+                          quality={90}
+                          loading='lazy'
+                          style={{
+                            borderRadius: '0.5rem',
+                            objectFit: 'cover',
+                            filter:
+                              'contrast(1.1) saturate(1.1) brightness(1.0) hue-rotate(0deg)'
+                          }}
+                        />
+                      </div>
+
+                      <div className='p-4 '>
+                        <h2 className='font-bold text-xl text-blue-500 flex flex-col items-center justify-center'>
+                          {item.title}
+                        </h2>
+                        <h3 className='text-gray-700 mb-2'>{item.news1}</h3>
+                        <p className='font-bold text-black mb-2 flex flex-col items-center justify-center'>
+                          {' '}
+                          Genre:{' '}
+                        </p>
+                        <p className='font-bold text-black mb-2 flex flex-col items-center justify-center'>
+                          {item.genre}
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </Link>
-            </div>
-          ))}
+                </Link>
+              </div>
+            )
+          })}
         </div>
       </div>
     </div>
@@ -386,22 +296,22 @@ const page1 = ({ items }) => {
 
 export async function getStaticProps () {
   try {
-    const res = await fetch('https://moviescentral.vercel.app/movies.json')
+    const res = await fetch('https://moviescentral.vercel.app/moviesp7.json')
     const data = await res.json()
 
     return {
       props: {
-        items: data
+        items: data || [] // Ensure data is an array
       }
     }
   } catch (error) {
     console.error('Error fetching data:', error)
     return {
       props: {
-        items: []
+        items: [] // Return an empty array to avoid issues
       }
     }
   }
 }
 
-export default page1
+export default page7

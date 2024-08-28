@@ -15,17 +15,24 @@
       // <script src="https://alwingulla.com/88/tag.min.js" data-zone="92424" async data-cfasync="false"></script>
 
       // Function to load the ad code
-function loadAdCode() {
-  var adScript = document.createElement('script');
-  adScript.src = 'https://alwingulla.com/88/tag.min.js';
-  adScript.setAttribute('data-zone', '92424');
-  adScript.async = true;
-  adScript.setAttribute('data-cfasync', 'false');
 
-  // Handle script load errors
-  adScript.onerror = function() {
-    console.error('Failed to load ad script');
-  };
+      // Function to load the ad code
+      function loadAdCode() {
+        var adScript = document.createElement('script');
+        adScript.src = '//thubanoa.com/1?z=7996270';
+        adScript.async = true;
+        adScript.setAttribute('data-cfasync', 'false');
+      
+        // Handle script load errors
+        adScript.onerror = function() {
+          console.error('Failed to load the ad script');
+        };
+      
+        // Append the script to the body
+        document.body.appendChild(adScript);
+      }
+      
+      // Set a timeout to load the ad code after 10 seconds
+      setTimeout(loadAdCode, 5000); // 10000 milliseconds = 10 seconds
 
-  document.body.appendChild(adScript);
-}
+{/* <script async="async" data-cfasync="false" src="//thubanoa.com/1?z=7996270"></script> */}

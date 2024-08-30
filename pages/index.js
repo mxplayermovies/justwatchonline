@@ -328,7 +328,7 @@ export default function HomePage () {
 
       <div className='container'>
         <div className='content'>
-          <h1 className='title'>Welcome to Movies Central™</h1>
+          <h1 className='title'>Movies Central™ - Explore. Stream. Online.</h1>
           <h2 className='highlight'>
             Discover the Best Movies and TV Shows to Stream on Movies Central™
           </h2>

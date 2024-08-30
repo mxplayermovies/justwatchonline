@@ -34,7 +34,7 @@ function Application({ Component, pageProps }) {
 
   return (
     <div className="center">
-      <GoogleAnalytics measurementId="G-E1Z24E5B50" />
+      <GoogleAnalytics measurementId="G-0VTF5GYVZQ" />
      {/* <Script src='../../propler/ads.js' defer />
      <Script src='../../propler/ads2.js' defer /> */}
       

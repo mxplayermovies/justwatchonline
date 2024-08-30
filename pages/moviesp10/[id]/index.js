@@ -16,7 +16,7 @@ import styles from '@styles/iframeStyles.module.css'
 
 // Fetch data from moviesp7.json
 const fetchmoviesData = async () => {
-  const response = await fetch('https://moviescentral.vercel.app/moviesp7.json')
+  const response = await fetch('https://moviescentral.vercel.app/moviesp10.json')
   return await response.json()
 }
 
@@ -36,7 +36,7 @@ const getRandomLinks = (movies, count = 3) => {
   ]
 }
 
-const moviesDetail7 = ({ moviesItem }) => {
+const moviesDetail10 = ({ moviesItem }) => {
   const router = useRouter()
   const { id } = router.query
   const [currentPage, setCurrentPage] = useState(1)
@@ -1638,4 +1638,4 @@ export async function getStaticProps ({ params }) {
   }
 }
 
-export default moviesDetail7
+export default moviesDetail10

@@ -2,6 +2,7 @@ import React from 'react'
 import Head from 'next/head'
 import Script from 'next/script'
 
+
 const cookiepolicy = () => {
   const containerStyle = {
     margin: '24px auto',
@@ -178,6 +179,7 @@ const cookiepolicy = () => {
     ]
   })
 
+
   return (
     <div>
       <Head>
@@ -189,7 +191,11 @@ const cookiepolicy = () => {
           href='https://moviescentral.vercel.app/sitemap.xml'
         />
         <meta name='viewport' content='width=device-width, initial-scale=1.0' />
-        <link rel='icon' type='image/x-icon' href='/favicon.ico' />
+        <link
+          rel='icon'
+          type='image/x-icon'
+          href='/favicon.ico'
+        />
         <link
           rel='apple-touch-icon'
           sizes='180x180'
@@ -218,7 +224,7 @@ const cookiepolicy = () => {
           name='keywords'
           content='free movies,movies online,watch movies online,watch movies free,download movies,123 movies,yes movies,gomovies,putlocker,putlockers,soap2day'
         />
-        <meta
+       <meta
           property='description'
           content='Movies Central™ - Stream HD movies and TV series for free on 123Movies Online. Explore, stream, and download full-length movies and shows in HD quality without registration.'
         />
@@ -260,7 +266,7 @@ const cookiepolicy = () => {
         <meta name='twitter:card' content='summary_large_image' />
         <meta
           name='google-site-verification'
-          content='o8uNsADswyHnNPA69n9gI7u6L4_cdjN4iT5lRhHHtMU'
+          content='4dFu4PUk1pc1IYqU6Brt84akCwNxaoUpKSO3gDW0kJ0'
         />
         <meta
           name='facebook-domain-verification'
@@ -275,11 +281,12 @@ const cookiepolicy = () => {
           type='application/ld+json'
           dangerouslySetInnerHTML={{ __html: rankMathSchema }}
         />
+      
       </Head>
-
+      
       <div style={containerStyle}>
         <section style={sectionStyle}>
-          <a
+        <a
             href='https://t.me/watchmovietvshow/'
             target='_blank'
             rel='noopener noreferrer'
@@ -408,6 +415,8 @@ const cookiepolicy = () => {
             </div>
           </div>
         </section>
+
+   
       </div>
     </div>
   )

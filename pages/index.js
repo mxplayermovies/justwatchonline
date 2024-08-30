@@ -3,31 +3,6 @@ import Link from 'next/link'
 import { useEffect } from 'react'
 
 export default function HomePage () {
-  useEffect(() => {
-    // Add the Ko-fi widget script to the page
-    const script = document.createElement('script')
-    script.src = 'https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'
-    script.async = true
-
-    script.onload = () => {
-      if (typeof kofiWidgetOverlay !== 'undefined') {
-        kofiWidgetOverlay.draw('payat', {
-          type: 'floating-chat',
-          'floating-chat.donateButton.text': 'Support me',
-          'floating-chat.donateButton.background-color': '#00b9fe',
-          'floating-chat.donateButton.text-color': '#fff'
-        })
-      }
-    }
-
-    document.body.appendChild(script)
-
-    return () => {
-      // Cleanup if the component is unmounted
-      document.body.removeChild(script)
-    }
-  }, [])
-
   const uwatchfreeSchema = JSON.stringify([
     {
       '@context': 'https://schema.org',
@@ -50,8 +25,7 @@ export default function HomePage () {
         '@type': 'SearchAction',
         target: {
           '@type': 'EntryPoint',
-          urlTemplate:
-            'https://moviescentral.vercel.app/search?q={search_term_string}'
+          urlTemplate: 'https://moviescentral.vercel.app/search?q={search_term_string}'
         },
         'query-input': 'required name=search_term_string'
       }
@@ -268,7 +242,7 @@ export default function HomePage () {
           name='robots'
           content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'
         />
-        <meta
+       <meta
           name='keywords'
           content='free movies,movies online,watch movies online,watch movies free,download movies,123 movies,yes movies,gomovies,putlocker,putlockers,soap2day'
         />
@@ -325,7 +299,7 @@ export default function HomePage () {
         />
         <meta
           name='google-site-verification'
-          content='o8uNsADswyHnNPA69n9gI7u6L4_cdjN4iT5lRhHHtMU'
+          content='4dFu4PUk1pc1IYqU6Brt84akCwNxaoUpKSO3gDW0kJ0'
         />
 
         <meta
@@ -359,30 +333,29 @@ export default function HomePage () {
             Discover the Best Movies and TV Shows to Stream on Movies Central™
           </h2>
           <p className='description'>
-            Welcome to <strong>Movies Central™</strong>, your premier
-            destination for streaming the latest and most popular movies and TV
-            shows. Our platform offers an extensive collection of entertainment
-            options, allowing you to explore a wide variety of genres and
-            discover new favorites. Whether you're looking for action-packed
-            thrillers, heartwarming dramas, or laugh-out-loud comedies,{' '}
+            Welcome to <strong>Movies Central™</strong>, your premier destination for
+            streaming the latest and most popular movies and TV shows. Our
+            platform offers an extensive collection of entertainment options,
+            allowing you to explore a wide variety of genres and discover new
+            favorites. Whether you're looking for action-packed thrillers,
+            heartwarming dramas, or laugh-out-loud comedies,{' '}
             <strong>Movies Central™</strong> has something for everyone.
           </p>
           <p className='description'>
             With a user-friendly interface and high-quality streaming,{' '}
-            <strong>Movies Central™</strong> makes it easy to find and enjoy
-            your favorite content. Our library is regularly updated with the
-            latest releases, ensuring that you have access to the newest movies
-            and TV shows as soon as they are available. Stream online seamlessly
-            and enjoy an immersive viewing experience from the comfort of your
-            home.
+            <strong>Movies Central™</strong> makes it easy to find and enjoy your
+            favorite content. Our library is regularly updated with the latest
+            releases, ensuring that you have access to the newest movies and TV
+            shows as soon as they are available. Stream online seamlessly and
+            enjoy an immersive viewing experience from the comfort of your home.
           </p>
           <p className='description'>
             At <strong>Movies Central™</strong>, we are committed to providing a
             top-notch streaming service that meets all your entertainment needs.
             Join us today and explore the vast world of movies and TV shows
             available at your fingertips. Whether you're a casual viewer or a
-            dedicated binge-watcher, <strong>Movies Central™</strong> is the
-            perfect place to stream online and stay entertained.
+            dedicated binge-watcher, <strong>Movies Central™</strong> is the perfect
+            place to stream online and stay entertained.
           </p>
 
           <a
@@ -390,17 +363,27 @@ export default function HomePage () {
             target='_blank'
             rel='noopener noreferrer'
             className='telegram-link'
+            style={{
+              display: 'block',
+              textAlign: 'center',
+              margin: '0 auto',
+              marginTop: '20px'
+            }}
           >
-            <h3>
-              For Request or Demand Movies & TV Series Join Telegram
-              <i className='fab fa-telegram telegram-icon'></i>
-            </h3>
+            <p style={{ display: 'inline-block' }}>
+              For Request or Demand <br />
+              Movies & TV Series Join Telegram
+              <i
+                className='fab fa-telegram telegram-icon'
+                style={{ marginLeft: '8px' }}
+              ></i>
+            </p>
           </a>
 
           <p className='subtitle'>
             The premier platform for the latest releases and secure downloads.
           </p>
-          <Link href='/home'>
+          <Link href='/home/page1'>
             <div className='cta-button'>Enter Movies Central™</div>
           </Link>
         </div>
